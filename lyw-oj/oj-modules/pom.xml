@@ -10,6 +10,13 @@
     </parent>
 
     <artifactId>oj-modules</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>oj-friend</module>
+        <module>oj-job</module>
+        <module>oj-system</module>
+        <module>oj-judge</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -21,6 +28,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyw</groupId>
+            <artifactId>oj-common-core</artifactId>
+            <version>${oj-common-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyw</groupId>
+            <artifactId>oj-common-security</artifactId>
+            <version>${oj-common-security.version}</version>
         </dependency>
     </dependencies>
 

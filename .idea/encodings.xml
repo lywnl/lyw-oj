@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-swagger/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-swagger/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-commom/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-commom/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-job/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-job/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/oj-modules/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lyw-oj/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
