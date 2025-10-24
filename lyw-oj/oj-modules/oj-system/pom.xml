@@ -29,10 +29,18 @@
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>com.lyw</groupId>
             <artifactId>oj-common-swagger</artifactId>
             <version>${oj-common-swagger.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.lyw</groupId>
+            <artifactId>oj-common-redis</artifactId>
+            <version>${oj-common-redis.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

@@ -28,7 +28,7 @@ public class SysUserController {
     @ApiResponse(responseCode = "2000", description = "服务器繁忙请稍后重试")
     @ApiResponse(responseCode = "3102", description = "用户不存在")
     @ApiResponse(responseCode = "3103", description = "账号或密码错误")
-    public Result<Void> login(@RequestBody LoginDTO loginDTO) {
+    public Result<String> login(@RequestBody LoginDTO loginDTO) {
         return sysUserService.login(loginDTO.getUserAccount(), loginDTO.getPassword());
     }
 

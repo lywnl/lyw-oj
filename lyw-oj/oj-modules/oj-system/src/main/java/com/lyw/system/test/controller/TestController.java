@@ -2,9 +2,10 @@ package com.lyw.system.test.controller;
 
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.enums.ResultCode;
+import com.lyw.common.redis.service.RedisService;
+import com.lyw.system.domain.SysUser;
 import com.lyw.system.test.domain.LoginTestDTO;
 import com.lyw.system.test.service.ITestService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,9 @@ public class TestController {
         return testService.add();
     }
 
+    @Autowired
+    RedisService redisService;
+
     @GetMapping("/apifoxtest")
     public Result<String> apifoxtest(String apiId) {
         Result result = new Result<>();
@@ -45,5 +49,16 @@ public class TestController {
         result.setData("post测试" + loginTestDTO.getUserAccount());
 
         return result;
+    }
+
+    @GetMapping("/redisAddAndGet")
+    public String redisAddAndGet() {
+        SysUser sysUser = new SysUser();
+        sysUser.setUserAccount("redisTest");
+
+        redisService.setCacheObject("u", sysUser);
+        SysUser u = redisService.getCacheObject("u", SysUser.class);
+
+        return u.toString();
     }
 }

@@ -5,6 +5,6 @@ import com.lyw.system.controller.LoginResult;
 
 public interface ISysUserService {
 
-    Result<Void> login(String userAccount, String password);
+    Result<String> login(String userAccount, String password);
 
 }

@@ -15,6 +15,7 @@
         <module>oj-common-core</module>
         <module>oj-common-swagger</module>
         <module>oj-common-security</module>
+        <module>oj-common-redis</module>
     </modules>
 
     <properties>

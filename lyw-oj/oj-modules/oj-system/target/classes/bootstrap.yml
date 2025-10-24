@@ -1,17 +1,16 @@
-server:
-  port: 9201
-
 spring:
   application:
     name: oj-system
 
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3307/oj_dev?characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      minimum-idle: 5 # 最小空闲连接数
-      maximum-pool-size: 10 # 最大连接数
-      idle-timeout: 30000 # 空闲超时时间(毫秒)
-      connection-timeout: 30000 # 连接超时时间(毫秒)
+  profiles:
+    active: local
+
+  cloud:
+    nacos:
+      discovery:
+        namespace: 2e7bb6a9-1f86-4534-9d86-013e7d78574f
+        server-addr: http://localhost:8848
+      config:
+        namespace: 2e7bb6a9-1f86-4534-9d86-013e7d78574f
+        server-addr: http://localhost:8848
+        file-extension: yaml
