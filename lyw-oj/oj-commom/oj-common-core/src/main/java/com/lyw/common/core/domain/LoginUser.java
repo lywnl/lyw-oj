@@ -1,4 +1,4 @@
-package com.lyw.system.domain;
+package com.lyw.common.core.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginUser {
-    Integer identity;
+    Integer identity; // 1:普通用户 2:管理员
 }

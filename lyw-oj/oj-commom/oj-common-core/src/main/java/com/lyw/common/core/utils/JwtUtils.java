@@ -1,4 +1,4 @@
-package com.lyw.common.security.utils;
+package com.lyw.common.core.utils;
 
 import com.lyw.common.core.constants.JwtConstants;
 import io.jsonwebtoken.Claims;

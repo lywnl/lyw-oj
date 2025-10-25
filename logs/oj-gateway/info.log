@@ -1,0 +1,48 @@
+11:57:27.341 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.0.Final
+11:57:27.516 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,87] - [settings] [req-serv] nacos-server port:8848
+11:57:27.516 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,98] - [settings] [http-client] connect timeout:1000
+11:57:27.517 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,105] - PER_TASK_CONFIG_SIZE: 3000.0
+11:57:27.533 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+11:57:27.533 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+11:57:27.535 [main] INFO  c.a.n.c.a.r.i.CredentialWatcher - [loadCredential,165] - null No credential found
+11:57:27.726 [main] INFO  c.a.n.c.c.i.LocalConfigInfoProcessor - [<clinit>,63] - LOCAL_SNAPSHOT_PATH:C:\Users\刘远望\nacos\config
+11:57:27.728 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,108] - [RpcClientFactory] create a new rpc client of e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0
+11:57:27.736 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$579/0x000001da9136bb58
+11:57:27.737 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$580/0x000001da9136bf78
+11:57:27.737 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+11:57:27.737 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+11:57:27.743 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Try to connect to server on start up, server: {serverIp = 'localhost', server main port = 8848}
+11:57:27.769 [main] INFO  c.a.n.c.r.c.g.GrpcClient - [createNewManagedChannel,182] - grpc client connection server:localhost ip,serverPort:9848,grpcTslConfig:{"sslProvider":"OPENSSL","enableTls":false,"mutualAuthEnable":false,"trustAll":false}
+11:57:28.475 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Success to connect to server [localhost:8848] on start up, connectionId = 1761364648323_172.17.0.1_56148
+11:57:28.476 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Notify connected event to listeners.
+11:57:28.476 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+11:57:28.476 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.c.i.ClientWorker - [onConnected,639] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Connected,notify listen context...
+11:57:28.476 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [e2dbcab0-052a-4f48-bdca-4d6c4073c966_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$600/0x000001da914d30c8
+11:57:28.500 [main] INFO  c.a.n.c.c.i.Limiter - [<clinit>,62] - limitTime:5.0
+11:57:28.531 [main] INFO  c.a.n.c.c.u.JvmUtil - [<clinit>,54] - isMultiInstance:false
+11:57:28.536 [main] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - [initialize,108] - Located property source: [BootstrapPropertySource {name='bootstrapProperties-oj-gateway-local.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oj-gateway.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oj-gateway,DEFAULT_GROUP'}]
+11:57:28.539 [main] INFO  c.l.g.OjGatewayApplication - [logStartupProfileInfo,636] - The following 1 profile is active: "local"
+11:57:28.857 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - [multipleStoresDetected,294] - Multiple Spring Data modules found, entering strict repository configuration mode
+11:57:28.859 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - [registerRepositoriesIn,138] - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+11:57:28.873 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - [registerRepositoriesIn,208] - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+11:57:28.976 [main] INFO  o.s.c.c.s.GenericScope - [setSerializationId,282] - BeanFactory id=eb7f8a53-fecf-3d1f-8af6-9a7c31c9deaf
+11:57:29.005 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - [postProcessAfterInitialization,409] - Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+11:57:29.006 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - [postProcessAfterInitialization,409] - Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+11:57:29.007 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - [postProcessAfterInitialization,409] - Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+11:57:29.149 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,108] - Tomcat initialized with port(s): 19090 (http)
+11:57:29.155 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-19090"]
+11:57:29.157 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+11:57:29.158 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.4]
+11:57:29.206 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+11:57:29.207 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - [prepareWebApplicationContext,291] - Root WebApplicationContext: initialization completed in 661 ms
+11:57:29.537 [main] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+11:57:29.545 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - [logMessage,82] - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+12:20:14.235 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.0.Final
+12:20:14.390 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,87] - [settings] [req-serv] nacos-server port:8848
+12:20:14.392 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,98] - [settings] [http-client] connect timeout:1000
+12:20:14.392 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,105] - PER_TASK_CONFIG_SIZE: 3000.0
+12:20:14.408 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+12:20:14.408 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+12:20:14.410 [main] INFO  c.a.n.c.a.r.i.CredentialWatcher - [loadCredential,165] - null No credential found
