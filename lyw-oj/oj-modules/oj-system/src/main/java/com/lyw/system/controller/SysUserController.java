@@ -1,9 +1,10 @@
 package com.lyw.system.controller;
 
+import com.lyw.common.core.constants.BaseController;
 import com.lyw.common.core.domain.Result;
-import com.lyw.system.domain.LoginDTO;
-import com.lyw.system.domain.SysUserSaveDTO;
-import com.lyw.system.domain.SysUserVO;
+import com.lyw.system.domain.dto.LoginDTO;
+import com.lyw.system.domain.dto.SysUserSaveDTO;
+import com.lyw.system.domain.vo.SysUserVO;
 import com.lyw.system.service.ISysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sysUser")
 @Tag(name = "管理员接口")
-public class SysUserController {
+public class SysUserController extends BaseController{
 
     @Autowired
     private ISysUserService sysUserService;
@@ -38,7 +39,7 @@ public class SysUserController {
     @ApiResponse(responseCode = "2000", description = "服务器繁忙请稍后重试")
     @ApiResponse(responseCode = "3101", description = "用户已存在")
     public Result<Void> add(@RequestBody SysUserSaveDTO sysUserSaveDTO) {
-        return null;
+        return toR(sysUserService.add(sysUserSaveDTO));
     }
 
     @DeleteMapping("/{userId}")

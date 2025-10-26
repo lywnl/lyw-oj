@@ -4,7 +4,6 @@ package com.lyw.common.security.interceptor;
 import cn.hutool.core.util.StrUtil;
 import com.lyw.common.core.constants.HttpConstants;
 import com.lyw.common.security.service.TokenService;
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

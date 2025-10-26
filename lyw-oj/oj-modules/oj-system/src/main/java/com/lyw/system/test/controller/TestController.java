@@ -5,8 +5,10 @@ import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.redis.service.RedisService;
 import com.lyw.system.domain.SysUser;
 import com.lyw.system.test.domain.LoginTestDTO;
+import com.lyw.system.test.domain.ValidationDTO;
 import com.lyw.system.test.service.ITestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,5 +62,10 @@ public class TestController {
         SysUser u = redisService.getCacheObject("u", SysUser.class);
 
         return u.toString();
+    }
+
+    @GetMapping("/testValidation")
+    public String testValidation(@Validated ValidationDTO validationDTO) {
+        return "参数校验完毕";
     }
 }

@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="oj-common-mybatis" />
         <module name="oj-friend" />
         <module name="oj-judge" />
         <module name="oj-common-swagger" />
@@ -23,6 +24,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="oj-commom" options="" />
       <module name="oj-common-core" options="-parameters" />
+      <module name="oj-common-mybatis" options="-parameters" />
       <module name="oj-common-redis" options="-parameters" />
       <module name="oj-common-security" options="-parameters" />
       <module name="oj-common-swagger" options="-parameters" />

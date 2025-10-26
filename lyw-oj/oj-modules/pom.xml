@@ -41,6 +41,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.lyw</groupId>
             <artifactId>oj-common-core</artifactId>
             <version>${oj-common-core.version}</version>
@@ -50,6 +55,12 @@
             <groupId>com.lyw</groupId>
             <artifactId>oj-common-security</artifactId>
             <version>${oj-common-security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyw</groupId>
+            <artifactId>oj-common-mybatis</artifactId>
+            <version>${oj-common-mybatis.version}</version>
         </dependency>
     </dependencies>
 

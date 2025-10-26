@@ -1,4 +1,4 @@
-package com.lyw.system.domain;
+package com.lyw.system.domain.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

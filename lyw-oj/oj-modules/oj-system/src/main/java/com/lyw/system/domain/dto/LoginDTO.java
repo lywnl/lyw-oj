@@ -1,4 +1,4 @@
-package com.lyw.system.domain;
+package com.lyw.system.domain.dto;
 
 import lombok.Getter;
 import lombok.Setter;
