@@ -53,8 +53,7 @@ public class GlobalExceptionHandler {
         return Result.fail(ResultCode.FAILED_PARAMS_VALIDATE.getCode(), message);
     }
 
-    private <E> String join(Collection<E> collection, Function<E, String>
-            function, CharSequence delimiter) {
+    private <E> String join(Collection<E> collection, Function<E, String> function, CharSequence delimiter) {
         if (CollUtil.isEmpty(collection)) {
             return StrUtil.EMPTY;
         }

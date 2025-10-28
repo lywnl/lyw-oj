@@ -1,7 +1,9 @@
 package com.lyw.system.controller;
 
 import com.lyw.common.core.constants.BaseController;
+import com.lyw.common.core.constants.HttpConstants;
 import com.lyw.common.core.domain.Result;
+import com.lyw.common.core.domain.vo.LoginUserVO;
 import com.lyw.system.domain.dto.LoginDTO;
 import com.lyw.system.domain.dto.SysUserSaveDTO;
 import com.lyw.system.domain.vo.SysUserVO;
@@ -13,6 +15,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,12 +36,24 @@ public class SysUserController extends BaseController{
         return sysUserService.login(loginDTO.getUserAccount(), loginDTO.getPassword());
     }
 
+    @DeleteMapping("/logout")
+    public Result<Void> logout(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
+        return toR(sysUserService.logout(token));
+    }
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @GetMapping("/info")
+    public Result<LoginUserVO> info(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
+        return sysUserService.info(token);
+    }
     @PostMapping("/add")
     @Operation(summary = "新增管理员", description = "根据提供的信息新增管理员")
     @ApiResponse(responseCode = "1000", description = "操作成功")
     @ApiResponse(responseCode = "2000", description = "服务器繁忙请稍后重试")
     @ApiResponse(responseCode = "3101", description = "用户已存在")
-    public Result<Void> add(@RequestBody SysUserSaveDTO sysUserSaveDTO) {
+    public Result<Void> add(@RequestBody @Validated SysUserSaveDTO sysUserSaveDTO) {
         return toR(sysUserService.add(sysUserSaveDTO));
     }
 

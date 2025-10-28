@@ -1,8 +1,12 @@
 package com.lyw.system.service;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.lyw.common.core.constants.HttpConstants;
+import com.lyw.common.core.domain.LoginUser;
 import com.lyw.common.core.domain.Result;
+import com.lyw.common.core.domain.vo.LoginUserVO;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.core.enums.UserIdentity;
 import com.lyw.common.security.exception.ServiceException;
@@ -36,7 +40,7 @@ public class SysUserServiceImpl implements ISysUserService{
     public Result<String> login(String userAccount, String password) {
         //通过账号查询数据库中的对应的用户信息
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        SysUser sysUser = sysUserMapper.selectOne(queryWrapper.select(SysUser::getUserId, SysUser::getPassword)
+        SysUser sysUser = sysUserMapper.selectOne(queryWrapper.select(SysUser::getUserId, SysUser::getPassword, SysUser::getNickName)
                 .eq(SysUser::getUserAccount, userAccount));
 
         if (sysUser == null) {
@@ -44,13 +48,20 @@ public class SysUserServiceImpl implements ISysUserService{
         }
 
         if (BCryptUtils.matchesPassword(password, sysUser.getPassword())) {
-            String token = tokenService.createToken(sysUser.getUserId(), secret, UserIdentity.ADMIN.getCode());
+            String token = tokenService.createToken(sysUser.getUserId(), secret, UserIdentity.ADMIN.getCode(), sysUser.getNickName());
             return Result.ok(token);
         }
 
         return Result.fail(ResultCode.FAILED_LOGIN);
     }
 
+    @Override
+    public boolean logout(String token) {
+        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
+            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
+        }
+        return tokenService.deleteLoginUser(token, secret);
+    }
     @Override
     public int add(SysUserSaveDTO sysUserSaveDTO) {
         //是否重复
@@ -71,4 +82,21 @@ public class SysUserServiceImpl implements ISysUserService{
         return sysUserMapper.insert(sysUser);
 
     }
+
+    @Override
+    public Result<LoginUserVO> info(String token) {
+        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
+            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
+        }
+
+        LoginUser loginUser = tokenService.getLoginUser(token, secret);
+        if (loginUser == null) {
+            return Result.fail();
+        }
+        LoginUserVO loginUserVO = new LoginUserVO();
+        loginUserVO.setNickName(loginUser.getNickname());
+        return Result.ok(loginUserVO);
+    }
+
+
 }

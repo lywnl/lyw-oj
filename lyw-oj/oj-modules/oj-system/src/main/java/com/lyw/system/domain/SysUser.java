@@ -16,6 +16,7 @@ import lombok.ToString;
 public class SysUser extends BaseEntity {
     @TableId(type = IdType.ASSIGN_ID)
     private Long userId;
+    private String nickName;
     private String userAccount;
     private String password;
 
