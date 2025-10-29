@@ -3,7 +3,7 @@ package com.lyw.system.test.controller;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.redis.service.RedisService;
-import com.lyw.system.domain.SysUser;
+import com.lyw.system.domain.sysuser.SysUser;
 import com.lyw.system.test.domain.LoginTestDTO;
 import com.lyw.system.test.domain.ValidationDTO;
 import com.lyw.system.test.service.ITestService;
