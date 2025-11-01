@@ -4,7 +4,7 @@ import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.system.domain.question.dto.QuestionAddDTO;
-import com.lyw.system.domain.question.dto.QuestionDetailVO;
+import com.lyw.system.domain.question.vo.QuestionDetailVO;
 import com.lyw.system.domain.question.dto.QuestionEditDTO;
 import com.lyw.system.domain.question.dto.QuestionQueryDTO;
 import com.lyw.system.service.question.IQuestionService;

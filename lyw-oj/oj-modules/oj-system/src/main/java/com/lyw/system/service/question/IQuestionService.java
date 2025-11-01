@@ -1,7 +1,7 @@
 package com.lyw.system.service.question;
 
 import com.lyw.system.domain.question.dto.QuestionAddDTO;
-import com.lyw.system.domain.question.dto.QuestionDetailVO;
+import com.lyw.system.domain.question.vo.QuestionDetailVO;
 import com.lyw.system.domain.question.dto.QuestionEditDTO;
 import com.lyw.system.domain.question.dto.QuestionQueryDTO;
 import com.lyw.system.domain.question.vo.QuestionVO;
