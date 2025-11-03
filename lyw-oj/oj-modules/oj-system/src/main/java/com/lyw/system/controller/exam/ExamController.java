@@ -5,6 +5,8 @@ import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.system.domain.exam.dto.ExamAddDTO;
 import com.lyw.system.domain.exam.dto.ExamQueryDTO;
+import com.lyw.system.domain.exam.dto.ExamQuestionDTO;
+import com.lyw.system.domain.exam.vo.ExamDetailVO;
 import com.lyw.system.service.exam.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,17 @@ public class ExamController extends BaseController {
     }
 
     @PostMapping("/add")
-    public Result<Void> add(@RequestBody ExamAddDTO examAddDTO) {
-        return toR(examService.add(examAddDTO));
+    public Result<String> add(@RequestBody ExamAddDTO examAddDTO) {
+        return Result.ok(examService.add(examAddDTO));
+    }
+
+    @PostMapping("/question/add")
+    public Result<Void> addQuestion(@RequestBody ExamQuestionDTO examQuestionDTO) {
+        return toR(examService.addQuestion(examQuestionDTO));
+    }
+
+    @GetMapping("/detail")
+    public Result<ExamDetailVO> detail(Long examId) {
+        return Result.ok(examService.detail(examId));
     }
 }

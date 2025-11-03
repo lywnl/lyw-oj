@@ -28,7 +28,9 @@ public enum ResultCode {
     FAILED_USER_PHONE           (3105, "你输入的手机号有误"),
 
     EXAM_START_TIME_BEFORE_CURRENT_TIME(3201, "竞赛开始时间不能早于当前时间"),
-    EXAM_START_TIME_AFTER_END_TIME(3202, "竞赛开始时间不能晚于竞赛结束时间");
+    EXAM_START_TIME_AFTER_END_TIME(3202, "竞赛开始时间不能晚于竞赛结束时间"),
+    EXAM_NOT_EXISTS                    (3203, "竞赛不存在"),
+    EXAM_QUESTION_NOT_EXISTS           (3204, "为竞赛新增的题目不存在");
 
     private int code;
     private String msg;

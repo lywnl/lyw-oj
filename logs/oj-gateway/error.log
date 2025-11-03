@@ -1,2 +1,8 @@
-12:59:56.654 [reactor-http-nio-3] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/question/edit
-21:05:58.223 [reactor-http-nio-14] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/question/list
+21:49:02.230 [reactor-http-nio-20] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/question/list
+22:30:35.533 [reactor-http-nio-7] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/deatil
+22:31:05.522 [reactor-http-nio-7] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/deatil
+22:31:08.530 [reactor-http-nio-7] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/deatil
+22:31:21.937 [reactor-http-nio-7] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/deatil
+22:31:22.828 [reactor-http-nio-7] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/deatil
+22:31:38.076 [reactor-http-nio-7] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/question/add
+22:31:40.513 [reactor-http-nio-7] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/question/add
