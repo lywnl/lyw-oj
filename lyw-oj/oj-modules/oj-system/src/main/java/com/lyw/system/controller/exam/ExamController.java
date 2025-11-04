@@ -36,8 +36,7 @@ public class ExamController extends BaseController {
     }
 
     @DeleteMapping("/question/delete")
-    public Result<Void> deleteQuestion(@NotNull(message = "竞赛id不能为空") Long examId,
-                                       @NotNull(message = "请选择要删除的题目") Long questionId) {
+    public Result<Void> deleteQuestion( Long examId, Long questionId) {
         return toR(examService.deleteQuestion(examId, questionId));
     }
 
@@ -55,6 +54,5 @@ public class ExamController extends BaseController {
     public Result<Void> edit(@RequestBody ExamEditDTO examEditDTO) {
         return toR(examService.edit(examEditDTO));
     }
-
 
 }

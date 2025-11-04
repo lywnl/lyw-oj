@@ -956,3 +956,4 @@ Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected,
 	at com.alibaba.nacos.client.naming.NacosNamingService.registerInstance(NacosNamingService.java:143)
 	at com.alibaba.cloud.nacos.registry.NacosServiceRegistry.register(NacosServiceRegistry.java:75)
 	... 26 common frames omitted
+21:21:48.405 [reactor-http-nio-9] ERROR c.l.g.f.AuthFilter - [unauthorizedResponse,165] - [鉴权异常处理]请求路径:/system/exam/edit
