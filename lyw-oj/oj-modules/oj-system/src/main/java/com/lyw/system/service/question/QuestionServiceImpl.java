@@ -2,8 +2,10 @@ package com.lyw.system.service.question;
 
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageHelper;
+import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.system.domain.question.Question;
@@ -19,7 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RefreshScope
@@ -31,12 +36,20 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public List<QuestionVO> list(QuestionQueryDTO queryDTO) {
+        String excludeIdStr = queryDTO.getExcludeIdStr();
+
+        if (StrUtil.isNotEmpty(excludeIdStr)) {
+            String[] excludeIdArr = excludeIdStr.split(Constants.SPLIT_SEM);
+
+            Set<Long> excludeIdSet = Arrays.stream(excludeIdArr).map(Long::valueOf)
+                    .collect(Collectors.toSet());
+
+            queryDTO.setExcludeIdSet(excludeIdSet);
+        }
+
         PageHelper.startPage(queryDTO.getPageNum(), queryDTO.getPageSize());
-        List<QuestionVO> questionVOList = questionMapper.selectQuestionList(queryDTO);
-
-        return questionVOList;
+        return questionMapper.selectQuestionList(queryDTO);
     }
-
     @Override
     public int add(QuestionAddDTO questionAddDTO) {
         List<Question> questions = questionMapper.selectList(new LambdaQueryWrapper<Question>()

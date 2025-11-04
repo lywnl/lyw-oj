@@ -4,10 +4,12 @@ import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.system.domain.exam.dto.ExamAddDTO;
+import com.lyw.system.domain.exam.dto.ExamEditDTO;
 import com.lyw.system.domain.exam.dto.ExamQueryDTO;
-import com.lyw.system.domain.exam.dto.ExamQuestionDTO;
+import com.lyw.system.domain.exam.dto.ExamQuestionAddDTO;
 import com.lyw.system.domain.exam.vo.ExamDetailVO;
 import com.lyw.system.service.exam.IExamService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +31,30 @@ public class ExamController extends BaseController {
     }
 
     @PostMapping("/question/add")
-    public Result<Void> addQuestion(@RequestBody ExamQuestionDTO examQuestionDTO) {
+    public Result<Void> addQuestion(@RequestBody ExamQuestionAddDTO examQuestionDTO) {
         return toR(examService.addQuestion(examQuestionDTO));
+    }
+
+    @DeleteMapping("/question/delete")
+    public Result<Void> deleteQuestion(@NotNull(message = "竞赛id不能为空") Long examId,
+                                       @NotNull(message = "请选择要删除的题目") Long questionId) {
+        return toR(examService.deleteQuestion(examId, questionId));
     }
 
     @GetMapping("/detail")
     public Result<ExamDetailVO> detail(Long examId) {
         return Result.ok(examService.detail(examId));
     }
+
+    /**
+     * 更新
+     * @param examEditDTO
+     * @return
+     */
+    @PutMapping("/edit")
+    public Result<Void> edit(@RequestBody ExamEditDTO examEditDTO) {
+        return toR(examService.edit(examEditDTO));
+    }
+
+
 }

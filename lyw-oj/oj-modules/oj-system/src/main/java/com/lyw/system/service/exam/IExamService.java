@@ -1,8 +1,9 @@
 package com.lyw.system.service.exam;
 
 import com.lyw.system.domain.exam.dto.ExamAddDTO;
+import com.lyw.system.domain.exam.dto.ExamEditDTO;
 import com.lyw.system.domain.exam.dto.ExamQueryDTO;
-import com.lyw.system.domain.exam.dto.ExamQuestionDTO;
+import com.lyw.system.domain.exam.dto.ExamQuestionAddDTO;
 import com.lyw.system.domain.exam.vo.ExamDetailVO;
 import com.lyw.system.domain.exam.vo.ExamVO;
 
@@ -14,8 +15,12 @@ public interface IExamService {
 
     String add(ExamAddDTO examAddDTO);
 
-    boolean addQuestion(ExamQuestionDTO examQuestionDTO);
+    boolean addQuestion(ExamQuestionAddDTO examQuestionDTO);
 
     ExamDetailVO detail(Long examId);
+
+    int edit(ExamEditDTO examEditDTO);
+
+    int deleteQuestion(Long examId, Long questionId);
 
 }

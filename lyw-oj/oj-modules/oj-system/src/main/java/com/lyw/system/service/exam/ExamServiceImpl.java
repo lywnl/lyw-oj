@@ -10,8 +10,9 @@ import com.lyw.common.security.exception.ServiceException;
 import com.lyw.system.domain.exam.Exam;
 import com.lyw.system.domain.exam.ExamQuestion;
 import com.lyw.system.domain.exam.dto.ExamAddDTO;
+import com.lyw.system.domain.exam.dto.ExamEditDTO;
 import com.lyw.system.domain.exam.dto.ExamQueryDTO;
-import com.lyw.system.domain.exam.dto.ExamQuestionDTO;
+import com.lyw.system.domain.exam.dto.ExamQuestionAddDTO;
 import com.lyw.system.domain.exam.vo.ExamDetailVO;
 import com.lyw.system.domain.exam.vo.ExamVO;
 import com.lyw.system.domain.question.Question;
@@ -19,6 +20,7 @@ import com.lyw.system.domain.question.vo.QuestionVO;
 import com.lyw.system.mapper.exam.ExamMapper;
 import com.lyw.system.mapper.exam.ExamQuestionMapper;
 import com.lyw.system.mapper.question.QuestionMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestion> implements IExamService {
 
     @Autowired
@@ -48,19 +51,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
 
     @Override
     public String add(ExamAddDTO examAddDTO) {
-        List<Exam> exams = examMapper.selectList(new LambdaQueryWrapper<Exam>().eq(Exam::getTitle, examAddDTO.getTitle()));
-
-        if (CollectionUtil.isNotEmpty(exams)) {
-            throw new ServiceException(ResultCode.FAILED_ALREADY_EXISTS);
-        }
-
-        if (examAddDTO.getStartTime().isBefore(LocalDateTime.now())) {
-            throw new ServiceException(ResultCode.EXAM_START_TIME_BEFORE_CURRENT_TIME);
-        }
-
-        if (examAddDTO.getStartTime().isAfter(examAddDTO.getEndTime())) {
-            throw new ServiceException(ResultCode.EXAM_START_TIME_AFTER_END_TIME);
-        }
+        checkExamSaveParams(examAddDTO, null);
 
         Exam exam = new Exam();
         BeanUtils.copyProperties(examAddDTO, exam);
@@ -69,22 +60,39 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
         return exam.getExamId().toString();
     }
 
-    @Override
-    public boolean addQuestion(ExamQuestionDTO examQuestionDTO) {
-        getExam(examQuestionDTO.getExamId());
 
-        LinkedHashSet<Long> questionIds = examQuestionDTO.getQuestionIds();
+    @Override
+    public boolean addQuestion(ExamQuestionAddDTO examQuestionDTO) {
+        Exam exam = getExam(examQuestionDTO.getExamId());
+
+        checkExam(exam);
+
+        LinkedHashSet<Long> questionIds = examQuestionDTO.getQuestionIdSet();
         if (CollectionUtil.isEmpty(questionIds)) {
+            log.info("没有添加任何题目");
             return true;
         }
 
-        List<Question> questions = questionMapper.selectBatchIds(examQuestionDTO.getQuestionIds());
+        List<Question> questions = questionMapper.selectBatchIds(examQuestionDTO.getQuestionIdSet());
 
-        if (CollectionUtil.isEmpty(questions) || questions.size() != examQuestionDTO.getQuestionIds().size()) {
+        if (CollectionUtil.isEmpty(questions) || questions.size() != examQuestionDTO.getQuestionIdSet().size()) {
             throw new ServiceException(ResultCode.EXAM_QUESTION_NOT_EXISTS);
         }
 
         return saveExamQuestion(examQuestionDTO);
+    }
+
+
+
+    @Override
+    public int deleteQuestion(Long examId, Long questionId) {
+        Exam exam = getExam(examId);
+
+        checkExam(exam);
+
+        return examQuestionMapper.delete(new LambdaQueryWrapper<ExamQuestion>()
+                .eq(ExamQuestion::getExamId, examId)
+                .eq(ExamQuestion::getQuestionId, questionId));
     }
 
     @Override
@@ -115,11 +123,49 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
         return examDetailVO;
     }
 
-    private boolean saveExamQuestion(ExamQuestionDTO examQuestionDTO) {
+    @Override
+    public int edit(ExamEditDTO examEditDTO) {
+        //参数判断
+        Exam exam = getExam(examEditDTO.getExamId());
+        checkExamSaveParams(examEditDTO, examEditDTO.getExamId());
+
+        exam.setTitle(examEditDTO.getTitle());
+        exam.setStartTime(examEditDTO.getStartTime());
+        exam.setEndTime(examEditDTO.getEndTime());
+
+        return examMapper.updateById(exam);
+    }
+
+
+    /**
+     * 检查添加竞赛的参数
+     */
+    private void checkExamSaveParams(ExamAddDTO examSaveDTO, Long examId) {
+        List<Exam> exams = examMapper.selectList(new LambdaQueryWrapper<Exam>()
+                .eq(Exam::getTitle, examSaveDTO.getTitle())
+                .ne(examId != null, Exam::getExamId, examId));
+
+        //判断竞赛是否已经存在
+        if (CollectionUtil.isNotEmpty(exams)) {
+            throw new ServiceException(ResultCode.FAILED_ALREADY_EXISTS);
+        }
+
+        //判断开始时间不能早于当前时间
+        if (examSaveDTO.getStartTime().isBefore(LocalDateTime.now())) {
+            throw new ServiceException(ResultCode.EXAM_START_TIME_BEFORE_CURRENT_TIME);
+        }
+
+        //判断开始时间不能晚于结束时间
+        if (examSaveDTO.getStartTime().isAfter(examSaveDTO.getEndTime())) {
+            throw new ServiceException(ResultCode.EXAM_START_TIME_AFTER_END_TIME);
+        }
+    }
+
+    private boolean saveExamQuestion(ExamQuestionAddDTO examQuestionDTO) {
         int num = 1;
         List<ExamQuestion> examQuestions = new ArrayList<>();
 
-        for (Long questionId : examQuestionDTO.getQuestionIds()) {
+        for (Long questionId : examQuestionDTO.getQuestionIdSet()) {
             ExamQuestion examQuestion = new ExamQuestion();
             examQuestion.setExamId(examQuestionDTO.getExamId());
             examQuestion.setQuestionId(questionId);
@@ -128,6 +174,12 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
         }
 
         return saveBatch(examQuestions);
+    }
+
+    private static void checkExam(Exam exam) {
+        if (exam.getStartTime().isBefore(LocalDateTime.now())) {
+            throw new ServiceException(ResultCode.EXAM_STRATED);
+        }
     }
 
     private Exam getExam(Long examId) {

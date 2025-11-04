@@ -7,8 +7,8 @@ import java.util.LinkedHashSet;
 
 @Getter
 @Setter
-public class ExamQuestionDTO {
+public class ExamQuestionAddDTO {
     private Long examId;
 
-    private LinkedHashSet<Long> questionIds;
+    private LinkedHashSet<Long> questionIdSet;
 }
