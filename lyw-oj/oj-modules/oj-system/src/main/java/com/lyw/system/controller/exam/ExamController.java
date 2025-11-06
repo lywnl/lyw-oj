@@ -9,7 +9,6 @@ import com.lyw.system.domain.exam.dto.ExamQueryDTO;
 import com.lyw.system.domain.exam.dto.ExamQuestionAddDTO;
 import com.lyw.system.domain.exam.vo.ExamDetailVO;
 import com.lyw.system.service.exam.IExamService;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +52,26 @@ public class ExamController extends BaseController {
     @PutMapping("/edit")
     public Result<Void> edit(@RequestBody ExamEditDTO examEditDTO) {
         return toR(examService.edit(examEditDTO));
+    }
+
+    /**
+     * 删除竞赛
+     * @param examId
+     * @return
+     */
+    @DeleteMapping("/delete")
+    public Result<Void> delete(Long examId) {
+        return toR(examService.delete(examId));
+    }
+
+    @PutMapping("/publish")
+    public Result<Void> publish(Long examId) {
+        return toR(examService.publish(examId));
+    }
+
+    @PutMapping("/cancelPublish")
+    public Result<Void> cancelPublish(Long examId) {
+        return toR(examService.cancelPublish(examId));
     }
 
 }

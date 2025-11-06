@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
+import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.system.domain.exam.Exam;
@@ -96,6 +97,49 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
     }
 
     @Override
+    public int delete(Long examId) {
+        Exam exam = getExam(examId);
+//        if (Constants.TRUE.equals(exam.getStatus())) {
+//            throw new ServiceException(ResultCode.EXAM_IS_PUBLISH);
+//        }
+//
+        checkExam(exam);
+        examQuestionMapper.delete(new LambdaQueryWrapper<ExamQuestion>()
+                .eq(ExamQuestion::getExamId, examId));
+        return examMapper.deleteById(exam);
+    }
+
+    @Override
+    public int publish(Long examId) {
+        Exam exam = getExam(examId);
+
+        Long count = examQuestionMapper.selectCount(new LambdaQueryWrapper<ExamQuestion>()
+                .eq(ExamQuestion::getExamId, examId));
+
+        if (count == null || count <= 0) {
+            throw new ServiceException(ResultCode.EXAM_NOT_HAS_QUESTION);
+        }
+
+        exam.setStatus(Constants.TRUE);
+
+        return examMapper.updateById(exam);
+    }
+
+    @Override
+    public int cancelPublish(Long examId) {
+        Exam exam = getExam(examId);
+        checkExam(exam);
+
+        if (exam.getEndTime().isBefore(LocalDateTime.now())) {
+            throw new ServiceException(ResultCode.EXAM_IS_FINISH);
+        }
+
+        exam.setStatus(Constants.FALSE);
+
+        return examMapper.updateById(exam);
+    }
+
+    @Override
     public ExamDetailVO detail(Long examId) {
         ExamDetailVO examDetailVO = new ExamDetailVO();
         Exam exam = getExam(examId);
@@ -176,9 +220,9 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
         return saveBatch(examQuestions);
     }
 
-    private static void checkExam(Exam exam) {
+    private void checkExam(Exam exam) {
         if (exam.getStartTime().isBefore(LocalDateTime.now())) {
-            throw new ServiceException(ResultCode.EXAM_STRATED);
+            throw new ServiceException(ResultCode.EXAM_STARTED);
         }
     }
 

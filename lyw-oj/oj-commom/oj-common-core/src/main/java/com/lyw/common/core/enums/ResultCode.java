@@ -31,7 +31,9 @@ public enum ResultCode {
     EXAM_START_TIME_AFTER_END_TIME(3202, "竞赛开始时间不能晚于竞赛结束时间"),
     EXAM_NOT_EXISTS                    (3203, "竞赛不存在"),
     EXAM_QUESTION_NOT_EXISTS           (3204, "为竞赛新增的题目不存在"),
-    EXAM_STRATED                        (3205, "该竞赛已开始, 无法进行操作");
+    EXAM_STARTED                        (3205, "该竞赛已开始, 无法进行操作"),
+    EXAM_NOT_HAS_QUESTION               (3206, "该竞赛没有题目"),
+    EXAM_IS_FINISH                       (3207, "该竞赛已结束, 无法进行操作");
 
     private int code;
     private String msg;

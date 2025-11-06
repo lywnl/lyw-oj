@@ -23,4 +23,10 @@ public interface IExamService {
 
     int deleteQuestion(Long examId, Long questionId);
 
+    int delete(Long examId);
+
+    int publish(Long examId);
+
+    int cancelPublish(Long examId);
+
 }
