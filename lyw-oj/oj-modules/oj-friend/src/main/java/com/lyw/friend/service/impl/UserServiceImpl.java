@@ -7,6 +7,7 @@ import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.core.enums.UserIdentity;
+import com.lyw.common.core.enums.UserStatus;
 import com.lyw.common.message.service.AliSmsService;
 import com.lyw.common.redis.service.RedisService;
 import com.lyw.common.security.exception.ServiceException;
@@ -97,24 +98,19 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public String codeLogin(String phone, String code) {
+        checkCode(phone, code);
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhone, phone));
 
-        if (user != null) { //说明是老用户
-            String phoneCodeKey = getPhoneCodeKey(phone);
-            String cacheCode = redisService.getCacheObject(phoneCodeKey, String.class);
-
-            if (StrUtil.isEmpty(cacheCode)) { //说明验证码已经过期
-                throw new ServiceException(ResultCode.FAILED_INVALID_CODE);
-            }
-
-            if (!cacheCode.equals(code)) { //验证码不符
-                throw new ServiceException(ResultCode.FAILED_ERROR_CODE);
-            }
-
-            //比对成功
-            redisService.deleteObject(phoneCodeKey);
-            return tokenService.createToken(user.getUserId(), secret, UserIdentity.ORDINARY.getCode(), user.getNickName());
+        if (user == null) { //新用户
+            //执行注册逻辑 插入用户数据
+            user = new User();
+            user.setPhone(phone);
+            user.setStatus(UserStatus.NORMAL.getValue());
+            userMapper.insert(user);
         }
+
+        return tokenService.createToken(user.getUserId(), secret, UserIdentity.ORDINARY.getCode(), user.getNickName());
+
     }
 
 
@@ -132,4 +128,16 @@ public class UserServiceImpl implements IUserService {
         return CacheConstants.CODE_TIMES_KEY + phone;
     }
 
+    private void checkCode(String phone, String code) {
+        String phoneCodeKey = getPhoneCodeKey(phone);
+        String cacheCode = redisService.getCacheObject(phoneCodeKey, String.class);
+        if (StrUtil.isEmpty(cacheCode)) {
+            throw new ServiceException(ResultCode.FAILED_INVALID_CODE);
+        }
+        if (!cacheCode.equals(code)) {
+            throw new ServiceException(ResultCode.FAILED_ERROR_CODE);
+        }
+        //验证码比对成功
+        redisService.deleteObject(phoneCodeKey);
+    }
 }
