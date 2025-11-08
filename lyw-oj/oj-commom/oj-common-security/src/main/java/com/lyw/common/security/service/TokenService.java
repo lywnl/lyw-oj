@@ -4,7 +4,6 @@ import cn.hutool.core.lang.UUID;
 import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.JwtConstants;
 import com.lyw.common.core.domain.LoginUser;
-import com.lyw.common.core.enums.UserIdentity;
 import com.lyw.common.redis.service.RedisService;
 import com.lyw.common.core.utils.JwtUtils;
 import io.jsonwebtoken.Claims;

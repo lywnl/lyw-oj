@@ -17,6 +17,7 @@
         <module>oj-common-security</module>
         <module>oj-common-redis</module>
         <module>oj-common-mybatis</module>
+        <module>oj-common-message</module>
     </modules>
 
     <properties>
