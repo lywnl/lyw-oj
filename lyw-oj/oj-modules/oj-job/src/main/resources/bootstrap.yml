@@ -1,6 +1,18 @@
-server:
-  port: 9093
-
 spring:
   application:
     name: oj-job
+
+
+  profiles:
+    active: local
+
+
+  cloud:
+    nacos:
+      discovery:
+        namespace: 2e7bb6a9-1f86-4534-9d86-013e7d78574f
+        server-addr: http://localhost:8848
+      config:
+        namespace: 2e7bb6a9-1f86-4534-9d86-013e7d78574f
+        server-addr: http://localhost:8848
+        file-extension: yaml
