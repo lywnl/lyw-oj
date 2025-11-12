@@ -3,7 +3,9 @@ package com.lyw.friend.service.exam.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.domain.TableDataInfo;
+import com.lyw.common.core.utils.ThreadLocalUtil;
 import com.lyw.friend.domain.exam.dto.ExamQueryDTO;
 import com.lyw.friend.domain.exam.vo.ExamVO;
 import com.lyw.friend.manager.ExamCacheManager;
@@ -48,8 +50,20 @@ public class ExamService implements IExamService {
             return TableDataInfo.empty();
         }
 
+        assembleExamVOList(examVOList);
         return TableDataInfo.success(examVOList, total);
     }
 
-
+    private void assembleExamVOList(List<ExamVO> examVOList) {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        List<Long> userExamIdList = examCacheManager.getAllUserExamList(userId);
+        if (CollectionUtil.isEmpty(userExamIdList)) {
+            return;
+        }
+        for (ExamVO examVO : examVOList) {
+            if (userExamIdList.contains(examVO.getExamId())) {
+                examVO.setEnter(true);
+            }
+        }
+    }
 }

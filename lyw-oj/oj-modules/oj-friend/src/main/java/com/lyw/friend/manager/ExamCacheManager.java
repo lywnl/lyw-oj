@@ -14,7 +14,9 @@ import com.lyw.common.security.exception.ServiceException;
 import com.lyw.friend.domain.exam.Exam;
 import com.lyw.friend.domain.exam.dto.ExamQueryDTO;
 import com.lyw.friend.domain.exam.vo.ExamVO;
+import com.lyw.friend.domain.user.UserExam;
 import com.lyw.friend.mapper.exam.ExamMapper;
+import com.lyw.friend.mapper.user.UserExamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,9 +36,9 @@ public class ExamCacheManager {
 
 //    @Autowired
 //    private ExamQuestionMapper examQuestionMapper;
-//
-//    @Autowired
-//    private UserExamMapper userExamMapper;
+
+    @Autowired
+    private UserExamMapper userExamMapper;
 
     @Autowired
     private RedisService redisService;
@@ -75,26 +77,28 @@ public class ExamCacheManager {
 //        return redisService.getCacheListByRange(getExamRankListKey(examRankDTO.getExamId()), start, end, ExamRankVO.class);
 //    }
 //
-//    public List<Long> getAllUserExamList(Long userId) {
-//        String examListKey = CacheConstants.USER_EXAM_LIST + userId;
-//        List<Long> userExamIdList = redisService.getCacheListByRange(examListKey, 0, -1, Long.class);
-//        if (CollectionUtil.isNotEmpty(userExamIdList)) {
-//            return userExamIdList;
-//        }
-//        List<UserExam> userExamList =
-//                userExamMapper.selectList(new LambdaQueryWrapper<UserExam>().eq(UserExam::getUserId, userId));
-//        if (CollectionUtil.isEmpty(userExamList)) {
-//            return null;
-//        }
-//        refreshCache(ExamListType.USER_EXAM_LIST.getValue(), userId);
-//        return userExamList.stream().map(UserExam::getExamId).collect(Collectors.toList());
-//    }
-//
-//    public void addUserExamCache(Long userId, Long examId) {
-//        String userExamListKey = getUserExamListKey(userId);
-//        redisService.leftPushForList(userExamListKey, examId);
-//    }
-//
+    public List<Long> getAllUserExamList(Long userId) {
+        String examListKey = CacheConstants.USER_EXAM_LIST + userId;
+        List<Long> userExamIdList = redisService.getCacheListByRange(examListKey, 0, -1, Long.class);
+        if (CollectionUtil.isNotEmpty(userExamIdList)) {
+            return userExamIdList;
+        }
+        List<UserExam> userExamList =
+                userExamMapper.selectList(new LambdaQueryWrapper<UserExam>().eq(UserExam::getUserId, userId));
+        if (CollectionUtil.isEmpty(userExamList)) {
+            return null;
+        }
+        refreshCache(ExamListType.USER_EXAM_LIST.getValue(), userId);
+
+        return userExamList.stream().map(UserExam::getExamId).collect(Collectors.toList());
+    }
+
+
+    public void addUserExamCache(Long userId, Long examId) {
+        String userExamListKey = getUserExamListKey(userId);
+        redisService.leftPushForList(userExamListKey, examId);
+    }
+
 //    public Long getFirstQuestion(Long examId) {
 //        return redisService.indexForList(getExamQuestionListKey(examId), 0, Long.class);
 //    }
@@ -152,6 +156,8 @@ public class ExamCacheManager {
         redisService.rightPushAll(getExamListKey(examListType, userId), examIdList);      //刷新列表缓存
     }
 
+
+
 //    public void refreshExamQuestionCache(Long examId) {
 //        List<ExamQuestion> examQuestionList = examQuestionMapper.selectList(new LambdaQueryWrapper<ExamQuestion>()
 //                .select(ExamQuestion::getQuestionId)
@@ -178,13 +184,13 @@ public class ExamCacheManager {
 
     private List<ExamVO> getExamListByDB(ExamQueryDTO examQueryDTO, Long userId) {
         PageHelper.startPage(examQueryDTO.getPageNum(), examQueryDTO.getPageSize());
-//        if (ExamListType.USER_EXAM_LIST.getValue().equals(examQueryDTO.getType())) {
-//            //查询我的竞赛列表
-//            return userExamMapper.selectUserExamList(userId);
-//        } else {
-//            //查询C端的竞赛列表
+        if (ExamListType.USER_EXAM_LIST.getValue().equals(examQueryDTO.getType())) {
+            //查询我的竞赛列表
+            return userExamMapper.selectUserExamList(userId);
+        } else {
+            //查询C端的竞赛列表
             return examMapper.selectExamList(examQueryDTO);
-
+        }
     }
 
     private List<ExamVO> assembleExamVOList(List<Long> examIdList) {
@@ -205,7 +211,6 @@ public class ExamCacheManager {
         }
         return examVOList;
     }
-
     private String getExamListKey(Integer examListType, Long userId) {
         if (ExamListType.EXAM_UN_FINISH_LIST.getValue().equals(examListType)) {
             return CacheConstants.EXAM_UNFINISHED_LIST;
@@ -215,21 +220,21 @@ public class ExamCacheManager {
             return CacheConstants.USER_EXAM_LIST + userId;
         }
     }
-
     private String getDetailKey(Long examId) {
         return CacheConstants.EXAM_DETAIL + examId;
     }
 
-//    private String getUserExamListKey(Long userId) {
-//        return CacheConstants.USER_EXAM_LIST + userId;
-//    }
-//
+    private String getUserExamListKey(Long userId) {
+        return CacheConstants.USER_EXAM_LIST + userId;
+    }
+
 //    private String getExamQuestionListKey(Long examId) {
 //        return CacheConstants.EXAM_QUESTION_LIST + examId;
 //    }
-//
+
 //    private String getExamRankListKey(Long examId) {
 //        return CacheConstants.EXAM_RANK_LIST + examId;
 //    }
 }
+
 

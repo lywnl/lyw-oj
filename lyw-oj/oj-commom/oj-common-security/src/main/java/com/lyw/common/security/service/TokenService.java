@@ -82,6 +82,17 @@ public class TokenService {
         return redisService.getCacheObject(getTokenKey(userKey), LoginUser.class);
     }
 
+
+    public Long getUserId(Claims claims) {
+        if (claims == null) return null;
+        return Long.valueOf(JwtUtils.getUserId(claims));  //获取jwt中的key
+    }
+
+    public String getUserKey(Claims claims) {
+        if (claims == null) return null;
+        return JwtUtils.getUserKey(claims);  //获取jwt中的key
+    }
+
     public String getUserKey(String token, String secret) {
         Claims claims;
         try {
@@ -106,4 +117,6 @@ public class TokenService {
 
         return redisService.deleteObject(getTokenKey(userKey));
     }
+
+
 }

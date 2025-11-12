@@ -39,6 +39,7 @@
         <hutool-all.version>5.8.22</hutool-all.version>
         <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
         <xxl-job.version>2.4.0</xxl-job.version>
+        <transmittable-thread-local.version>2.14.4</transmittable-thread-local.version>
     </properties>
 
     <dependencies>

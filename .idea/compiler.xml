@@ -12,18 +12,33 @@
         <module name="oj-friend" />
         <module name="oj-judge" />
         <module name="oj-common-swagger" />
-        <module name="oj-system" />
         <module name="oj-common-core" />
+        <module name="oj-system" />
+        <module name="oj-common-redis" />
         <module name="oj-job" />
         <module name="oj-common-security" />
-        <module name="oj-common-redis" />
         <module name="oj-gateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="lyw-oj" target="17" />
+      <module name="oj-commom" target="17" />
+      <module name="oj-common-core" target="17" />
+      <module name="oj-common-message" target="17" />
+      <module name="oj-common-mybatis" target="17" />
+      <module name="oj-common-redis" target="17" />
+      <module name="oj-common-security" target="17" />
+      <module name="oj-common-swagger" target="17" />
+      <module name="oj-friend" target="17" />
+      <module name="oj-gateway" target="17" />
+      <module name="oj-job" target="17" />
+      <module name="oj-judge" target="17" />
+      <module name="oj-modules" target="17" />
+      <module name="oj-system" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="oj-commom" options="" />
       <module name="oj-common-core" options="-parameters" />
       <module name="oj-common-message" options="-parameters" />
       <module name="oj-common-mybatis" options="-parameters" />
@@ -34,7 +49,6 @@
       <module name="oj-gateway" options="-parameters" />
       <module name="oj-job" options="-parameters" />
       <module name="oj-judge" options="-parameters" />
-      <module name="oj-modules" options="" />
       <module name="oj-system" options="-parameters" />
     </option>
   </component>

@@ -2,8 +2,11 @@ package com.lyw.common.security.interceptor;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.constants.HttpConstants;
+import com.lyw.common.core.utils.ThreadLocalUtil;
 import com.lyw.common.security.service.TokenService;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +29,16 @@ public class TokenInterceptor implements HandlerInterceptor {
         if (StrUtil.isEmpty(token)) {
             return true;
         }
+        Claims claims = tokenService.getClaims(token, secret);
+        Long userId = tokenService.getUserId(claims);
+        ThreadLocalUtil.set(Constants.USER_ID, userId);
         tokenService.extendToken(token, secret);
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        ThreadLocalUtil.remove();
     }
 
     private String getToken(HttpServletRequest request) {
