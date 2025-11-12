@@ -27,7 +27,7 @@ public class UserExamController extends BaseController {
     }
 
     /**
-     * 用户报名竞赛列表
+     * 我的竞赛列表
      * @param examQueryDTO
      * @return
      */
@@ -35,4 +35,6 @@ public class UserExamController extends BaseController {
     public TableDataInfo list(ExamQueryDTO examQueryDTO) {
         return userExamService.list(examQueryDTO);
     }
+
+
 }
