@@ -29,4 +29,6 @@ public class UserController extends BaseController {
     public Result<Void> logout(@RequestHeader(HttpConstants.AUTHENTICATION) String token) {
         return toR(userService.logout(token));
     }
+
+
 }

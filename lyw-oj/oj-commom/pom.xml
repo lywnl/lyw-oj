@@ -18,6 +18,7 @@
         <module>oj-common-redis</module>
         <module>oj-common-mybatis</module>
         <module>oj-common-message</module>
+        <module>oj-common-elasticsearch</module>
     </modules>
 
     <properties>

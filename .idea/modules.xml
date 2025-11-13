@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/lyw-oj.iml" filepath="$PROJECT_DIR$/lyw-oj/lyw-oj.iml" />
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-commom.iml" filepath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-commom.iml" />
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/oj-common-core.iml" filepath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/oj-common-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oj-common-elasticsearch.iml" filepath="$PROJECT_DIR$/oj-common-elasticsearch.iml" />
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-message/oj-common-message.iml" filepath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-message/oj-common-message.iml" />
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-mybatis/oj-common-mybatis.iml" filepath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-mybatis/oj-common-mybatis.iml" />
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-redis/oj-common-redis.iml" filepath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-redis/oj-common-redis.iml" />

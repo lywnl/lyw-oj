@@ -29,6 +29,10 @@
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.lyw</groupId>
+            <artifactId>oj-common-elasticsearch</artifactId>
+            <version>${oj-common-elasticsearch.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="oj-common-message" />
         <module name="oj-common-mybatis" />
+        <module name="oj-common-elasticsearch" />
         <module name="oj-friend" />
         <module name="oj-judge" />
         <module name="oj-common-swagger" />
@@ -24,6 +25,7 @@
       <module name="lyw-oj" target="17" />
       <module name="oj-commom" target="17" />
       <module name="oj-common-core" target="17" />
+      <module name="oj-common-elasticsearch" target="17" />
       <module name="oj-common-message" target="17" />
       <module name="oj-common-mybatis" target="17" />
       <module name="oj-common-redis" target="17" />
@@ -40,6 +42,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="oj-common-core" options="-parameters" />
+      <module name="oj-common-elasticsearch" options="-parameters" />
       <module name="oj-common-message" options="-parameters" />
       <module name="oj-common-mybatis" options="-parameters" />
       <module name="oj-common-redis" options="-parameters" />

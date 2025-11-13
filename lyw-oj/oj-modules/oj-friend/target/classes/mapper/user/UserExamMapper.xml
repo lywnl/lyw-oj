@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyw.friend.mapper.user.UserExamMapper">
+
+    <select id="selectUserExamList" resultType="com.lyw.friend.domain.exam.vo.ExamVO">
+        SELECT
+            e.exam_id,
+            e.title,
+            e.start_time,
+            e.end_time
+        FROM
+            tb_user_exam ue
+        JOIN
+            tb_exam e
+        ON
+            ue.exam_id = e.exam_id
+        WHERE
+            ue.user_id = #{userId}
+        ORDER BY
+            ue.create_time DESC
+    </select>
+</mapper>
