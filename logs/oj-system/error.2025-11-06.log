@@ -1,0 +1,1 @@
+22:08:16.747 [http-nio-9201-exec-6] ERROR c.l.c.s.h.GlobalExceptionHandler - [handleHttpRequestMethodNotSupported,35] - 请求地址'/user/updateStatus',不支持'PUT'请求

@@ -3,7 +3,9 @@ package com.lyw.friend.controller.user;
 import com.lyw.common.core.constants.HttpConstants;
 import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
+import com.lyw.common.core.domain.vo.LoginUserVO;
 import com.lyw.friend.domain.user.dto.UserDTO;
+import com.lyw.friend.domain.user.vo.UserVO;
 import com.lyw.friend.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +32,18 @@ public class UserController extends BaseController {
         return toR(userService.logout(token));
     }
 
+    @GetMapping("/info")
+    public Result<LoginUserVO> info() {
+        return userService.info();
+    }
 
+    @GetMapping("/detail")
+    public Result<UserVO> detail() {
+        return Result.ok(userService.detail());
+    }
+
+    @PutMapping("/edit")
+    public Result<Void> edit(@RequestBody UserUpdateDTO userUpdateDTO) {
+
+    }
 }

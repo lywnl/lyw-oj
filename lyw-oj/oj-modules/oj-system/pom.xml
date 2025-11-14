@@ -36,5 +36,10 @@
             <version>${oj-common-redis.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.lyw</groupId>
+            <artifactId>oj-common-elasticsearch</artifactId>
+            <version>${oj-common-elasticsearch.version}</version>
+        </dependency>
     </dependencies>
 </project>

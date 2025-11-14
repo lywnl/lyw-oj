@@ -104,10 +104,10 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestionMapper, ExamQuestio
     @Override
     public int delete(Long examId) {
         Exam exam = getExam(examId);
-//        if (Constants.TRUE.equals(exam.getStatus())) {
-//            throw new ServiceException(ResultCode.EXAM_IS_PUBLISH);
-//        }
-//
+        if (Constants.TRUE.equals(exam.getStatus())) {
+            throw new ServiceException(ResultCode.EXAM_IS_PUBLISH);
+        }
+
         checkExam(exam);
         examQuestionMapper.delete(new LambdaQueryWrapper<ExamQuestion>()
                 .eq(ExamQuestion::getExamId, examId));

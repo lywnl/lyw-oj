@@ -6,15 +6,20 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.constants.HttpConstants;
+import com.lyw.common.core.domain.Result;
+import com.lyw.common.core.domain.vo.LoginUserVO;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.core.enums.UserIdentity;
 import com.lyw.common.core.enums.UserStatus;
+import com.lyw.common.core.utils.ThreadLocalUtil;
 import com.lyw.common.message.service.AliSmsService;
 import com.lyw.common.redis.service.RedisService;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.common.security.service.TokenService;
 import com.lyw.friend.domain.user.User;
 import com.lyw.friend.domain.user.dto.UserDTO;
+import com.lyw.friend.domain.user.vo.UserVO;
+import com.lyw.friend.manager.UserCacheManager;
 import com.lyw.friend.mapper.user.UserMapper;
 import com.lyw.friend.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +46,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UserCacheManager userCacheManager;
 
     @Value("${sms.code-expiration:5}")
     private Long phoneCodeExpiration;
@@ -121,6 +129,29 @@ public class UserServiceImpl implements IUserService {
         }
 
         return tokenService.deleteLoginUser(token, secret);
+    }
+
+    @Override
+    public Result<LoginUserVO> info() {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserId, userId));
+
+        return Result.ok(new LoginUserVO(user.getNickName()));
+    }
+
+    @Override
+    public UserVO detail() {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        if (userId == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+
+        UserVO userVO = userCacheManager.getUserById(userId);
+        if (userVO == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+
+        return userVO;
     }
 
 

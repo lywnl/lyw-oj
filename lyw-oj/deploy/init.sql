@@ -15,7 +15,7 @@ create table tb_sys_user
 );
 
 #
-题库管理
+-- 题库管理
 create table tb_question
 (
     question_id   bigint unsigned not null comment '题目id',

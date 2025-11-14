@@ -12,7 +12,7 @@ public interface IQuestionService {
 
     List<QuestionVO> list(QuestionQueryDTO queryDTO);
 
-    int add(QuestionAddDTO questionAddDTO);
+    boolean add(QuestionAddDTO questionAddDTO);
 
     QuestionDetailVO detail(Long questionId);
 

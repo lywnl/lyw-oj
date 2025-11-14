@@ -5,22 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2259fefe-a06f-4677-964d-eecf04620e05" name="Changes" comment="管理端竞赛列表">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question/QuestionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/Question.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/dto/QuestionQueryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/es/QuestionES.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/vo/QuestionVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/elasticsearch/QuestionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/question/QuestionMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/IQuestionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/manager/UserCacheManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/domain/question/es/QuestionES.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/es/QuestionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-10-27.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-10-28.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-10-29.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-10-30.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-10-31.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-11-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-11-03.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-system/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-system/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/deploy/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/deploy/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/CacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/CacheConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/vo/LoginUserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/vo/LoginUserVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/domain/vo/LoginUserVO.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/domain/vo/LoginUserVO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/enums/ResultCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/enums/ResultCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/target/classes/com/lyw/common/core/domain/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/user/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/IUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/IUserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/oj-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/oj-system.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/controller/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/service/exam/impl/ExamServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/service/exam/impl/ExamServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/service/question/IQuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/service/question/IQuestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/service/question/QuestionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/src/main/java/com/lyw/system/service/question/QuestionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/controller/question/QuestionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/controller/question/QuestionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/exam/impl/ExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/exam/impl/ExamServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/question/IQuestionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/question/IQuestionService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/question/QuestionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/question/QuestionServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +58,8 @@
         <option value="Mybatis Mapper XML" />
         <option value="package-info" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -108,11 +132,11 @@
       <recent name="D:\OJ\lyw-oj\lyw-oj\oj-gateway\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.lyw.system.domain.question.es" />
+      <recent name="com.lyw.system.es" />
       <recent name="com.lyw.friend.domain.question.vo" />
       <recent name="com.lyw.friend.domain.question" />
       <recent name="com.lyw.friend.domain.user" />
-      <recent name="com.lyw.job.mapper" />
-      <recent name="com.lyw.job.domain.exam" />
     </key>
   </component>
   <component name="RedisHelper">
@@ -258,7 +282,7 @@
       <workItem from="1762937832495" duration="88000" />
       <workItem from="1762937931321" duration="41000" />
       <workItem from="1762937986387" duration="11392000" />
-      <workItem from="1763046262601" duration="4727000" />
+      <workItem from="1763046262601" duration="11597000" />
     </task>
     <task id="LOCAL-00001" summary="全局异常处理">
       <created>1761181573315</created>
@@ -327,16 +351,6 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/src/main/java/com/lyw/common/security/interceptor/TokenInterceptor.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/src/main/java/com/lyw/common/security/interceptor/TokenInterceptor.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-mybatis/src/main/java/com/lyw/common/mybatis/MyMetaObjectHandler.java</url>
           <line>16</line>
           <option name="timeStamp" value="7" />
@@ -345,11 +359,6 @@
           <url>file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserExamServiceImpl.java</url>
           <line>58</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
