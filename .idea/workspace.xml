@@ -5,42 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2259fefe-a06f-4677-964d-eecf04620e05" name="Changes" comment="管理端竞赛列表">
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/commons-codec-1.11.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/commons-logging-1.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/IKAnalyzer.cfg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/extra_main.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/extra_single_word.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/extra_single_word_full.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/extra_single_word_low_freq.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/extra_stopword.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/main.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/preposition.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/quantifier.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/stopword.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/suffix.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/config/surname.dic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/elasticsearch-analysis-ik-8.5.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/httpclient-4.5.13.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/httpcore-4.4.13.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/ik-core-1.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/plugin-descriptor.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3/plugin-security.policy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-elasticsearch/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question/QuestionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/Question.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/dto/QuestionQueryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/es/QuestionES.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/vo/QuestionVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/elasticsearch/QuestionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/question/QuestionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/IQuestionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-03.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-02.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-03.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-system/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/user/UserExamController.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/user/UserExamController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/domain/exam/vo/ExamVO.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/domain/exam/vo/ExamVO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/manager/ExamCacheManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/manager/ExamCacheManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/mapper/user/UserExamMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/mapper/user/UserExamMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/impl/ExamService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/impl/ExamService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/IUserExamService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/IUserExamService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/impl/UserExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/impl/UserExamServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +34,8 @@
         <option value="Mybatis Mapper XML" />
         <option value="package-info" />
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -82,31 +62,31 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/OJ/lyw-oj/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;e1aed7b25ed39b69a5b421d2ea8b861f&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "D:/OJ/lyw-oj/lyw-oj/deploy/dev/elasticSearch/es-plugins/elsaticsearch-analysis-ik-8.5.3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "spring.configuration.checksum": "34008dd20288767d2f909c3584a5f570",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -128,11 +108,11 @@
       <recent name="D:\OJ\lyw-oj\lyw-oj\oj-gateway\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.lyw.friend.domain.question.vo" />
+      <recent name="com.lyw.friend.domain.question" />
       <recent name="com.lyw.friend.domain.user" />
       <recent name="com.lyw.job.mapper" />
       <recent name="com.lyw.job.domain.exam" />
-      <recent name="com.lyw.friend.domain.exam" />
-      <recent name="com.lyw.friend.mapper.exam" />
     </key>
   </component>
   <component name="RedisHelper">
@@ -230,10 +210,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.OjFriendApplication" />
         <item itemvalue="Spring Boot.OjGatewayApplication" />
         <item itemvalue="Spring Boot.OjSystemApplication" />
         <item itemvalue="Spring Boot.OjJobApplication" />
-        <item itemvalue="Spring Boot.OjFriendApplication" />
         <item itemvalue="Application.BCryptUtils" />
       </list>
     </recent_temporary>
@@ -278,6 +258,7 @@
       <workItem from="1762937832495" duration="88000" />
       <workItem from="1762937931321" duration="41000" />
       <workItem from="1762937986387" duration="11392000" />
+      <workItem from="1763046262601" duration="4727000" />
     </task>
     <task id="LOCAL-00001" summary="全局异常处理">
       <created>1761181573315</created>
@@ -364,6 +345,11 @@
           <url>file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserExamServiceImpl.java</url>
           <line>58</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
