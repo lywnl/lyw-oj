@@ -7,6 +7,7 @@ import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.friend.domain.question.Question;
 import com.lyw.friend.domain.question.dto.QuestionQueryDTO;
 import com.lyw.friend.domain.question.es.QuestionES;
+import com.lyw.friend.domain.question.vo.QuestionDetailVO;
 import com.lyw.friend.domain.question.vo.QuestionVO;
 import com.lyw.friend.elasticsearch.QuestionRepository;
 import com.lyw.friend.mapper.question.QuestionMapper;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionServiceImpl implements IQuestionService {
@@ -60,6 +62,26 @@ public class QuestionServiceImpl implements IQuestionService {
         List<QuestionVO> questionVOList = BeanUtil.copyToList(questionESList, QuestionVO.class);
 
         return TableDataInfo.success(questionVOList, total);
+    }
+
+    @Override
+    public QuestionDetailVO detail(Long questionId) {
+        QuestionES questionES = questionRepository.findById(questionId).orElse(null);
+        QuestionDetailVO questionDetailVO = new QuestionDetailVO();
+        if (questionES != null) {
+            BeanUtil.copyProperties(questionES, questionDetailVO);
+            return questionDetailVO;
+        }
+
+        Question question = questionMapper.selectById(questionId);
+        if (question == null) {
+            return null;
+        }
+
+        refreshQuestion();
+        BeanUtil.copyProperties(question, questionDetailVO);
+
+        return questionDetailVO;
     }
 
     private void refreshQuestion() {

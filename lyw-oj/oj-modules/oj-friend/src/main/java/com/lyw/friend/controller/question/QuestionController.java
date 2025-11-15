@@ -4,6 +4,7 @@ import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.friend.domain.question.dto.QuestionQueryDTO;
+import com.lyw.friend.domain.question.vo.QuestionDetailVO;
 import com.lyw.friend.service.question.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,8 @@ public class QuestionController extends BaseController {
         return questionService.list(questionQueryDTO);
     }
 
-//    @GetMapping("/detail")
-//    public Result
+    @GetMapping("/detail")
+    public Result<QuestionDetailVO> detail(Long questionId) {
+        return Result.ok(questionService.detail(questionId));
+    }
 }

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.constants.HttpConstants;
+import com.lyw.common.core.domain.LoginUser;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.vo.LoginUserVO;
 import com.lyw.common.core.enums.ResultCode;
@@ -60,6 +61,9 @@ public class UserServiceImpl implements IUserService {
 
     @Value("${sms.is-send:false}")
     private boolean isSend;  //开关打开：true  开关关闭false
+
+    @Value("${file.oss.downloadUrl}")
+    private String downloadUrl;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -135,11 +139,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Result<LoginUserVO> info() {
-        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
-        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserId, userId));
+        String userKey = ThreadLocalUtil.get(Constants.USER_KEY, String.class);
+        LoginUser loginUser = tokenService.getLoginUser(userKey);
 
         LoginUserVO loginUserVO = new LoginUserVO();
-        loginUserVO.setNickName(user.getNickName());
+        loginUserVO.setNickName(loginUser.getNickname());
+        if (StrUtil.isNotEmpty(loginUser.getHeadImage())) {
+            loginUserVO.setHeadImage(downloadUrl + loginUser.getHeadImage());
+        }
 
         return Result.ok(loginUserVO);
     }
@@ -154,6 +161,10 @@ public class UserServiceImpl implements IUserService {
         UserVO userVO = userCacheManager.getUserById(userId);
         if (userVO == null) {
             throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+
+        if (StrUtil.isNotEmpty(userVO.getHeadImage())) {
+            userVO.setHeadImage(downloadUrl + userVO.getHeadImage());
         }
 
         return userVO;

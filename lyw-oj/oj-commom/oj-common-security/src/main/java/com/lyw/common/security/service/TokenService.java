@@ -82,6 +82,10 @@ public class TokenService {
         return redisService.getCacheObject(getTokenKey(userKey), LoginUser.class);
     }
 
+    public LoginUser getLoginUser(String userKey) {
+        return redisService.getCacheObject(getTokenKey(userKey), LoginUser.class);
+    }
+
     public void refreshLoginUser(String nickName, String headImage, String userKey) {
         String tokenKey = getTokenKey(userKey);
         LoginUser loginUser = redisService.getCacheObject(tokenKey, LoginUser.class);

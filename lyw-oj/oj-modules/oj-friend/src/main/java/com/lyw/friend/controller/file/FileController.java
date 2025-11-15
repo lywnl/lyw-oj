@@ -1,4 +1,4 @@
-package com.lyw.friend.controller;
+package com.lyw.friend.controller.file;
 
 import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;

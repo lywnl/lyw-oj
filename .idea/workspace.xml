@@ -5,75 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2259fefe-a06f-4677-964d-eecf04620e05" name="Changes" comment="管理端竞赛列表">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_kms_2_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_ram_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_oss_aliyun_sdk_oss_3_17_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_4_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_opentracing_opentracing_api_0_33_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_opentracing_opentracing_noop_0_33_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_opentracing_opentracing_util_0_33_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_jettison_jettison_1_5_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_core_4_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_4_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_4_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jacoco_org_jacoco_agent_runtime_0_8_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jdom_jdom2_2_0_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/src/main/java/com/lyw/common/file/config/OSSConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/src/main/java/com/lyw/common/file/config/OSSProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/src/main/java/com/lyw/common/file/domain/OSSResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/src/main/java/com/lyw/common/file/service/OSSService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/FileController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/dto/UserUpdateDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/file/IFileService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/file/impl/FileServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oj-common-file.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_4_0_b180830_0359.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_4_5_10.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/vo/QuestionDetailVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-04.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/info.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-04.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-system/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/deploy/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/deploy/sql/init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/oj-common-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/oj-common-core.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/CacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/CacheConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/LoginUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/LoginUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/vo/LoginUserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/vo/LoginUserVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/constants/CacheConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/constants/CacheConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/domain/LoginUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/domain/LoginUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/domain/vo/LoginUserVO.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/domain/vo/LoginUserVO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/enums/ResultCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/enums/ResultCode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-mybatis/oj-common-mybatis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-mybatis/oj-common-mybatis.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/oj-common-security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/oj-common-security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/src/main/java/com/lyw/common/security/interceptor/TokenInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/src/main/java/com/lyw/common/security/interceptor/TokenInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/target/classes/com/lyw/common/file/service/OSSService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-file/target/classes/com/lyw/common/file/service/OSSService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/src/main/java/com/lyw/common/security/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/src/main/java/com/lyw/common/security/service/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/target/classes/com/lyw/common/security/interceptor/TokenInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/target/classes/com/lyw/common/security/interceptor/TokenInterceptor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/target/classes/com/lyw/common/security/service/TokenService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-security/target/classes/com/lyw/common/security/service/TokenService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-gateway/oj-gateway.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-gateway/oj-gateway.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/file/FileController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/IQuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/IQuestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/FileController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/user/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/IUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/IUserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/user/impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-job/oj-job.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-job/oj-job.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/oj-judge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/oj-judge.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-modules.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-modules.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/oj-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/oj-system.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,7 +261,7 @@
       <workItem from="1762937832495" duration="88000" />
       <workItem from="1762937931321" duration="41000" />
       <workItem from="1762937986387" duration="11392000" />
-      <workItem from="1763046262601" duration="25346000" />
+      <workItem from="1763046262601" duration="29371000" />
     </task>
     <task id="LOCAL-00001" summary="全局异常处理">
       <created>1761181573315</created>
