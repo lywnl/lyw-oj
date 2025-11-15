@@ -1,4 +1,4 @@
-package com.lyw.system.service.question;
+package com.lyw.system.service.question.impl;
 
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -16,7 +16,9 @@ import com.lyw.system.domain.question.dto.QuestionEditDTO;
 import com.lyw.system.domain.question.dto.QuestionQueryDTO;
 import com.lyw.system.domain.question.vo.QuestionVO;
 import com.lyw.system.es.QuestionRepository;
+import com.lyw.system.manager.QuestionCacheManager;
 import com.lyw.system.mapper.question.QuestionMapper;
+import com.lyw.system.service.question.IQuestionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private QuestionCacheManager questionCacheManager;
 
     @Override
     public List<QuestionVO> list(QuestionQueryDTO queryDTO) {
@@ -74,6 +79,7 @@ public class QuestionServiceImpl implements IQuestionService {
         QuestionES questionES = new QuestionES();
         BeanUtils.copyProperties(question, questionES);
         questionRepository.save(questionES);
+        questionCacheManager.addCache(question.getQuestionId());
 
         return true;
     }
@@ -116,6 +122,8 @@ public class QuestionServiceImpl implements IQuestionService {
         }
 
         questionRepository.deleteById(questionId);
+        questionCacheManager.deleteCache(questionId);
+
         return questionMapper.deleteById(questionId);
     }
 

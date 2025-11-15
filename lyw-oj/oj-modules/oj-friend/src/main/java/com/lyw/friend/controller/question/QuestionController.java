@@ -28,4 +28,14 @@ public class QuestionController extends BaseController {
     public Result<QuestionDetailVO> detail(Long questionId) {
         return Result.ok(questionService.detail(questionId));
     }
+
+    @GetMapping("/preQuestion")
+    public Result<String> preQuestion(Long questionId) {
+        return Result.ok(questionService.preQuestion(questionId));
+    }
+
+    @GetMapping("/nextQuestion")
+    public Result<String> nextQuestion(Long questionId) {
+        return Result.ok(questionService.nextQuestion(questionId));
+    }
 }

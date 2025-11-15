@@ -10,6 +10,7 @@ import com.lyw.friend.domain.question.es.QuestionES;
 import com.lyw.friend.domain.question.vo.QuestionDetailVO;
 import com.lyw.friend.domain.question.vo.QuestionVO;
 import com.lyw.friend.elasticsearch.QuestionRepository;
+import com.lyw.friend.manager.QuestionCacheManager;
 import com.lyw.friend.mapper.question.QuestionMapper;
 import com.lyw.friend.service.question.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuestionServiceImpl implements IQuestionService {
@@ -29,6 +29,9 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionCacheManager questionCacheManager;
 
     @Override
     public TableDataInfo list(QuestionQueryDTO questionQueryDTO) {
@@ -82,6 +85,26 @@ public class QuestionServiceImpl implements IQuestionService {
         BeanUtil.copyProperties(question, questionDetailVO);
 
         return questionDetailVO;
+    }
+
+    @Override
+    public String preQuestion(Long questionId) {
+        Long listSize = questionCacheManager.getListSize();
+        if (listSize == null || listSize <= 0) {
+            questionCacheManager.refreshCache();
+        }
+
+        return questionCacheManager.preQuestion(questionId).toString();
+    }
+
+    @Override
+    public String nextQuestion(Long questionId) {
+        Long listSize = questionCacheManager.getListSize();
+        if (listSize == null || listSize <= 0) {
+            questionCacheManager.refreshCache();
+        }
+
+        return questionCacheManager.nextQuestion(questionId).toString();
     }
 
     private void refreshQuestion() {
