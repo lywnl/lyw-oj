@@ -9,16 +9,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="oj-common-message" />
         <module name="oj-common-mybatis" />
-        <module name="oj-common-elasticsearch" />
-        <module name="oj-friend" />
         <module name="oj-judge" />
+        <module name="oj-common-file" />
         <module name="oj-common-swagger" />
         <module name="oj-common-core" />
+        <module name="oj-common-security" />
+        <module name="oj-gateway" />
+        <module name="oj-common-elasticsearch" />
+        <module name="oj-friend" />
         <module name="oj-system" />
         <module name="oj-common-redis" />
         <module name="oj-job" />
-        <module name="oj-common-security" />
-        <module name="oj-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +27,7 @@
       <module name="oj-commom" target="17" />
       <module name="oj-common-core" target="17" />
       <module name="oj-common-elasticsearch" target="17" />
+      <module name="oj-common-file" target="17" />
       <module name="oj-common-message" target="17" />
       <module name="oj-common-mybatis" target="17" />
       <module name="oj-common-redis" target="17" />
@@ -43,6 +45,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="oj-common-core" options="-parameters" />
       <module name="oj-common-elasticsearch" options="-parameters" />
+      <module name="oj-common-file" options="-parameters" />
       <module name="oj-common-message" options="-parameters" />
       <module name="oj-common-mybatis" options="-parameters" />
       <module name="oj-common-redis" options="-parameters" />

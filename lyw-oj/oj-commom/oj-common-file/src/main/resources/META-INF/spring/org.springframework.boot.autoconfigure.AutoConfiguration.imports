@@ -1,0 +1,3 @@
+com.lyw.common.file.config.OSSConfig
+com.lyw.common.file.service.OSSService
+com.lyw.common.file.config.OSSProperties

@@ -6,7 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class LoginUserVO {
     private String nickName;
+
+    private String headImage;  //头像
 }

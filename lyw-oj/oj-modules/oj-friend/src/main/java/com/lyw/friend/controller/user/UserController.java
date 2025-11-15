@@ -5,6 +5,7 @@ import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.vo.LoginUserVO;
 import com.lyw.friend.domain.user.dto.UserDTO;
+import com.lyw.friend.domain.user.dto.UserUpdateDTO;
 import com.lyw.friend.domain.user.vo.UserVO;
 import com.lyw.friend.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class UserController extends BaseController {
 
     @PutMapping("/edit")
     public Result<Void> edit(@RequestBody UserUpdateDTO userUpdateDTO) {
+        return toR(userService.edit(userUpdateDTO));
+    }
 
+    @PutMapping("/head-image/update")
+    public Result<Void> updateHeadImage(@RequestBody UserUpdateDTO userUpdateDTO) {
+        return toR(userService.updateHeadImage(userUpdateDTO.getHeadImage()));
     }
 }

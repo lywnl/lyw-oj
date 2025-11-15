@@ -1,6 +1,7 @@
 package com.lyw.friend.controller.question;
 
 import com.lyw.common.core.controller.BaseController;
+import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.friend.domain.question.dto.QuestionQueryDTO;
 import com.lyw.friend.service.question.IQuestionService;
@@ -21,4 +22,7 @@ public class QuestionController extends BaseController {
     public TableDataInfo list(QuestionQueryDTO questionQueryDTO) {
         return questionService.list(questionQueryDTO);
     }
+
+//    @GetMapping("/detail")
+//    public Result
 }

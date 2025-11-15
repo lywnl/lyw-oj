@@ -18,10 +18,12 @@ import com.lyw.common.security.exception.ServiceException;
 import com.lyw.common.security.service.TokenService;
 import com.lyw.friend.domain.user.User;
 import com.lyw.friend.domain.user.dto.UserDTO;
+import com.lyw.friend.domain.user.dto.UserUpdateDTO;
 import com.lyw.friend.domain.user.vo.UserVO;
 import com.lyw.friend.manager.UserCacheManager;
 import com.lyw.friend.mapper.user.UserMapper;
 import com.lyw.friend.service.user.IUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -136,7 +138,10 @@ public class UserServiceImpl implements IUserService {
         Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserId, userId));
 
-        return Result.ok(new LoginUserVO(user.getNickName()));
+        LoginUserVO loginUserVO = new LoginUserVO();
+        loginUserVO.setNickName(user.getNickName());
+
+        return Result.ok(loginUserVO);
     }
 
     @Override
@@ -152,6 +157,50 @@ public class UserServiceImpl implements IUserService {
         }
 
         return userVO;
+    }
+
+    @Override
+    public int edit(UserUpdateDTO userUpdateDTO) {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        if (userId == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+
+        BeanUtils.copyProperties(userUpdateDTO, user);
+        //更新用户信息缓存
+        userCacheManager.refreshUser(user);
+        //更新登录用户信息缓存
+        tokenService.refreshLoginUser(user.getNickName(), user.getHeadImage(),
+                ThreadLocalUtil.get(Constants.USER_KEY, String.class));
+
+        return userMapper.updateById(user);
+    }
+
+    @Override
+    public int updateHeadImage(String headImage) {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        if (userId == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+
+        user.setHeadImage(headImage);
+        //更新用户信息缓存
+        userCacheManager.refreshUser(user);
+        //更新登录用户信息缓存
+        tokenService.refreshLoginUser(user.getNickName(), user.getHeadImage(),
+                ThreadLocalUtil.get(Constants.USER_KEY, String.class));
+
+        return userMapper.updateById(user);
     }
 
 

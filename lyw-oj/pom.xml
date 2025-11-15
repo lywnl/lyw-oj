@@ -35,12 +35,17 @@
         <oj-common-mybatis.version>1.0-SNAPSHOT</oj-common-mybatis.version>
         <oj-common-message.version>1.0-SNAPSHOT</oj-common-message.version>
         <oj-common-elasticsearch.version>1.0-SNAPSHOT</oj-common-elasticsearch.version>
+        <oj-common-file.version>1.0-SNAPSHOT</oj-common-file.version>
         <jwt.version>0.9.1</jwt.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <hutool-all.version>5.8.22</hutool-all.version>
         <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
         <xxl-job.version>2.4.0</xxl-job.version>
         <transmittable-thread-local.version>2.14.4</transmittable-thread-local.version>
+        <aliyun-sdk-oss.version>3.17.4</aliyun-sdk-oss.version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <activation.version>1.1.1</activation.version>
+        <jaxb-runtime.version>2.3.3</jaxb-runtime.version>
     </properties>
 
     <dependencies>

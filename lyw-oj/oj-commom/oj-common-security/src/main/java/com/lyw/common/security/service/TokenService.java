@@ -82,6 +82,13 @@ public class TokenService {
         return redisService.getCacheObject(getTokenKey(userKey), LoginUser.class);
     }
 
+    public void refreshLoginUser(String nickName, String headImage, String userKey) {
+        String tokenKey = getTokenKey(userKey);
+        LoginUser loginUser = redisService.getCacheObject(tokenKey, LoginUser.class);
+        loginUser.setNickname(nickName);
+        loginUser.setHeadImage(headImage);
+        redisService.setCacheObject(tokenKey, loginUser);
+    }
 
     public Long getUserId(Claims claims) {
         if (claims == null) return null;

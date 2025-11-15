@@ -7,5 +7,8 @@ import lombok.Setter;
 @Setter
 public class LoginUser {
     private String nickname;
+
     Integer identity; // 1:普通用户 2:管理员
+
+    private String headImage;  //头像
 }
