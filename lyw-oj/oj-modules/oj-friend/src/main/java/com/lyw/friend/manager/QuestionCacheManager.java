@@ -41,8 +41,7 @@ public class QuestionCacheManager {
 
     public Long preQuestion(Long questionId) {
         Long index = redisService.indexOfForList(CacheConstants.QUESTION_LIST, questionId);
-        Long listSize = getListSize();
-        if (index == listSize - 1) {
+        if (index == 0) {
             throw new ServiceException(ResultCode.FAILED_FIRST_QUESTION);
         }
 
@@ -51,10 +50,12 @@ public class QuestionCacheManager {
 
     public Long nextQuestion(Long questionId) {
         Long index = redisService.indexOfForList(CacheConstants.QUESTION_LIST, questionId);
-        if (index == 0) {
-            throw new ServiceException(ResultCode.FAILED_FIRST_QUESTION);
+        Long listSize = getListSize();
+        if (index == listSize - 1) {
+            throw new ServiceException(ResultCode.FAILED_LAST_QUESTION);
         }
 
         return redisService.indexForList(CacheConstants.QUESTION_LIST, index + 1, Long.class);
     }
+
 }

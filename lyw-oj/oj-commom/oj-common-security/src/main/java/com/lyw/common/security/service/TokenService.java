@@ -22,7 +22,7 @@ public class TokenService {
     @Autowired
     private RedisService redisService;
 
-    public String createToken(Long userId, String secret, Integer identity, String nickname) {
+    public String createToken(Long userId, String secret, Integer identity, String nickname, String headImage) {
         Map<String, Object> claims = new HashMap<>();
         String userKey = UUID.fastUUID().toString();
         claims.put(JwtConstants.LOGIN_USER_ID, userId);
@@ -35,6 +35,7 @@ public class TokenService {
         LoginUser loginUser = new LoginUser();
         loginUser.setIdentity(identity);
         loginUser.setNickname(nickname);
+        loginUser.setHeadImage(headImage);
 
         //存放用户信息到redis
         redisService.setCacheObject(tokenKey, loginUser, CacheConstants.EXP, TimeUnit.MINUTES);

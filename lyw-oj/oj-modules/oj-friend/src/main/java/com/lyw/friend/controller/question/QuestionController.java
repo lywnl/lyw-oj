@@ -38,4 +38,10 @@ public class QuestionController extends BaseController {
     public Result<String> nextQuestion(Long questionId) {
         return Result.ok(questionService.nextQuestion(questionId));
     }
+
+    @GetMapping("/getFirstQuestion")
+    public Result<String> getFirstQuestion(Long examId) {
+        //获取竞赛中题目的顺序表  先从redis中获取  没有就查询数据库再同步redis  key是e:q:l:examId value是题目id的顺序表
+        return Result.ok(questionService.getFirstQuestion(examId));
+    }
 }

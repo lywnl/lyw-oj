@@ -10,6 +10,7 @@ import com.lyw.friend.domain.question.es.QuestionES;
 import com.lyw.friend.domain.question.vo.QuestionDetailVO;
 import com.lyw.friend.domain.question.vo.QuestionVO;
 import com.lyw.friend.elasticsearch.QuestionRepository;
+import com.lyw.friend.manager.ExamCacheManager;
 import com.lyw.friend.manager.QuestionCacheManager;
 import com.lyw.friend.mapper.question.QuestionMapper;
 import com.lyw.friend.service.question.IQuestionService;
@@ -32,6 +33,9 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired
     private QuestionCacheManager questionCacheManager;
+
+    @Autowired
+    private ExamCacheManager examCacheManager;
 
     @Override
     public TableDataInfo list(QuestionQueryDTO questionQueryDTO) {
@@ -105,6 +109,16 @@ public class QuestionServiceImpl implements IQuestionService {
         }
 
         return questionCacheManager.nextQuestion(questionId).toString();
+    }
+
+    @Override
+    public String getFirstQuestion(Long examId) {
+        Long examQuestionListSize = examCacheManager.getExamQuestionListSize(examId);
+        if (examQuestionListSize == null || examQuestionListSize <= 0) {
+            examCacheManager.refreshExamQuestionCache(examId);
+        }
+
+        return examCacheManager.getFirstQuestion(examId).toString();
     }
 
     private void refreshQuestion() {

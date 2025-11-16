@@ -124,7 +124,7 @@ public class UserServiceImpl implements IUserService {
             userMapper.insert(user);
         }
 
-        return tokenService.createToken(user.getUserId(), secret, UserIdentity.ORDINARY.getCode(), user.getNickName());
+        return tokenService.createToken(user.getUserId(), secret, UserIdentity.ORDINARY.getCode(), user.getNickName(), user.getHeadImage());
 
     }
 

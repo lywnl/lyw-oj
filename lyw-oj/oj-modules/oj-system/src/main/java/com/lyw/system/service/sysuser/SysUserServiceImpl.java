@@ -48,7 +48,7 @@ public class SysUserServiceImpl implements ISysUserService {
         }
 
         if (BCryptUtils.matchesPassword(password, sysUser.getPassword())) {
-            String token = tokenService.createToken(sysUser.getUserId(), secret, UserIdentity.ADMIN.getCode(), sysUser.getNickName());
+            String token = tokenService.createToken(sysUser.getUserId(), secret, UserIdentity.ADMIN.getCode(), sysUser.getNickName(), null);
             return Result.ok(token);
         }
 
