@@ -5,23 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2259fefe-a06f-4677-964d-eecf04620e05" name="Changes" comment="管理端竞赛列表">
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ProgramType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/QuestionResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/dto/UserQuestionSubmitDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserExeResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserQuestionResultVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-05.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-05.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-system/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/exam/ExamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/exam/ExamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/manager/ExamCacheManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/manager/ExamCacheManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam/IExamService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam/IExamService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam/impl/ExamService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam/impl/ExamServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/IQuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/IQuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/exam/ExamController.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/exam/ExamController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/manager/ExamCacheManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/manager/ExamCacheManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/question/impl/QuestionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/question/impl/QuestionServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/manager/ExamCacheManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/manager/ExamCacheManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/exam/impl/ExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-system/target/classes/com/lyw/system/service/exam/impl/ExamServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/IExamService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/IExamService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/impl/ExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/impl/ExamServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +31,9 @@
         <option value="module-info" />
         <option value="Mybatis Mapper XML" />
         <option value="package-info" />
+        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -261,7 +258,7 @@
       <workItem from="1762937931321" duration="41000" />
       <workItem from="1762937986387" duration="11392000" />
       <workItem from="1763046262601" duration="39736000" />
-      <workItem from="1763290633789" duration="5428000" />
+      <workItem from="1763290633789" duration="7442000" />
     </task>
     <task id="LOCAL-00001" summary="全局异常处理">
       <created>1761181573315</created>
