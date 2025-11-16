@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.enums.ExamListType;
+import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.redis.service.RedisService;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.friend.domain.exam.Exam;
@@ -108,23 +109,24 @@ public class ExamCacheManager {
         return redisService.indexForList(getExamQuestionListKey(examId), 0, Long.class);
     }
 
-//
-//    public Long preQuestion(Long examId, Long questionId) {
-//        Long index = redisService.indexOfForList(getExamQuestionListKey(examId), questionId);
-//        if (index == 0) {
-//            throw new ServiceException(ResultCode.FAILED_FIRST_QUESTION);
-//        }
-//        return redisService.indexForList(getExamQuestionListKey(examId), index - 1, Long.class);
-//    }
-//
-//    public Long nextQuestion(Long examId, Long questionId) {
-//        Long index = redisService.indexOfForList(getExamQuestionListKey(examId), questionId);
-//        long lastIndex = getExamQuestionListSize(examId) - 1;
-//        if (index == lastIndex) {
-//            throw new ServiceException(ResultCode.FAILED_LAST_QUESTION);
-//        }
-//        return redisService.indexForList(getExamQuestionListKey(examId), index + 1, Long.class);
-//    }
+    public Long preQuestion(Long examId, Long questionId) {
+        Long index = redisService.indexOfForList(getExamQuestionListKey(examId), questionId);
+        if (index == 0) {
+            throw new ServiceException(ResultCode.FAILED_FIRST_QUESTION);
+        }
+
+        return redisService.indexForList(getExamQuestionListKey(examId), index - 1, Long.class);
+    }
+
+    public Long nextQuestion(Long examId, Long questionId) {
+        Long index = redisService.indexOfForList(getExamQuestionListKey(examId), questionId);
+        long lastIndex = getExamQuestionListSize(examId) - 1;
+        if (index == lastIndex) {
+            throw new ServiceException(ResultCode.FAILED_LAST_QUESTION);
+        }
+
+        return redisService.indexForList(getExamQuestionListKey(examId), index + 1, Long.class);
+    }
 
     //刷新缓存逻辑
     public void refreshCache(Integer examListType, Long userId) {

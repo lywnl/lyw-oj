@@ -34,9 +34,6 @@ public class QuestionServiceImpl implements IQuestionService {
     @Autowired
     private QuestionCacheManager questionCacheManager;
 
-    @Autowired
-    private ExamCacheManager examCacheManager;
-
     @Override
     public TableDataInfo list(QuestionQueryDTO questionQueryDTO) {
         long count = questionRepository.count();
@@ -109,16 +106,6 @@ public class QuestionServiceImpl implements IQuestionService {
         }
 
         return questionCacheManager.nextQuestion(questionId).toString();
-    }
-
-    @Override
-    public String getFirstQuestion(Long examId) {
-        Long examQuestionListSize = examCacheManager.getExamQuestionListSize(examId);
-        if (examQuestionListSize == null || examQuestionListSize <= 0) {
-            examCacheManager.refreshExamQuestionCache(examId);
-        }
-
-        return examCacheManager.getFirstQuestion(examId).toString();
     }
 
     private void refreshQuestion() {

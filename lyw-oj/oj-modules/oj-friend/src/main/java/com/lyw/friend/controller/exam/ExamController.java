@@ -1,6 +1,7 @@
 package com.lyw.friend.controller.exam;
 
 import com.lyw.common.core.controller.BaseController;
+import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.friend.domain.exam.dto.ExamQueryDTO;
 import com.lyw.friend.service.exam.IExamService;
@@ -26,5 +27,20 @@ public class ExamController extends BaseController {
         return examService.redisList(examQueryDTO);
     }
 
+    @GetMapping("/getFirstQuestion")
+    public Result<String> getFirstQuestion(Long examId) {
+        //获取竞赛中题目的顺序表  先从redis中获取  没有就查询数据库再同步redis  key是e:q:l:examId value是题目id的顺序表
+        return Result.ok(examService.getFirstQuestion(examId));
+    }
+
+    @GetMapping("/preQuestion")
+    public Result<String> preQuestion(Long examId, Long questionId) {
+        return Result.ok(examService.preQuestion(examId, questionId));
+    }
+
+    @GetMapping("/nextQuestion")
+    public Result<String> nextQuestion(Long examId, Long questionId) {
+        return Result.ok(examService.nextQuestion(examId, questionId));
+    }
 
 }

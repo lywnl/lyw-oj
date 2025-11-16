@@ -14,6 +14,5 @@ public interface IQuestionService {
 
     String nextQuestion(Long questionId);
 
-    String getFirstQuestion(Long examId);
 
 }
