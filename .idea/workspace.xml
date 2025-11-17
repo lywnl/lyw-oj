@@ -5,20 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2259fefe-a06f-4677-964d-eecf04620e05" name="Changes" comment="管理端竞赛列表">
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ProgramType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/QuestionResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/dto/UserQuestionSubmitDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserExeResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserQuestionResultVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_core_12_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_slf4j_12_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_form_feign_form_3_8_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_form_feign_form_spring_3_8_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_19.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_3_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_openfeign_core_4_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_openfeign_4_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/UserExeResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/service/RemoteJudgeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/QuestionCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/IUserQuestionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oj-api.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/info.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-system/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/exam/ExamController.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/controller/exam/ExamController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/manager/ExamCacheManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/manager/ExamCacheManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/IExamService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/IExamService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/impl/ExamServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/service/exam/impl/ExamServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/OjFriendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/OjFriendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserExeResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserQuestionResultVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +49,9 @@
         <option value="module-info" />
         <option value="Mybatis Mapper XML" />
         <option value="package-info" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -258,7 +276,7 @@
       <workItem from="1762937931321" duration="41000" />
       <workItem from="1762937986387" duration="11392000" />
       <workItem from="1763046262601" duration="39736000" />
-      <workItem from="1763290633789" duration="7442000" />
+      <workItem from="1763290633789" duration="13513000" />
     </task>
     <task id="LOCAL-00001" summary="全局异常处理">
       <created>1761181573315</created>

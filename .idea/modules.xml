@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/lyw-oj.iml" filepath="$PROJECT_DIR$/lyw-oj/lyw-oj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oj-api.iml" filepath="$PROJECT_DIR$/oj-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-commom.iml" filepath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-commom.iml" />
       <module fileurl="file://$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/oj-common-core.iml" filepath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/oj-common-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/oj-common-elasticsearch.iml" filepath="$PROJECT_DIR$/oj-common-elasticsearch.iml" />

@@ -18,12 +18,14 @@
         <module name="oj-common-elasticsearch" />
         <module name="oj-friend" />
         <module name="oj-system" />
+        <module name="oj-api" />
         <module name="oj-common-redis" />
         <module name="oj-job" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="lyw-oj" target="17" />
+      <module name="oj-api" target="17" />
       <module name="oj-commom" target="17" />
       <module name="oj-common-core" target="17" />
       <module name="oj-common-elasticsearch" target="17" />
@@ -43,6 +45,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="oj-api" options="-parameters" />
       <module name="oj-common-core" options="-parameters" />
       <module name="oj-common-elasticsearch" options="-parameters" />
       <module name="oj-common-file" options="-parameters" />

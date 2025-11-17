@@ -91,7 +91,6 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:3.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-keyvalue:3.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-oxm:6.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:6.0.3" level="project" />
     <orderEntry type="library" name="Maven: io.lettuce:lettuce-core:6.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.86.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.86.Final" level="project" />
@@ -100,8 +99,24 @@
     <orderEntry type="library" name="Maven: io.netty:netty-transport-native-unix-common:4.1.86.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.86.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.86.Final" level="project" />
+    <orderEntry type="module" module-name="oj-api" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-openfeign:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-openfeign-core:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.19" level="project" />
+    <orderEntry type="library" name="Maven: io.github.openfeign.form:feign-form-spring:3.8.0" level="project" />
+    <orderEntry type="library" name="Maven: io.github.openfeign.form:feign-form:3.8.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.4" level="project" />
+    <orderEntry type="library" name="Maven: io.github.openfeign:feign-core:12.1" level="project" />
+    <orderEntry type="library" name="Maven: io.github.openfeign:feign-slf4j:12.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-loadbalancer:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-loadbalancer:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor.addons:reactor-extra:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.stoyanr:evictor:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:3.0.1" level="project" />

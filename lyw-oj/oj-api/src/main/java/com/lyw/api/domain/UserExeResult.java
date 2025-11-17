@@ -1,4 +1,4 @@
-package com.lyw.friend.domain.user.vo;
+package com.lyw.api.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ public class UserExeResult {
 
     private String input;
 
-    private String expectOutput;
+    private String output;   //期望输出
 
-    private String output;
+    private String exeOutput; //实际输出
 }

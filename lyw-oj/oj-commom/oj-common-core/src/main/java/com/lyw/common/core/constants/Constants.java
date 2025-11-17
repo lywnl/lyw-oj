@@ -13,5 +13,18 @@ public class Constants {
 
     public static final String USER_KEY = "user_key";
 
-    
+    public static final String JUDGE_SERVICE = "oj-judge";
+
+    public static final String UNDERLINE_SEPARATOR = "_";
+
+    /**
+     * UTF-8 字符集
+     */
+    public static final String UTF8 = "UTF-8";
+
+    public static final Long SYSTEM_USER_ID = 1L;
+
+    public static final int HOST_QUESTION_LIST_START = 1;
+
+    public static final int HOST_QUESTION_LIST_END = 5;
 }

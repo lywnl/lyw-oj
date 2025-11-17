@@ -8,6 +8,7 @@
         <module>oj-modules</module>
         <module>oj-commom</module>
         <module>oj-gateway</module>
+        <module>oj-api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
