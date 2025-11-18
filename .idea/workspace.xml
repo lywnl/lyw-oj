@@ -5,38 +5,90 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2259fefe-a06f-4677-964d-eecf04620e05" name="Changes" comment="管理端竞赛列表">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_core_12_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_slf4j_12_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_form_feign_form_3_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_form_feign_form_spring_3_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_openfeign_core_4_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_openfeign_4_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/UserExeResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/service/RemoteJudgeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/QuestionCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/IUserQuestionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oj-api.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_jaxrs_jackson_jaxrs_base_2_14_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_jaxrs_jackson_jaxrs_json_provider_2_14_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_14_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_3_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_api_3_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_core_3_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_transport_3_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_transport_jersey_3_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_transport_netty_3_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_19_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_kohlschutter_junixsocket_junixsocket_common_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_kohlschutter_junixsocket_junixsocket_native_common_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_classes_kqueue_4_1_86_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_native_kqueue_osx_x86_64_4_1_86_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_inject_jakarta_inject_api_2_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_ws_rs_jakarta_ws_rs_api_3_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_compress_1_21.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk18on_1_76.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk18on_1_76.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcutil_jdk18on_1_76.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_external_aopalliance_repackaged_3_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_api_3_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_locator_3_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_utils_3_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_osgi_resource_locator_1_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_connectors_jersey_apache_connector_3_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_client_3_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_common_3_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_inject_jersey_hk2_3_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_28_0_GA.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_2_0_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/JudgeConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/CodeRunStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/DockerStartResultCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/StatisticsCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/CompileResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandBoxExecuteResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/UserSubmit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/mapper/UserSubmitMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/IJudgeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-gateway/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/oj-system/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/oj-friend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/OjFriendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/OjFriendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserExeResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserQuestionResultVO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-09.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-13.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-14.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-09.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-10.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-13.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-14.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-11-05.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-11-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-06.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-08.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-09.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-10.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-11.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-12.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-13.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-14.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-15.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/UserExeResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/UserExeResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/constants/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/constants/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/oj-judge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/oj-judge.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/target/classes/bootstrap.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +102,8 @@
         <option value="Mybatis Mapper XML" />
         <option value="package-info" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -276,7 +328,7 @@
       <workItem from="1762937931321" duration="41000" />
       <workItem from="1762937986387" duration="11392000" />
       <workItem from="1763046262601" duration="39736000" />
-      <workItem from="1763290633789" duration="13513000" />
+      <workItem from="1763290633789" duration="26401000" />
     </task>
     <task id="LOCAL-00001" summary="全局异常处理">
       <created>1761181573315</created>
