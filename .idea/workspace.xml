@@ -5,90 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2259fefe-a06f-4677-964d-eecf04620e05" name="Changes" comment="管理端竞赛列表">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_jaxrs_jackson_jaxrs_base_2_14_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_jaxrs_jackson_jaxrs_json_provider_2_14_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_14_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_api_3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_core_3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_transport_3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_transport_jersey_3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_docker_java_docker_java_transport_netty_3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_19_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_kohlschutter_junixsocket_junixsocket_common_2_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_kohlschutter_junixsocket_junixsocket_native_common_2_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_13_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_classes_kqueue_4_1_86_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_native_kqueue_osx_x86_64_4_1_86_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_inject_jakarta_inject_api_2_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_ws_rs_jakarta_ws_rs_api_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_compress_1_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk18on_1_76.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk18on_1_76.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcutil_jdk18on_1_76.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_external_aopalliance_repackaged_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_api_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_locator_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_utils_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_osgi_resource_locator_1_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_connectors_jersey_apache_connector_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_client_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_common_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_inject_jersey_hk2_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_28_0_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_2_0_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/JudgeConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/CodeRunStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/DockerStartResultCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/StatisticsCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/CompileResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandBoxExecuteResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/UserSubmit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/mapper/UserSubmitMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/IJudgeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-06.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-08.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-09.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-13.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-14.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.2025-11-15.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/error.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-06.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-08.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-09.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-10.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-12.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-13.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-14.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.2025-11-15.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-gateway/info.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-11-05.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.2025-11-06.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/error.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-06.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-08.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-09.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-10.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-12.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-13.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-14.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.2025-11-15.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/oj-system/info.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/UserExeResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-api/src/main/java/com/lyw/api/domain/UserExeResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/constants/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/target/classes/com/lyw/common/core/constants/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/oj-judge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/oj-judge.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/resources/bootstrap.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/target/classes/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/target/classes/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/JudgeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/JudgeConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/OjFriendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-friend/target/classes/com/lyw/friend/OjFriendApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyw-oj/oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,20 +124,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.OjJobApplication">
-    <configuration name="BCryptUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lyw.system.utils.BCryptUtils" />
-      <module name="oj-system" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.lyw.system.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.OjJudgeApplication">
     <configuration name="OjFriendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="oj-friend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.lyw.friend.OjFriendApplication" />
@@ -257,6 +164,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OjJudgeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="oj-judge" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lyw.judge.OjJudgeApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lyw.judge.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OjSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="oj-system" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.lyw.system.OjSystemApplication" />
@@ -271,7 +191,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.BCryptUtils" />
+      <item itemvalue="Spring Boot.OjJudgeApplication" />
       <item itemvalue="Spring Boot.OjFriendApplication" />
       <item itemvalue="Spring Boot.OjJobApplication" />
       <item itemvalue="Spring Boot.OjSystemApplication" />
@@ -280,10 +200,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.OjFriendApplication" />
+        <item itemvalue="Spring Boot.OjJudgeApplication" />
         <item itemvalue="Spring Boot.OjGatewayApplication" />
         <item itemvalue="Spring Boot.OjSystemApplication" />
         <item itemvalue="Spring Boot.OjJobApplication" />
-        <item itemvalue="Application.BCryptUtils" />
       </list>
     </recent_temporary>
   </component>
@@ -328,7 +248,7 @@
       <workItem from="1762937931321" duration="41000" />
       <workItem from="1762937986387" duration="11392000" />
       <workItem from="1763046262601" duration="39736000" />
-      <workItem from="1763290633789" duration="26401000" />
+      <workItem from="1763290633789" duration="37520000" />
     </task>
     <task id="LOCAL-00001" summary="全局异常处理">
       <created>1761181573315</created>
