@@ -11,6 +11,7 @@ import com.lyw.judge.domain.SandBoxExecuteResult;
 import com.lyw.judge.domain.UserSubmit;
 import com.lyw.judge.mapper.UserSubmitMapper;
 import com.lyw.judge.service.IJudgeService;
+import com.lyw.judge.service.ISandboxPoolService;
 import com.lyw.judge.service.ISandboxService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -28,11 +29,14 @@ public class JudgeServiceImpl implements IJudgeService {
     private ISandboxService sandboxService;
 
     @Autowired
+    private ISandboxPoolService sandboxPoolService;
+
+    @Autowired
     private UserSubmitMapper userSubmitMapper;
 
     @Override
     public UserQuestionResultVO doJudgeJavaCode(JudgeSubmitDTO judgeSubmitDTO) {
-        SandBoxExecuteResult sandBoxExecuteResult = sandboxService
+        SandBoxExecuteResult sandBoxExecuteResult = sandboxPoolService
                 .exeJavaCode(judgeSubmitDTO.getUserId(), judgeSubmitDTO.getUserCode(), judgeSubmitDTO.getInputList());
         UserQuestionResultVO userQuestionResultVO = new UserQuestionResultVO();
         if (sandBoxExecuteResult != null && CodeRunStatus.SUCCEED.equals(sandBoxExecuteResult.getRunStatus())) {

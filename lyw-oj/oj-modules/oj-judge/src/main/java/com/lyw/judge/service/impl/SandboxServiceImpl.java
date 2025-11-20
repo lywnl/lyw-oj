@@ -22,6 +22,7 @@ import com.lyw.judge.callback.StatisticsCallback;
 import com.lyw.judge.domain.CompileResult;
 import com.lyw.judge.domain.SandBoxExecuteResult;
 import com.lyw.judge.service.ISandboxService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +35,16 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Slf4j
 public class SandboxServiceImpl implements ISandboxService {
 
     @Value("${sandbox.docker.host:tcp://localhost:2375}")
     private String dockerHost;
 
-    @Value("${sandbox.limit.memory:100000000}")
+    @Value("${sandbox.limit.memory:1000000000}")
     private Long memoryLimit;
 
-    @Value("${sandbox.limit.memory-swap:100000000}")
+    @Value("${sandbox.limit.memory-swap:1000000000}")
     private Long memorySwapLimit;
 
     @Value("${sandbox.limit.cpu:1}")
@@ -147,6 +149,7 @@ public class SandboxServiceImpl implements ISandboxService {
         hostConfig.withCpuCount(cpuLimit);
         hostConfig.withNetworkMode("none");  //禁用网络
         hostConfig.withReadonlyRootfs(true); //禁止在root目录写文件
+
         return hostConfig;
     }
 
@@ -166,6 +169,7 @@ public class SandboxServiceImpl implements ISandboxService {
             } else {
                 compileResult.setCompiled(true);
             }
+
             return compileResult;
         } catch (InterruptedException e) {
             //此处可以直接抛出 已做统一异常处理  也可再做定制化处理
@@ -226,6 +230,7 @@ public class SandboxServiceImpl implements ISandboxService {
                 .withAttachStdin(true)
                 .withAttachStdout(true)
                 .exec();
+
         return cmdResponse.getId();
     }
 
@@ -235,6 +240,7 @@ public class SandboxServiceImpl implements ISandboxService {
             //输入用例数量 不等于 输出用例数量  属于执行异常
             return SandBoxExecuteResult.fail(CodeRunStatus.NOT_ALL_PASSED, outList, maxMemory, maxUseTime);
         }
+
         return SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, outList, maxMemory, maxUseTime);
     }
 
@@ -251,6 +257,7 @@ public class SandboxServiceImpl implements ISandboxService {
     }
 
     private void deleteUserCodeFile() {
+        log.info("删除用户代码文件");
         FileUtil.del(userCodeDir);
     }
 }
