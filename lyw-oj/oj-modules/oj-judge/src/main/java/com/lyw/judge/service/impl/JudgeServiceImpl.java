@@ -1,5 +1,6 @@
 package com.lyw.judge.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lyw.api.domain.UserExeResult;
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
@@ -144,6 +145,7 @@ public class JudgeServiceImpl implements IJudgeService {
         userSubmit.setExamId(judgeSubmitDTO.getExamId());
         userSubmit.setProgramType(judgeSubmitDTO.getProgramType());
         userSubmit.setUserCode(judgeSubmitDTO.getUserCode());
+        userSubmit.setCaseJudgeRes(JSON.toJSONString(userQuestionResultVO.getUserExeResultList()));
         userSubmit.setCreateBy(judgeSubmitDTO.getUserId());
 
         userSubmitMapper.delete(new LambdaQueryWrapper<UserSubmit>()

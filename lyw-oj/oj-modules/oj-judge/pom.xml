@@ -32,5 +32,10 @@
             <artifactId>docker-java</artifactId>
             <version>3.3.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.lyw</groupId>
+            <artifactId>oj-common-rabbitmq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

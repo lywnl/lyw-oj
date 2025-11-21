@@ -1,21 +1,28 @@
 package com.lyw.friend.service.user.impl;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson2.JSON;
+import com.lyw.api.domain.UserExeResult;
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
 import com.lyw.api.domain.vo.UserQuestionResultVO;
 import com.lyw.api.service.RemoteJudgeService;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.enums.ProgramType;
+import com.lyw.common.core.enums.QuestionResult;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.core.utils.ThreadLocalUtil;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.friend.domain.question.Question;
 import com.lyw.friend.domain.question.QuestionCase;
 import com.lyw.friend.domain.question.es.QuestionES;
+import com.lyw.friend.domain.user.UserSubmit;
 import com.lyw.friend.domain.user.dto.UserQuestionSubmitDTO;
 import com.lyw.friend.elasticsearch.QuestionRepository;
 import com.lyw.friend.mapper.question.QuestionMapper;
+import com.lyw.friend.mapper.user.UserSubmitMapper;
+import com.lyw.friend.rabbit.JudgeProducer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +39,14 @@ public class UserQuestionServiceImpl implements IUserQuestionService{
     private QuestionMapper questionMapper;
 
     @Autowired
+    private UserSubmitMapper userSubmitMapper;
+
+    @Autowired
     private RemoteJudgeService remoteJudgeService;
+
+    @Autowired
+    private JudgeProducer judgeProducer;
+
 
     @Override
     public Result<UserQuestionResultVO> submit(UserQuestionSubmitDTO userQuestionSubmitDTO) {
@@ -45,6 +59,39 @@ public class UserQuestionServiceImpl implements IUserQuestionService{
         }
 
         throw new ServiceException(ResultCode.FAILED_NOT_SUPPORT_PROGRAM);
+    }
+
+    @Override
+    public boolean rabbitSubmit(UserQuestionSubmitDTO userQuestionSubmitDTO) {
+        Integer programType = userQuestionSubmitDTO.getProgramType();
+        if (ProgramType.JAVA.getValue().equals(programType)) {
+            //按照java语言进行判题
+            JudgeSubmitDTO judgeSubmitDTO = assembleJudgeSubmitDTO(userQuestionSubmitDTO);
+            judgeProducer.produceMsg(judgeSubmitDTO);
+
+            return true;
+        }
+
+        throw new ServiceException(ResultCode.FAILED_NOT_SUPPORT_PROGRAM);
+    }
+
+    @Override
+    public UserQuestionResultVO getExeResult(Long examId, Long questionId, String currentTime) {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        UserSubmit userSubmit = userSubmitMapper.selectCurrentUserSubmit(userId, questionId, examId, currentTime);
+
+        UserQuestionResultVO userQuestionResultVO = new UserQuestionResultVO();
+        if (userSubmit == null) {
+            userQuestionResultVO.setPass(QuestionResult.IN_JUDGE.getValue());
+        } else {
+            userQuestionResultVO.setPass(userSubmit.getPass());
+            userQuestionResultVO.setExeMessage(userSubmit.getExeMessage());
+            if (StrUtil.isNotEmpty(userSubmit.getCaseJudgeRes())) {
+                userQuestionResultVO.setUserExeResultList(JSON.parseArray(userSubmit.getCaseJudgeRes(), UserExeResult.class));
+            }
+        }
+
+        return userQuestionResultVO;
     }
 
 

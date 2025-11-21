@@ -1,4 +1,10 @@
-class Solution { public int twoSum(int val1, int val2) {   return val1 + val2;  }  
+class Solution {
+    
+    public int twoSum(int val1, int val2) {
+        return val1 + val2;
+    }        
+        
+
 public static void main(String[] args) {
         Solution solution = new Solution();
         // 测试用例1
