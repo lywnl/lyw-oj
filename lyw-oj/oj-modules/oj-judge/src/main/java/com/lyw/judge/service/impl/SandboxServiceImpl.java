@@ -41,10 +41,10 @@ public class SandboxServiceImpl implements ISandboxService {
     @Value("${sandbox.docker.host:tcp://localhost:2375}")
     private String dockerHost;
 
-    @Value("${sandbox.limit.memory:1000000000}")
+    @Value("${sandbox.limit.memory:100000000}")
     private Long memoryLimit;
 
-    @Value("${sandbox.limit.memory-swap:1000000000}")
+    @Value("${sandbox.limit.memory-swap:100000000}")
     private Long memorySwapLimit;
 
     @Value("${sandbox.limit.cpu:1}")
@@ -60,18 +60,23 @@ public class SandboxServiceImpl implements ISandboxService {
     private String userCodeDir;
 
     private String userCodeFileName;
+
     @Override
     public SandBoxExecuteResult exeJavaCode(Long userId, String userCode, List<String> inputList) {
         createUserCodeFile(userId, userCode);
-        //初始化docker容器
         initDockerSanBox();
         //编译代码
-        CompileResult compileResult = compileCodeByDocker();
-        if (!compileResult.isCompiled()) {
+        try {
+            CompileResult compileResult = compileCodeByDocker();
+            if (!compileResult.isCompiled()) {
+                deleteContainer();
+                deleteUserCodeFile();
+                return SandBoxExecuteResult.fail(CodeRunStatus.COMPILE_FAILED, compileResult.getExeMessage());
+            }
+        } catch (Exception e) {
             deleteContainer();
             deleteUserCodeFile();
-
-            return SandBoxExecuteResult.fail(CodeRunStatus.COMPILE_FAILED, compileResult.getExeMessage());
+            return SandBoxExecuteResult.fail(CodeRunStatus.COMPILE_FAILED, e.getMessage());
         }
 
         //执行代码
@@ -79,13 +84,13 @@ public class SandboxServiceImpl implements ISandboxService {
     }
 
 
-    //创建并返回用户代码文件路径
+    //创建并返回用户代码的文件
     private void createUserCodeFile(Long userId, String userCode) {
         String examCodeDir = System.getProperty("user.dir") + File.separator + JudgeConstants.EXAM_CODE_DIR;
         if (!FileUtil.exist(examCodeDir)) {
             FileUtil.mkdir(examCodeDir); //创建存放用户代码的目录
         }
-        String time = LocalDateTimeUtil.format(LocalDateTime.now(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
+        String time = LocalDateTimeUtil.format(LocalDateTime.now(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
         //拼接用户代码文件格式
         userCodeDir = examCodeDir + File.separator + userId + Constants.UNDERLINE_SEPARATOR + time;
         userCodeFileName = userCodeDir + File.separator + JudgeConstants.USER_CODE_JAVA_CLASS_NAME;
@@ -113,7 +118,6 @@ public class SandboxServiceImpl implements ISandboxService {
                 .withAttachStdout(true)
                 .withTty(true)
                 .exec();
-
         //记录容器id
         containerId = createContainerResponse.getId();
         //启动容器
@@ -149,7 +153,6 @@ public class SandboxServiceImpl implements ISandboxService {
         hostConfig.withCpuCount(cpuLimit);
         hostConfig.withNetworkMode("none");  //禁用网络
         hostConfig.withReadonlyRootfs(true); //禁止在root目录写文件
-
         return hostConfig;
     }
 
@@ -169,7 +172,6 @@ public class SandboxServiceImpl implements ISandboxService {
             } else {
                 compileResult.setCompiled(true);
             }
-
             return compileResult;
         } catch (InterruptedException e) {
             //此处可以直接抛出 已做统一异常处理  也可再做定制化处理
@@ -213,7 +215,6 @@ public class SandboxServiceImpl implements ISandboxService {
             outList.add(resultCallback.getMessage().trim());   //记录正确的输出结果
         }
         deleteContainer();//删除容器
-        deleteUserCodeFile(); //清理文件
 
         return getSanBoxResult(inputList, outList, maxMemory, maxUseTime); //封装结果
     }
@@ -230,7 +231,6 @@ public class SandboxServiceImpl implements ISandboxService {
                 .withAttachStdin(true)
                 .withAttachStdout(true)
                 .exec();
-
         return cmdResponse.getId();
     }
 
@@ -240,7 +240,6 @@ public class SandboxServiceImpl implements ISandboxService {
             //输入用例数量 不等于 输出用例数量  属于执行异常
             return SandBoxExecuteResult.fail(CodeRunStatus.NOT_ALL_PASSED, outList, maxMemory, maxUseTime);
         }
-
         return SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, outList, maxMemory, maxUseTime);
     }
 
@@ -257,7 +256,6 @@ public class SandboxServiceImpl implements ISandboxService {
     }
 
     private void deleteUserCodeFile() {
-        log.info("删除用户代码文件");
         FileUtil.del(userCodeDir);
     }
 }

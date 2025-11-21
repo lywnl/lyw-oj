@@ -96,7 +96,6 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
             return compileResult;
         } catch (InterruptedException e) {
             //此处可以直接抛出 已做统一异常处理  也可再做定制化处理
-            log.info("编译异常");
             throw new RuntimeException(e);
         }
     }
@@ -137,7 +136,6 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
             outList.add(resultCallback.getMessage().trim());   //记录正确的输出结果
         }
         sandBoxPool.returnContainer(containerId);
-        deleteUserCodeFile(); //清理文件
 
         return getSanBoxResult(inputList, outList, maxMemory, maxUseTime); //封装结果
     }

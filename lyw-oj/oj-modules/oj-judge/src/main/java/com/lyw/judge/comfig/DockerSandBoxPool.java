@@ -98,8 +98,9 @@ public class DockerSandBoxPool {
         //创建容器  限制资源   控制权限
         HostConfig hostConfig = getHostConfig(containerName);
         CreateContainerCmd containerCmd = dockerClient
-                .createContainerCmd(JudgeConstants.JAVA_ENV_IMAGE)
-                .withName(containerName);
+                .createContainerCmd(sandboxImage)
+                .withName(containerName)
+                .withEnv("JAVA_OPTS=-Djava.util.prefs.userRoot=/tmp/.java/.userPrefs");
         CreateContainerResponse createContainerResponse = containerCmd
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)

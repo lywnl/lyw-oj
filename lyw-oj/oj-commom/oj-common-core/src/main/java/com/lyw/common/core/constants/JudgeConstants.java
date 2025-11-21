@@ -16,19 +16,19 @@ public class JudgeConstants {
 
     public static final String CODE_DIR_POOL = "user-code-pool";
 
-    public static final String DOCKER_USER_CODE_DIR = "/user/java/code";
+    public static final String DOCKER_USER_CODE_DIR = "/usr/share/java";
 
     public static final String USER_CODE_JAVA_CLASS_NAME = "Solution.java";
 
     public static final String USER_CODE_JAVA_FILE_NAME = "Solution";
 
-    public static final String JAVA_ENV_IMAGE = "eclipse-temurin:17-jdk-alpine";
+    public static final String JAVA_ENV_IMAGE = "azul/zulu-openjdk:17";
 
     public static final String JAVA_CONTAINER_PREFIX = "/";
 
     public static final String JAVA_CONTAINER_NAME = "oj-jdk";
 
-    public static final String[] DOCKER_JAVAC_CMD = new String[] {"javac", "/user/java/code/Solution.java"};
+    public static final String[] DOCKER_JAVAC_CMD = new String[] {"javac", "/usr/share/java/Solution.java"};
 
     public static final String[] DOCKER_JAVA_EXEC_CMD = new String[]{"java", "-cp", DOCKER_USER_CODE_DIR, USER_CODE_JAVA_FILE_NAME};
     //  java -cp  /usr/share/java  Solution 1 2
