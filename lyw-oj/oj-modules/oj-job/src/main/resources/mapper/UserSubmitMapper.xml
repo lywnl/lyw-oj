@@ -2,30 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lyw.system.mapper.user.UserMapper">
-    <select id="selectUserList" resultType="com.lyw.system.domain.user.vo.UserVO">
+<mapper namespace="com.lyw.job.mapper.user.UserSubmitMapper">
+    <select id="selectUserScoreList" resultType="com.lyw.job.domain.user.UserScore">
         SELECT
+        exam_id,
         user_id,
-        nick_name,
-        sex,
-        phone,
-        email,
-        wechat,
-        school_name,
-        major_name,
-        introduce,
-        status
+        sum(score) as score
         FROM
-        tb_user
-        <where>
-            <if test="userId !=null ">
-                user_id = #{userId}
-            </if>
-            <if test="nickName !=null and nickName != ''">
-                AND nick_name like concat('%', #{nickName}, '%')
-            </if>
-        </where>
+        tb_user_submit
+        WHERE
+        <foreach collection="examIdList" open="exam_id in ( " close=" ) " item="examId" separator=",">
+            #{examId}
+        </foreach>
+        GROUP BY
+        exam_id,user_id
         ORDER BY
-        create_time DESC
+        score DESC
     </select>
 </mapper>

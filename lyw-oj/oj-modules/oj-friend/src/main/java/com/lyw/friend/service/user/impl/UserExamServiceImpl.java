@@ -15,7 +15,9 @@ import com.lyw.friend.domain.exam.Exam;
 import com.lyw.friend.domain.exam.dto.ExamQueryDTO;
 import com.lyw.friend.domain.exam.vo.ExamVO;
 import com.lyw.friend.domain.user.UserExam;
+import com.lyw.friend.domain.user.vo.UserVO;
 import com.lyw.friend.manager.ExamCacheManager;
+import com.lyw.friend.manager.UserCacheManager;
 import com.lyw.friend.mapper.exam.ExamMapper;
 import com.lyw.friend.mapper.user.UserExamMapper;
 import com.lyw.friend.service.user.IUserExamService;
@@ -55,9 +57,7 @@ public class UserExamServiceImpl implements IUserExamService {
             throw new ServiceException(ResultCode.EXAM_STARTED);
         }
 
-//        Long userId = tokenService.getUserId(token, secret);
         Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
-
         UserExam userExam = userExamMapper.selectOne(new LambdaQueryWrapper<UserExam>()
                 .eq(UserExam::getUserId, userId)
                 .eq(UserExam::getExamId, examId));

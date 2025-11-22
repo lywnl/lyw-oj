@@ -46,9 +46,11 @@ public class UserCacheManager {
         if (user == null) {
             return null;
         }
+
         refreshUser(user);
         userVO = new UserVO();
         BeanUtil.copyProperties(user, userVO);
+
         return userVO;
     }
 

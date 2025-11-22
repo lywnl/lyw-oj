@@ -1,4 +1,4 @@
-package com.lyw.job.mapper;
+package com.lyw.job.mapper.exam;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lyw.job.domain.exam.Exam;

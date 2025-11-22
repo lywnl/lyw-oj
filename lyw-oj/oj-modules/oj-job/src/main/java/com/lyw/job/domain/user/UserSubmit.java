@@ -1,4 +1,4 @@
-package com.lyw.friend.domain.user;
+package com.lyw.job.domain.user;
 
 
 import com.baomidou.mybatisplus.annotation.IdType;

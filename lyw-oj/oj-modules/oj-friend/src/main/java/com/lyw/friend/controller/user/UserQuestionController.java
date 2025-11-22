@@ -4,7 +4,7 @@ import com.lyw.api.domain.vo.UserQuestionResultVO;
 import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
 import com.lyw.friend.domain.user.dto.UserQuestionSubmitDTO;
-import com.lyw.friend.service.user.impl.IUserQuestionService;
+import com.lyw.friend.service.user.IUserQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

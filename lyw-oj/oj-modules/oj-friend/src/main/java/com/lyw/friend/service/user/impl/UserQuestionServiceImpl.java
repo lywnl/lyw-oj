@@ -23,6 +23,7 @@ import com.lyw.friend.elasticsearch.QuestionRepository;
 import com.lyw.friend.mapper.question.QuestionMapper;
 import com.lyw.friend.mapper.user.UserSubmitMapper;
 import com.lyw.friend.rabbit.JudgeProducer;
+import com.lyw.friend.service.user.IUserQuestionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserQuestionServiceImpl implements IUserQuestionService{
+public class UserQuestionServiceImpl implements IUserQuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;

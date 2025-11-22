@@ -1,4 +1,4 @@
-package com.lyw.job.domain.message.vo;
+package com.lyw.friend.domain.message.vo;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.lyw.job.domain.message;
+package com.lyw.friend.domain.message;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

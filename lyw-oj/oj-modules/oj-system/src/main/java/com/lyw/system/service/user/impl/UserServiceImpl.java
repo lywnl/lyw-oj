@@ -1,4 +1,4 @@
-package com.lyw.system.service.user;
+package com.lyw.system.service.user.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.lyw.common.core.enums.ResultCode;
@@ -7,7 +7,9 @@ import com.lyw.system.domain.user.User;
 import com.lyw.system.domain.user.dto.UserDTO;
 import com.lyw.system.domain.user.dto.UserQueryDTO;
 import com.lyw.system.domain.user.vo.UserVO;
+import com.lyw.system.manager.UserCacheManager;
 import com.lyw.system.mapper.user.UserMapper;
+import com.lyw.system.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserCacheManager userCacheManager;
 
     @Override
     public List<UserVO> list(UserQueryDTO queryDTO) {
@@ -34,6 +39,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         user.setStatus(userDTO.getStatus());
+        userCacheManager.updateStatus(user.getUserId(), userDTO.getStatus());
 
         return userMapper.updateById(user);
     }

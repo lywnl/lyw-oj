@@ -1,12 +1,15 @@
-package com.lyw.friend.mapper.user;
+package com.lyw.job.mapper.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lyw.friend.domain.user.UserSubmit;
+import com.lyw.job.domain.user.UserScore;
+import com.lyw.job.domain.user.UserSubmit;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface UserSubmitMapper extends BaseMapper<UserSubmit> {
 
-    UserSubmit selectCurrentUserSubmit(Long userId, Long questionId, Long examId, String currentTime);
+    List<UserScore> selectUserScoreList(List<Long> examIdList);
 
 }

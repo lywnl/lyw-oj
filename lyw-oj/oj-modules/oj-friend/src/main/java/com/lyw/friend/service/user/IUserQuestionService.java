@@ -1,4 +1,4 @@
-package com.lyw.friend.service.user.impl;
+package com.lyw.friend.service.user;
 
 import com.lyw.api.domain.vo.UserQuestionResultVO;
 import com.lyw.common.core.domain.Result;

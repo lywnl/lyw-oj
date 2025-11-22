@@ -3,6 +3,7 @@ package com.lyw.friend.controller.user;
 import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
+import com.lyw.friend.aspect.CheckUserStatus;
 import com.lyw.friend.domain.exam.dto.ExamDTO;
 import com.lyw.friend.domain.exam.dto.ExamQueryDTO;
 import com.lyw.friend.service.user.IUserExamService;
@@ -21,6 +22,7 @@ public class UserExamController extends BaseController {
      * @param examDTO
      * @return
      */
+    @CheckUserStatus
     @PostMapping("/enter")
     public Result<Void> enter( @RequestBody ExamDTO examDTO) {
         return toR(userExamService.enter(examDTO.getExamId()));

@@ -1,4 +1,4 @@
-package com.lyw.system.service.sysuser;
+package com.lyw.system.service.sysuser.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
@@ -14,6 +14,7 @@ import com.lyw.common.security.service.TokenService;
 import com.lyw.system.domain.sysuser.SysUser;
 import com.lyw.system.domain.sysuser.dto.SysUserSaveDTO;
 import com.lyw.system.mapper.sysuser.SysUserMapper;
+import com.lyw.system.service.sysuser.ISysUserService;
 import com.lyw.system.utils.BCryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
