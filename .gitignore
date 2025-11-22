@@ -1,3 +1,5 @@
 /logs/
 /idea/
 /user-code/
+/*.iml/
+/target/

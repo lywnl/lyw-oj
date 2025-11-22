@@ -1,4 +1,0 @@
-com.lyw.common.security.handler.GlobalExceptionHandler
-com.lyw.common.security.service.TokenService
-com.lyw.common.security.interceptor.TokenInterceptor
-com.lyw.common.security.config.WebMvcConfig

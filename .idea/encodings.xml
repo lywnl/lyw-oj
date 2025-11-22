@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/oj-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-elasticsearch/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-file/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-message/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-mybatis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-rabbitmq/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-redis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/oj-common-swagger/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-commom/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-modules/oj-friend/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-modules/oj-job/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-modules/oj-judge/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-modules/oj-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-modules/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oj-modules/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
