@@ -6,7 +6,6 @@ import com.github.pagehelper.PageHelper;
 import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.domain.dto.PageQueryDTO;
 import com.lyw.common.redis.service.RedisService;
-import com.lyw.friend.domain.exam.vo.ExamVO;
 import com.lyw.friend.domain.message.vo.MessageTextVO;
 import com.lyw.friend.mapper.message.MessageTextMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,6 @@ public class MessageCacheManager {
         return messageTextVOList;
     }
 
-}
 
     private List<MessageTextVO> assembleMessageTextVOList(List<Long> messageTextIdList) {
         if (CollectionUtil.isEmpty(messageTextIdList)) {

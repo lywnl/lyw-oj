@@ -4,6 +4,7 @@ import com.lyw.common.core.controller.BaseController;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.friend.domain.exam.dto.ExamQueryDTO;
+import com.lyw.friend.domain.exam.dto.ExamRankDTO;
 import com.lyw.friend.service.exam.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,11 @@ public class ExamController extends BaseController {
     @GetMapping("/semiLogin/redis/list")
     public TableDataInfo redisList(ExamQueryDTO examQueryDTO) {
         return examService.redisList(examQueryDTO);
+    }
+
+    @GetMapping("/rank/list")
+    public TableDataInfo rankList(ExamRankDTO examRankDTO) {
+        return examService.rankList(examRankDTO);
     }
 
     @GetMapping("/getFirstQuestion")

@@ -7,9 +7,14 @@ import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.common.core.utils.ThreadLocalUtil;
 import com.lyw.friend.domain.exam.dto.ExamQueryDTO;
+import com.lyw.friend.domain.exam.dto.ExamRankDTO;
+import com.lyw.friend.domain.exam.vo.ExamRankVO;
 import com.lyw.friend.domain.exam.vo.ExamVO;
+import com.lyw.friend.domain.user.vo.UserVO;
 import com.lyw.friend.manager.ExamCacheManager;
+import com.lyw.friend.manager.UserCacheManager;
 import com.lyw.friend.mapper.exam.ExamMapper;
+import com.lyw.friend.mapper.user.UserExamMapper;
 import com.lyw.friend.service.exam.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +28,13 @@ public class ExamServiceImpl implements IExamService {
     private ExamMapper examMapper;
 
     @Autowired
+    private UserExamMapper userExamMapper;
+
+    @Autowired
     private ExamCacheManager examCacheManager;
+
+    @Autowired
+    private UserCacheManager userCacheManager;
 
     @Override
     public List<ExamVO> list(ExamQueryDTO examQueryDTO) {
@@ -55,6 +66,27 @@ public class ExamServiceImpl implements IExamService {
     }
 
     @Override
+    public TableDataInfo rankList(ExamRankDTO examRankDTO) {
+        Long total = examCacheManager.getRankListSize(examRankDTO.getExamId());
+        List<ExamRankVO> examRankVOList;
+        if (total == null || total == 0) {
+            PageHelper.startPage(examRankDTO.getPageNum(), examRankDTO.getPageSize());
+            examRankVOList = userExamMapper.selectExamRankList(examRankDTO.getExamId());
+            examCacheManager.refreshExamRankCache(examRankDTO.getExamId());
+            total = new PageInfo<>(examRankVOList).getTotal();
+        } else {
+            examRankVOList = examCacheManager.getExamRankList(examRankDTO);
+        }
+
+        if (CollectionUtil.isEmpty(examRankVOList)) {
+            return TableDataInfo.empty();
+        }
+
+        assembleExamRankList(examRankVOList);
+        return TableDataInfo.success(examRankVOList, total);
+    }
+
+    @Override
     public String getFirstQuestion(Long examId) {
         checkAndRefresh(examId);
 
@@ -74,6 +106,20 @@ public class ExamServiceImpl implements IExamService {
         checkAndRefresh(examId);
 
         return examCacheManager.nextQuestion(examId, questionId).toString();
+    }
+
+
+
+    private void assembleExamRankList(List<ExamRankVO> examRankVOList) {
+        if (CollectionUtil.isEmpty(examRankVOList)) {
+            return;
+        }
+
+        for (ExamRankVO examRankVO : examRankVOList) {
+            Long userId = examRankVO.getUserId();
+            UserVO user = userCacheManager.getUserById(userId);
+            examRankVO.setNickName(user.getNickName());
+        }
     }
 
     private void assembleExamVOList(List<ExamVO> examVOList) {

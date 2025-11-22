@@ -13,6 +13,7 @@ import com.lyw.job.domain.message.MessageText;
 import com.lyw.job.domain.message.vo.MessageTextVO;
 import com.lyw.job.domain.user.UserScore;
 import com.lyw.job.mapper.exam.ExamMapper;
+import com.lyw.job.mapper.user.UserExamMapper;
 import com.lyw.job.mapper.user.UserSubmitMapper;
 import com.lyw.job.service.IMessageService;
 import com.lyw.job.service.IMessageTextService;
@@ -34,6 +35,9 @@ public class ExamXxlJob {
 
     @Autowired
     private UserSubmitMapper userSubmitMapper;
+
+    @Autowired
+    private UserExamMapper userExamMapper;
 
     @Autowired
     private IMessageTextService messageTextService;
@@ -67,6 +71,7 @@ public class ExamXxlJob {
 
     @XxlJob("examResultHandler")
     public void examResultHandler() {
+        log.info("examResultHandler ---- 开始统计");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime minusDateTime = now.minusDays(1);
         List<Exam> examList = examMapper.selectList(new LambdaQueryWrapper<Exam>()
@@ -82,6 +87,8 @@ public class ExamXxlJob {
         List<UserScore> userScoreList = userSubmitMapper.selectUserScoreList(examIdList);
         Map<Long, List<UserScore>> userScoreMap = userScoreList.stream().collect(Collectors.groupingBy(UserScore::getExamId));
         createMessage(examList, userScoreMap);
+
+        log.info("examResultHandler ---- 统计结束");
     }
 
     private void createMessage(List<Exam> examList, Map<Long, List<UserScore>> userScoreMap) {
@@ -110,6 +117,9 @@ public class ExamXxlJob {
                 messageList.add(message);
                 rank++;
             }
+
+            userExamMapper.updateUserScoreAndRank(userScoreList);
+            redisService.rightPushAll(getExamRankListKey(examId), userScoreList);
         }
 
         messageTextService.batchInsert(messageTextList);
@@ -167,7 +177,7 @@ public class ExamXxlJob {
         return CacheConstants.MESSAGE_DETAIL + textId;
     }
 
-//    private String getExamRankListKey(Long examId) {
-//        return CacheConstants.EXAM_RANK_LIST + examId;
-//    }
+    private String getExamRankListKey(Long examId) {
+        return CacheConstants.EXAM_RANK_LIST + examId;
+    }
 }
