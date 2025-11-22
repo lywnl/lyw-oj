@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
+    <output url="file://$MODULE_DIR$/lyw-oj/oj-commom/oj-common-rabbitmq/target/classes" />
+    <output-test url="file://$MODULE_DIR$/lyw-oj/oj-commom/oj-common-rabbitmq/target/test-classes" />
+    <content url="file://$MODULE_DIR$/lyw-oj/oj-commom/oj-common-rabbitmq">
+      <sourceFolder url="file://$MODULE_DIR$/lyw-oj/oj-commom/oj-common-rabbitmq/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lyw-oj/oj-commom/oj-common-rabbitmq/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/lyw-oj/oj-commom/oj-common-rabbitmq/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/lyw-oj/oj-commom/oj-common-rabbitmq/target" />
+    </content>
+    <orderEntry type="jdk" jdkName="17" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-bootstrap:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-logging:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.4.5" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.19.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.19.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:2.0.6" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.33" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:6.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-commons:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-rsa:1.0.11.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.69" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.69" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcutil-jdk15on:1.69" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.24" level="project" />
+  </component>
+</module>

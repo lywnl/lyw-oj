@@ -104,6 +104,8 @@ public class ExamXxlJob {
                 String msgContent = "您所参与的竞赛：" + exam.getTitle()
                         + "，本次参与竞赛一共" + total + "人， 您排名第"  + rank + "名！" + "总得分为" + userScore.getScore() + "分！";
 
+                userScore.setExamRank(rank);
+
                 MessageText messageText = new MessageText();
                 messageText.setMessageTitle(msgTitle);
                 messageText.setMessageContent(msgContent);
