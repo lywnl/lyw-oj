@@ -1,5 +1,17 @@
-/logs/
-/idea/
-/user-code/
-/*.iml/
-/target/
+# 忽略 Maven 编译输出目录
+target/
+
+# 忽略 IntelliJ IDEA 项目配置文件（.iml 文件）
+*.iml
+
+# 忽略 IntelliJ IDEA 项目目录
+.idea/
+
+# 忽略 Eclipse 项目配置文件（可选）
+.settings/
+.project
+.classpath
+
+# 忽略其他常见的编译输出和临时文件
+*.class
+*.log
