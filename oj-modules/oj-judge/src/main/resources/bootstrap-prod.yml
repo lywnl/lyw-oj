@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: oj-judge
+
+  profiles:
+    active: local
+
+  cloud:
+    nacos:
+      discovery:
+        namespace: 2e7bb6a9-1f86-4534-9d86-013e7d78574f
+        server-addr: http://10.2.8.10:8848
+        username: nacos
+        password: lyw666
+        ip: ${HOST_IP}
+
+      config:
+        namespace: 2e7bb6a9-1f86-4534-9d86-013e7d78574f
+        server-addr: http://10.2.8.10:8848
+        file-extension: yaml
+        username: nacos
+        password: lyw666
+

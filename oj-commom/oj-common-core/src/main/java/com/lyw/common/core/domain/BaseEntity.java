@@ -21,3 +21,4 @@ public class BaseEntity {
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 }
+
