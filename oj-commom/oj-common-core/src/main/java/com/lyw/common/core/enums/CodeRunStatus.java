@@ -18,7 +18,9 @@ public enum CodeRunStatus {
 
     OUT_OF_MEMORY(7, "运行结果正确，但是超出空间限制"),
 
-    OUT_OF_TIME(8, "运行结果正确，但是超出时间限制");
+    OUT_OF_TIME(8, "运行结果正确，但是超出时间限制"),
+
+    SYSTEM_BUSY(9, "系统繁忙，请稍后重试");
 
     private Integer value;
 
@@ -28,5 +30,6 @@ public enum CodeRunStatus {
         this.value = value;
         this.msg = msg;
     }
+
 
 }

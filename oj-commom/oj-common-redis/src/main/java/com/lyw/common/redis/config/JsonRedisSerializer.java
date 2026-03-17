@@ -24,6 +24,7 @@ public class JsonRedisSerializer<T> implements RedisSerializer<T> {
         }
         return JSON.toJSONString(t).getBytes(DEFAULT_CHARSET);
     }
+
     @Override
     public T deserialize(byte[] bytes) throws SerializationException {
         if (bytes == null || bytes.length <= 0) {

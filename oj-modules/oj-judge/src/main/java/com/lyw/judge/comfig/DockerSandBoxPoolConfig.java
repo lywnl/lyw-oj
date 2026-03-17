@@ -1,6 +1,5 @@
 package com.lyw.judge.comfig;
 
-
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
@@ -30,8 +29,21 @@ public class DockerSandBoxPoolConfig {
     @Value("${sandbox.limit.cpu:1}")
     private Long cpuLimit;
 
-    @Value("${sandbox.docker.pool.size:4}")
-    private int poolSize;
+    /** 核心容器数（始终保持存活） */
+    @Value("${sandbox.docker.pool.core-size:4}")
+    private int corePoolSize;
+
+    /** 最大容器数（高峰期扩容上限） */
+    @Value("${sandbox.docker.pool.max-size:8}")
+    private int maxPoolSize;
+
+    /** 临时容器空闲存活时间（毫秒），超过后自动销毁 */
+    @Value("${sandbox.docker.pool.keep-alive:60000}")
+    private long keepAliveTime;
+
+    /** 获取容器的等待超时时间（毫秒），超时后尝试扩容 */
+    @Value("${sandbox.docker.pool.poll-timeout:3000}")
+    private long pollTimeout;
 
     @Value("${sandbox.docker.name-prefix:oj-sandbox-jdk}")
     private String containerNamePrefix;
@@ -47,10 +59,13 @@ public class DockerSandBoxPoolConfig {
                 .build();
     }
 
-    @Bean
+    @Bean(destroyMethod = "shutdown")
     public DockerSandBoxPool createDockerSandBoxPool(DockerClient dockerClient) {
-        DockerSandBoxPool dockerSandBoxPool = new DockerSandBoxPool(dockerClient, sandboxImage, volumeDir, memoryLimit,
-                memorySwapLimit, cpuLimit, poolSize, containerNamePrefix);
+        DockerSandBoxPool dockerSandBoxPool = new DockerSandBoxPool(
+                dockerClient, sandboxImage, volumeDir,
+                memoryLimit, memorySwapLimit, cpuLimit,
+                corePoolSize, maxPoolSize, keepAliveTime, pollTimeout,
+                containerNamePrefix);
         dockerSandBoxPool.initDockerPool();
         return dockerSandBoxPool;
     }

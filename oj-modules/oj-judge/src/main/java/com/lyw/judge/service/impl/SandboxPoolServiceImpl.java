@@ -36,50 +36,46 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
     @Autowired
     private DockerClient dockerClient;
 
-    private String containerId;
-
-    private String userCodeFileName;
-
     @Value("${sandbox.limit.time:5}")
     private Long timeLimit;
 
     @Override
     public SandBoxExecuteResult exeJavaCode(Long userId, String userCode, List<String> inputList) {
-        containerId = sandBoxPool.getContainer();
-        createUserCodeFile(userCode);
-        //编译代码
+        // 从容器池获取容器，可能返回 null（系统繁忙）
+        String containerId = sandBoxPool.getContainer();
+        if (containerId == null) {
+            return SandBoxExecuteResult.fail(CodeRunStatus.SYSTEM_BUSY, CodeRunStatus.SYSTEM_BUSY.getMsg());
+        }
+        String userCodeFileName = createUserCodeFile(containerId, userCode);
+        // 编译代码
         try {
-            CompileResult compileResult = compileCodeByDocker();
+            CompileResult compileResult = compileCodeByDocker(containerId);
             if (!compileResult.isCompiled()) {
                 sandBoxPool.returnContainer(containerId);
-                deleteUserCodeFile();
+                FileUtil.del(userCodeFileName);
                 return SandBoxExecuteResult.fail(CodeRunStatus.COMPILE_FAILED, compileResult.getExeMessage());
             }
         } catch (Exception e) {
             sandBoxPool.returnContainer(containerId);
-            deleteUserCodeFile();
+            FileUtil.del(userCodeFileName);
             throw new RuntimeException(e);
         }
-
-        //执行代码
-        return executeJavaCodeByDocker(inputList);
+        // 执行代码
+        return executeJavaCodeByDocker(containerId, userCodeFileName, inputList);
     }
 
-    //创建并返回用户代码的文件
-    private void createUserCodeFile(String userCode) {
+    private String createUserCodeFile(String containerId, String userCode) {
         String codeDir = sandBoxPool.getCodeDir(containerId);
         log.info("user-pool路径信息：{}", codeDir);
-        userCodeFileName = codeDir + File.separator + JudgeConstants.USER_CODE_JAVA_CLASS_NAME;
-        //如果文件之前存在，将之前的文件删除掉
+        String userCodeFileName = codeDir + File.separator + JudgeConstants.USER_CODE_JAVA_CLASS_NAME;
         if (FileUtil.exist(userCodeFileName)) {
             FileUtil.del(userCodeFileName);
         }
         FileUtil.writeString(userCode, userCodeFileName, Constants.UTF8);
+        return userCodeFileName;
     }
 
-    //编译
-    //的使用docker编译
-    private CompileResult compileCodeByDocker() {
+    private CompileResult compileCodeByDocker(String containerId) {
         String cmdId = createExecCmd(JudgeConstants.DOCKER_JAVAC_CMD, null, containerId);
         DockerStartResultCallback resultCallback = new DockerStartResultCallback();
         CompileResult compileResult = new CompileResult();
@@ -95,22 +91,18 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
             }
             return compileResult;
         } catch (InterruptedException e) {
-            //此处可以直接抛出 已做统一异常处理  也可再做定制化处理
             throw new RuntimeException(e);
         }
     }
 
-    private SandBoxExecuteResult executeJavaCodeByDocker(List<String> inputList) {
-        List<String> outList = new ArrayList<>(); //记录输出结果
-        long maxMemory = 0L;  //最大占用内存
-        long maxUseTime = 0L; //最大运行时间
-        //执行用户代码
+    private SandBoxExecuteResult executeJavaCodeByDocker(String containerId, String userCodeFileName, List<String> inputList) {
+        List<String> outList = new ArrayList<>();
+        long maxMemory = 0L;
+        long maxUseTime = 0L;
         for (String inputArgs : inputList) {
             String cmdId = createExecCmd(JudgeConstants.DOCKER_JAVA_EXEC_CMD, inputArgs, containerId);
-            //执行代码
-            StopWatch stopWatch = new StopWatch();        //执行代码后开始计时
-            //执行情况监控
-            StatsCmd statsCmd = dockerClient.statsCmd(containerId); //启动监控
+            StopWatch stopWatch = new StopWatch();
+            StatsCmd statsCmd = dockerClient.statsCmd(containerId);
             StatisticsCallback statisticsCallback = statsCmd.exec(new StatisticsCallback());
             stopWatch.start();
             DockerStartResultCallback resultCallback = new DockerStartResultCallback();
@@ -119,31 +111,33 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
                         .exec(resultCallback)
                         .awaitCompletion(timeLimit, TimeUnit.SECONDS);
                 if (CodeRunStatus.FAILED.equals(resultCallback.getCodeRunStatus())) {
-                    //未通过所有用例返回结果
+                    sandBoxPool.returnContainer(containerId);
+                    FileUtil.del(userCodeFileName);
                     return SandBoxExecuteResult.fail(CodeRunStatus.NOT_ALL_PASSED);
                 }
             } catch (InterruptedException e) {
+                sandBoxPool.returnContainer(containerId);
+                FileUtil.del(userCodeFileName);
                 throw new RuntimeException(e);
             }
-            stopWatch.stop();  //结束时间统计
-            statsCmd.close();  //结束docker容器执行统计
-            long userTime = stopWatch.getLastTaskTimeMillis(); //执行耗时
-            maxUseTime = Math.max(userTime, maxUseTime);       //记录最大的执行用例耗时
+            stopWatch.stop();
+            statsCmd.close();
+            long userTime = stopWatch.getLastTaskTimeMillis();
+            maxUseTime = Math.max(userTime, maxUseTime);
             Long memory = statisticsCallback.getMaxMemory();
             if (memory != null) {
-                maxMemory = Math.max(maxMemory, statisticsCallback.getMaxMemory()); //记录最大的执行用例占用内存
+                maxMemory = Math.max(maxMemory, memory);
             }
-            outList.add(resultCallback.getMessage().trim());   //记录正确的输出结果
+            outList.add(resultCallback.getMessage().trim());
         }
         sandBoxPool.returnContainer(containerId);
-
-        return getSanBoxResult(inputList, outList, maxMemory, maxUseTime); //封装结果
+        FileUtil.del(userCodeFileName);
+        return getSanBoxResult(inputList, outList, maxMemory, maxUseTime);
     }
 
     private String createExecCmd(String[] javaCmdArr, String inputArgs, String containerId) {
         if (!StrUtil.isEmpty(inputArgs)) {
-            //当入参不为空时拼接入参
-            String[] inputArray = inputArgs.split(" "); //入参
+            String[] inputArray = inputArgs.split(" ");
             javaCmdArr = ArrayUtil.append(JudgeConstants.DOCKER_JAVA_EXEC_CMD, inputArray);
         }
         ExecCreateCmdResponse cmdResponse = dockerClient.execCreateCmd(containerId)
@@ -158,14 +152,8 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
     private SandBoxExecuteResult getSanBoxResult(List<String> inputList, List<String> outList,
                                                  long maxMemory, long maxUseTime) {
         if (inputList.size() != outList.size()) {
-            //输入用例数量 不等于 输出用例数量  属于执行异常
             return SandBoxExecuteResult.fail(CodeRunStatus.NOT_ALL_PASSED, outList, maxMemory, maxUseTime);
         }
         return SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, outList, maxMemory, maxUseTime);
     }
-
-    private void deleteUserCodeFile() {
-        FileUtil.del(userCodeFileName);
-    }
 }
-

@@ -13,8 +13,13 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
-        //创建人  获取当前用户用户id  如何获取当前调用接口的用户的id呢？
-        this.strictInsertFill(metaObject, "createBy", Long.class, ThreadLocalUtil.get(Constants.USER_ID, Long.class));
+
+        // 创建人字段处理：如果获取不到当前用户ID，则使用默认值
+        Long currentUserId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        if (currentUserId == null) {
+            currentUserId = 1L; // 或者使用其他默认值
+        }
+        this.strictInsertFill(metaObject, "createBy", Long.class, currentUserId);
     }
 
     @Override

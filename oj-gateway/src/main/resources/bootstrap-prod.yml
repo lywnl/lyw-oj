@@ -19,4 +19,4 @@ spring:
         server-addr: http://10.2.8.10:8848
         file-extension: yaml
         username: nacos
-        password: lyw666
+        password: lyw666在
