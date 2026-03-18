@@ -12,7 +12,7 @@ import com.lyw.common.core.constants.JudgeConstants;
 import com.lyw.common.core.enums.CodeRunStatus;
 import com.lyw.judge.callback.DockerStartResultCallback;
 import com.lyw.judge.callback.StatisticsCallback;
-import com.lyw.judge.comfig.DockerSandBoxPool;
+import com.lyw.judge.config.DockerSandBoxPool;
 import com.lyw.judge.domain.CompileResult;
 import com.lyw.judge.domain.SandBoxExecuteResult;
 import com.lyw.judge.service.ISandboxPoolService;

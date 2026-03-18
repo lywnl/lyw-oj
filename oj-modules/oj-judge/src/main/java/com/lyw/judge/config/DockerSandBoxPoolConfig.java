@@ -1,4 +1,4 @@
-package com.lyw.judge.comfig;
+package com.lyw.judge.config;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.core.DefaultDockerClientConfig;

@@ -1,4 +1,4 @@
-package com.lyw.judge.comfig;
+package com.lyw.judge.config;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
