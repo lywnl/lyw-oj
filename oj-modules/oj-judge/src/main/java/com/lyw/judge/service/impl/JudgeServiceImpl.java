@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lyw.api.domain.UserExeResult;
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
 import com.lyw.api.domain.vo.UserQuestionResultVO;
+import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.constants.JudgeConstants;
 import com.lyw.common.core.enums.CodeRunStatus;
+import com.lyw.common.redis.service.RedisService;
 import com.lyw.judge.domain.SandBoxExecuteResult;
 import com.lyw.judge.domain.UserSubmit;
 import com.lyw.judge.mapper.UserSubmitMapper;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -34,6 +37,9 @@ public class JudgeServiceImpl implements IJudgeService {
 
     @Autowired
     private UserSubmitMapper userSubmitMapper;
+
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public UserQuestionResultVO doJudgeJavaCode(JudgeSubmitDTO judgeSubmitDTO) {
@@ -54,6 +60,8 @@ public class JudgeServiceImpl implements IJudgeService {
             userQuestionResultVO.setScore(JudgeConstants.ERROR_SCORE);
         }
 
+        // 先更新Redis缓存（让前端轮询立即感知结果），再写数据库
+        updateJudgeResultCache(judgeSubmitDTO, userQuestionResultVO);
         saveUserSubmit(judgeSubmitDTO, userQuestionResultVO);
         return userQuestionResultVO;
     }
@@ -135,6 +143,12 @@ public class JudgeServiceImpl implements IJudgeService {
         }
 
         return isPass;
+    }
+
+    private void updateJudgeResultCache(JudgeSubmitDTO judgeSubmitDTO, UserQuestionResultVO userQuestionResultVO) {
+        String key = CacheConstants.getJudgeResultKey(
+                judgeSubmitDTO.getUserId(), judgeSubmitDTO.getQuestionId(), judgeSubmitDTO.getExamId());
+        redisService.setCacheObject(key, userQuestionResultVO, CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
     }
 
     private void saveUserSubmit(JudgeSubmitDTO judgeSubmitDTO, UserQuestionResultVO userQuestionResultVO) {

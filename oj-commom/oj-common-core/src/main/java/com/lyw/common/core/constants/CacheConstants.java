@@ -38,7 +38,15 @@ public class CacheConstants {
 
     public static final String EXAM_RANK_LIST = "e:r:l:";
 
+    public static final String JUDGE_RESULT = "j:r:";
+
+    public static final long JUDGE_RESULT_TTL = 5L; // 判题结果缓存过期时间（分钟）
+
     public static final long DEFAULT_START = 0;
 
     public static final long DEFAULT_END = -1;
+
+    public static String getJudgeResultKey(Long userId, Long questionId, Long examId) {
+        return JUDGE_RESULT + userId + ":" + questionId + ":" + (examId == null ? 0 : examId);
+    }
 }

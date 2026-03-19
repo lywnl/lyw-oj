@@ -7,12 +7,14 @@ import com.lyw.api.domain.UserExeResult;
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
 import com.lyw.api.domain.vo.UserQuestionResultVO;
 import com.lyw.api.service.RemoteJudgeService;
+import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.enums.ProgramType;
 import com.lyw.common.core.enums.QuestionResult;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.core.utils.ThreadLocalUtil;
+import com.lyw.common.redis.service.RedisService;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.friend.domain.question.Question;
 import com.lyw.friend.domain.question.QuestionCase;
@@ -29,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserQuestionServiceImpl implements IUserQuestionService {
@@ -48,6 +51,9 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
     @Autowired
     private JudgeProducer judgeProducer;
 
+    @Autowired
+    private RedisService redisService;
+
 
     @Override
     public Result<UserQuestionResultVO> submit(UserQuestionSubmitDTO userQuestionSubmitDTO) {
@@ -66,10 +72,14 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
     public boolean rabbitSubmit(UserQuestionSubmitDTO userQuestionSubmitDTO) {
         Integer programType = userQuestionSubmitDTO.getProgramType();
         if (ProgramType.JAVA.getValue().equals(programType)) {
-            //按照java语言进行判题
             JudgeSubmitDTO judgeSubmitDTO = assembleJudgeSubmitDTO(userQuestionSubmitDTO);
+            // 先写Redis缓存标记"判题中"，再发MQ消息
+            String key = CacheConstants.getJudgeResultKey(
+                    judgeSubmitDTO.getUserId(), judgeSubmitDTO.getQuestionId(), judgeSubmitDTO.getExamId());
+            UserQuestionResultVO judging = new UserQuestionResultVO();
+            judging.setPass(QuestionResult.IN_JUDGE.getValue());
+            redisService.setCacheObject(key, judging, CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
             judgeProducer.produceMsg(judgeSubmitDTO);
-
             return true;
         }
 
@@ -79,8 +89,18 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
     @Override
     public UserQuestionResultVO getExeResult(Long examId, Long questionId, String currentTime) {
         Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        // 优先从Redis获取判题结果
+        String key = CacheConstants.getJudgeResultKey(userId, questionId, examId);
+        UserQuestionResultVO cachedResult = redisService.getCacheObject(key, UserQuestionResultVO.class);
+        if (cachedResult != null) {
+            // 判题已完成（非"判题中"状态），删除缓存并返回结果
+            if (!QuestionResult.IN_JUDGE.getValue().equals(cachedResult.getPass())) {
+                redisService.deleteObject(key);
+            }
+            return cachedResult;
+        }
+        // 缓存未命中（已过期），降级查数据库
         UserSubmit userSubmit = userSubmitMapper.selectCurrentUserSubmit(userId, questionId, examId, currentTime);
-
         UserQuestionResultVO userQuestionResultVO = new UserQuestionResultVO();
         if (userSubmit == null) {
             userQuestionResultVO.setPass(QuestionResult.IN_JUDGE.getValue());
@@ -91,7 +111,6 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
                 userQuestionResultVO.setUserExeResultList(JSON.parseArray(userSubmit.getCaseJudgeRes(), UserExeResult.class));
             }
         }
-
         return userQuestionResultVO;
     }
 
