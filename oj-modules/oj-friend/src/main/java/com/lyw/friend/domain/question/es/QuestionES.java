@@ -19,7 +19,7 @@ public class QuestionES {
     @Field(type = FieldType.Long)
     private Long questionId;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String title;
 
     @Field(type = FieldType.Byte)
@@ -31,7 +31,7 @@ public class QuestionES {
     @Field(type = FieldType.Long)
     private Long spaceLimit;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String content;
 
     @Field(type = FieldType.Text)

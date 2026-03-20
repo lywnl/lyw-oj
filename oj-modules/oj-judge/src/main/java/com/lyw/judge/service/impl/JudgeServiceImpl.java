@@ -162,11 +162,6 @@ public class JudgeServiceImpl implements IJudgeService {
         userSubmit.setCaseJudgeRes(JSON.toJSONString(userQuestionResultVO.getUserExeResultList()));
         userSubmit.setCreateBy(judgeSubmitDTO.getUserId());
 
-        userSubmitMapper.delete(new LambdaQueryWrapper<UserSubmit>()
-                .eq(UserSubmit::getUserId, judgeSubmitDTO.getUserId())
-                .eq(UserSubmit::getQuestionId, judgeSubmitDTO.getQuestionId())
-                .isNull(judgeSubmitDTO.getExamId() == null, UserSubmit::getExamId)
-                .eq(judgeSubmitDTO.getExamId() != null, UserSubmit::getExamId, judgeSubmitDTO.getExamId()));
         userSubmitMapper.insert(userSubmit);
     }
 

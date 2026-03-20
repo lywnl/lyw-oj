@@ -28,6 +28,8 @@
                 AND (create_time &gt;= #{currentTime} or update_time &gt;= #{currentTime})
             </if>
         </where>
+        ORDER BY create_time DESC
+        LIMIT 1
 
     </select>
 </mapper>

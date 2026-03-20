@@ -254,6 +254,13 @@ public class RedisService {
         }
     }
 
+    /**
+     * 重命名key（原子操作）
+     */
+    public void rename(final String oldKey, final String newKey) {
+        redisTemplate.rename(oldKey, newKey);
+    }
+
     public Long deleteCacheMapValue(final String key, final String hKey) {
         return redisTemplate.opsForHash().delete(key, hKey);
     }

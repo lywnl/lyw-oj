@@ -38,6 +38,10 @@ public class CacheConstants {
 
     public static final String EXAM_RANK_LIST = "e:r:l:";
 
+    public static final String TMP_SUFFIX = ":tmp";  // 临时key后缀
+
+    public static final long EXAM_LIST_TTL = 24L;  // 竞赛列表缓存过期时间（小时）
+
     public static final String JUDGE_RESULT = "j:r:";
 
     public static final long JUDGE_RESULT_TTL = 5L; // 判题结果缓存过期时间（分钟）

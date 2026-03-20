@@ -164,8 +164,13 @@ public class ExamCacheManager {
         }
 
         redisService.multiSet(examMap);  //刷新详情缓存
-        redisService.deleteObject(getExamListKey(examListType, userId));
-        redisService.rightPushAll(getExamListKey(examListType, userId), examIdList);      //刷新列表缓存
+        // 先写入临时key，再原子替换
+        String examListKey = getExamListKey(examListType, userId);
+        String tmpKey = examListKey + CacheConstants.TMP_SUFFIX;
+        redisService.deleteObject(tmpKey);
+        redisService.rightPushAll(tmpKey, examIdList);
+        redisService.rename(tmpKey, examListKey);
+        redisService.expire(examListKey, CacheConstants.EXAM_LIST_TTL, TimeUnit.HOURS);
     }
 
 

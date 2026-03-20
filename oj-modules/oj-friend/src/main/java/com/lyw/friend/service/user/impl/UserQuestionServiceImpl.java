@@ -73,13 +73,19 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
         Integer programType = userQuestionSubmitDTO.getProgramType();
         if (ProgramType.JAVA.getValue().equals(programType)) {
             JudgeSubmitDTO judgeSubmitDTO = assembleJudgeSubmitDTO(userQuestionSubmitDTO);
-            // 先写Redis缓存标记"判题中"，再发MQ消息
             String key = CacheConstants.getJudgeResultKey(
                     judgeSubmitDTO.getUserId(), judgeSubmitDTO.getQuestionId(), judgeSubmitDTO.getExamId());
+            // 先写Redis缓存标记"判题中"
             UserQuestionResultVO judging = new UserQuestionResultVO();
             judging.setPass(QuestionResult.IN_JUDGE.getValue());
             redisService.setCacheObject(key, judging, CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
-            judgeProducer.produceMsg(judgeSubmitDTO);
+            try {
+                judgeProducer.produceMsg(judgeSubmitDTO);
+            } catch (Exception e) {
+                // MQ发送失败（重试耗尽），清理Redis中的"判题中"状态
+                redisService.deleteObject(key);
+                throw e;
+            }
             return true;
         }
 
