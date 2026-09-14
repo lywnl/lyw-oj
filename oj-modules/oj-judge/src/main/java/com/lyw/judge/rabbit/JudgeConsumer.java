@@ -1,7 +1,9 @@
 package com.lyw.judge.rabbit;
 
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
+import com.lyw.api.domain.vo.UserQuestionResultVO;
 import com.lyw.common.core.constants.RabbitMQConstants;
+import com.lyw.common.core.enums.CodeRunStatus;
 import com.lyw.judge.service.IJudgeService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +24,18 @@ public class JudgeConsumer {
 
     private static final int MAX_RETRY = 3;
 
-    @RabbitListener(queues = RabbitMQConstants.OJ_WORK_QUEUE, ackMode = "MANUAL")
+    @RabbitListener(queues = RabbitMQConstants.OJ_WORK_QUEUE, ackMode = "MANUAL",
+            concurrency = "${sandbox.docker.pool.consumer-concurrency:8}")
     public void consumeMsg(JudgeSubmitDTO judgeSubmitDTO, Channel channel,
                            @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
         log.info("rabbitmq接收消息：{}", judgeSubmitDTO);
         for (int i = 1; i <= MAX_RETRY; i++) {
             try {
-                judgeService.doJudgeJavaCode(judgeSubmitDTO);
+                UserQuestionResultVO result = judgeService.doJudgeJavaCode(judgeSubmitDTO);
+                if (result != null && CodeRunStatus.SYSTEM_BUSY.getMsg().equals(result.getExeMessage())) {
+                    channel.basicNack(deliveryTag, false, false);
+                    return;
+                }
                 channel.basicAck(deliveryTag, false);
                 return;
             } catch (Exception e) {

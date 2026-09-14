@@ -14,6 +14,7 @@ import com.lyw.judge.callback.DockerStartResultCallback;
 import com.lyw.judge.callback.StatisticsCallback;
 import com.lyw.judge.config.DockerSandBoxPool;
 import com.lyw.judge.domain.CompileResult;
+import com.lyw.judge.domain.JudgeTask;
 import com.lyw.judge.domain.SandBoxExecuteResult;
 import com.lyw.judge.service.ISandboxPoolService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,27 +42,35 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
 
     @Override
     public SandBoxExecuteResult exeJavaCode(Long userId, String userCode, List<String> inputList) {
-        // 从容器池获取容器，可能返回 null（系统繁忙）
-        String containerId = sandBoxPool.getContainer();
-        if (containerId == null) {
+        JudgeTask task = new JudgeTask(userId, userCode, inputList,
+                containerId -> executeInContainer(containerId, userCode, inputList), null);
+        if (!sandBoxPool.submit(task)) {
             return SandBoxExecuteResult.fail(CodeRunStatus.SYSTEM_BUSY, CodeRunStatus.SYSTEM_BUSY.getMsg());
         }
+        try {
+            return task.getFuture().get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        } catch (java.util.concurrent.ExecutionException e) {
+            throw new RuntimeException(e.getCause());
+        }
+    }
+
+    private SandBoxExecuteResult executeInContainer(String containerId, String userCode,
+                                                    List<String> inputList) {
         String userCodeFileName = createUserCodeFile(containerId, userCode);
-        // 编译代码
         try {
             CompileResult compileResult = compileCodeByDocker(containerId);
             if (!compileResult.isCompiled()) {
-                sandBoxPool.returnContainer(containerId);
                 FileUtil.del(userCodeFileName);
                 return SandBoxExecuteResult.fail(CodeRunStatus.COMPILE_FAILED, compileResult.getExeMessage());
             }
+            return executeJavaCodeByDocker(containerId, userCodeFileName, inputList);
         } catch (Exception e) {
-            sandBoxPool.returnContainer(containerId);
             FileUtil.del(userCodeFileName);
             throw new RuntimeException(e);
         }
-        // 执行代码
-        return executeJavaCodeByDocker(containerId, userCodeFileName, inputList);
     }
 
     private String createUserCodeFile(String containerId, String userCode) {
@@ -107,21 +116,24 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
             stopWatch.start();
             DockerStartResultCallback resultCallback = new DockerStartResultCallback();
             try {
-                dockerClient.execStartCmd(cmdId)
+                boolean completed = dockerClient.execStartCmd(cmdId)
                         .exec(resultCallback)
                         .awaitCompletion(timeLimit, TimeUnit.SECONDS);
+                if (!completed) {
+                    FileUtil.del(userCodeFileName);
+                    return SandBoxExecuteResult.fail(CodeRunStatus.OUT_OF_TIME, outList, maxMemory, maxUseTime);
+                }
                 if (CodeRunStatus.FAILED.equals(resultCallback.getCodeRunStatus())) {
-                    sandBoxPool.returnContainer(containerId);
                     FileUtil.del(userCodeFileName);
                     return SandBoxExecuteResult.fail(CodeRunStatus.NOT_ALL_PASSED);
                 }
             } catch (InterruptedException e) {
-                sandBoxPool.returnContainer(containerId);
                 FileUtil.del(userCodeFileName);
                 throw new RuntimeException(e);
+            } finally {
+                statsCmd.close();
             }
             stopWatch.stop();
-            statsCmd.close();
             long userTime = stopWatch.getLastTaskTimeMillis();
             maxUseTime = Math.max(userTime, maxUseTime);
             Long memory = statisticsCallback.getMaxMemory();
@@ -130,7 +142,6 @@ public class SandboxPoolServiceImpl implements ISandboxPoolService {
             }
             outList.add(resultCallback.getMessage().trim());
         }
-        sandBoxPool.returnContainer(containerId);
         FileUtil.del(userCodeFileName);
         return getSanBoxResult(inputList, outList, maxMemory, maxUseTime);
     }

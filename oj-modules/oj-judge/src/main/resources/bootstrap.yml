@@ -2,6 +2,12 @@ spring:
   application:
     name: oj-judge
 
+  rabbitmq:
+    listener:
+      simple:
+        # 本地未确认消息上限与容器池最大并发保持一致，避免消费者无限预取。
+        prefetch: ${sandbox.docker.pool.prefetch:8}
+
   profiles:
     active: local
 
@@ -16,5 +22,4 @@ spring:
         namespace: 2e7bb6a9-1f86-4534-9d86-013e7d78574f
         server-addr: http://10.2.8.10:8848
         file-extension: yaml
-
 

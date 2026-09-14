@@ -15,7 +15,6 @@ import com.lyw.judge.domain.UserSubmit;
 import com.lyw.judge.mapper.UserSubmitMapper;
 import com.lyw.judge.service.IJudgeService;
 import com.lyw.judge.service.ISandboxPoolService;
-import com.lyw.judge.service.ISandboxService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 public class JudgeServiceImpl implements IJudgeService {
-
-    @Autowired
-    private ISandboxService sandboxService;
 
     @Autowired
     private ISandboxPoolService sandboxPoolService;
@@ -46,6 +42,13 @@ public class JudgeServiceImpl implements IJudgeService {
         SandBoxExecuteResult sandBoxExecuteResult = sandboxPoolService
                 .exeJavaCode(judgeSubmitDTO.getUserId(), judgeSubmitDTO.getUserCode(), judgeSubmitDTO.getInputList());
         UserQuestionResultVO userQuestionResultVO = new UserQuestionResultVO();
+        if (sandBoxExecuteResult != null && CodeRunStatus.SYSTEM_BUSY.equals(sandBoxExecuteResult.getRunStatus())) {
+            userQuestionResultVO.setPass(Constants.FALSE);
+            userQuestionResultVO.setScore(JudgeConstants.ERROR_SCORE);
+            userQuestionResultVO.setExeMessage(CodeRunStatus.SYSTEM_BUSY.getMsg());
+            updateJudgeResultCache(judgeSubmitDTO, userQuestionResultVO);
+            return userQuestionResultVO;
+        }
         if (sandBoxExecuteResult != null && CodeRunStatus.SUCCEED.equals(sandBoxExecuteResult.getRunStatus())) {
             //比对直接结果 时间限制 空间限制比对
             userQuestionResultVO = doJudge(judgeSubmitDTO, sandBoxExecuteResult, userQuestionResultVO);
@@ -113,6 +116,7 @@ public class JudgeServiceImpl implements IJudgeService {
         }
 
         userQuestionResultVO.setPass(Constants.TRUE);
+        userQuestionResultVO.setExeMessage(CodeRunStatus.SUCCEED.getMsg());
         Integer score = judgeSubmitDTO.getDifficulty() * JudgeConstants.DEFAULT_SCORE;
         userQuestionResultVO.setScore(score);
 

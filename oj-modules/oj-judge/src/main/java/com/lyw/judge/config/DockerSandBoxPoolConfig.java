@@ -41,12 +41,16 @@ public class DockerSandBoxPoolConfig {
     @Value("${sandbox.docker.pool.keep-alive:60000}")
     private long keepAliveTime;
 
-    /** 获取容器的等待超时时间（毫秒），超时后尝试扩容 */
-    @Value("${sandbox.docker.pool.poll-timeout:3000}")
-    private long pollTimeout;
+    /** 判题任务队列容量 */
+    @Value("${sandbox.docker.pool.queue-capacity:16}")
+    private int queueCapacity;
 
     @Value("${sandbox.docker.name-prefix:oj-sandbox-jdk}")
     private String containerNamePrefix;
+
+    public int getQueueCapacity() {
+        return queueCapacity;
+    }
 
     @Bean
     public DockerClient createDockerClient() {
@@ -64,7 +68,7 @@ public class DockerSandBoxPoolConfig {
         DockerSandBoxPool dockerSandBoxPool = new DockerSandBoxPool(
                 dockerClient, sandboxImage, volumeDir,
                 memoryLimit, memorySwapLimit, cpuLimit,
-                corePoolSize, maxPoolSize, keepAliveTime, pollTimeout,
+                corePoolSize, maxPoolSize, queueCapacity, keepAliveTime,
                 containerNamePrefix);
         dockerSandBoxPool.initDockerPool();
         return dockerSandBoxPool;

@@ -1,6 +1,34 @@
 spring:
   application:
     name: oj-judge
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3307/lywoj?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: 123456
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    listener:
+      simple:
+        prefetch: ${sandbox.docker.pool.prefetch:8}
+
+sandbox:
+  docker:
+    pool:
+      core-size: 4
+      max-size: 8
+      queue-capacity: 16
+      keep-alive: 60000
+      prefetch: 8
+      consumer-concurrency: 8
 
   profiles:
     active: local
@@ -15,4 +43,5 @@ spring:
         server-addr: http://localhost:8848
         file-extension: yaml
 
-
+jwt:
+  secret: dev-only-jwt-secret-change-me

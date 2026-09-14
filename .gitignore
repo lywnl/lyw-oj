@@ -16,4 +16,12 @@ target/
 *.class
 *.log
 
+# 忽略本地 Codex/Claude 工作目录
+.claude/
+.codx/
+.codex/
+
+# 忽略 macOS 文件系统元数据
+.DS_Store
+
 user-code-pool

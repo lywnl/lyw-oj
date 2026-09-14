@@ -3,31 +3,31 @@ package com.lyw.judge.config;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.*;
-import com.github.dockerjava.api.model.*;
+import com.github.dockerjava.api.command.CreateContainerResponse;
+import com.github.dockerjava.api.model.Bind;
+import com.github.dockerjava.api.model.Container;
+import com.github.dockerjava.api.model.HostConfig;
+import com.github.dockerjava.api.model.Image;
+import com.github.dockerjava.api.model.Volume;
 import com.lyw.common.core.constants.JudgeConstants;
+import com.lyw.judge.domain.JudgeTask;
+import com.lyw.judge.domain.JudgeTaskState;
+import com.lyw.judge.domain.SandBoxExecuteResult;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Docker 沙箱容器池（动态伸缩）
- * <p>
- * 设计理念类似 ThreadPoolExecutor：
- * - corePoolSize：核心容器数，始终保持存活
- * - maxPoolSize：最大容器数，高峰期动态扩容上限
- * - keepAliveTime：临时容器空闲超过该时间后自动销毁
- * - pollTimeout：获取容器的等待超时时间，超时后尝试扩容，扩容失败返回 null
- */
+/** 由容器 Worker 消费判题任务的执行池。 */
 @Slf4j
 public class DockerSandBoxPool {
-
     private final DockerClient dockerClient;
     private final String sandboxImage;
     private final String volumeDir;
@@ -36,31 +36,24 @@ public class DockerSandBoxPool {
     private final Long cpuLimit;
     private final int corePoolSize;
     private final int maxPoolSize;
+    private final int queueCapacity;
     private final long keepAliveTime;
-    private final long pollTimeout;
     private final String containerNamePrefix;
+    private final BlockingQueue<JudgeTask> taskQueue;
+    private final Set<ContainerWorker> workers = ConcurrentHashMap.newKeySet();
+    private final Map<String, String> containerNameMap = new ConcurrentHashMap<>();
+    private final Set<String> destroyedContainers = ConcurrentHashMap.newKeySet();
+    private final AtomicInteger currentSize = new AtomicInteger();
+    private final AtomicInteger tempContainerSeq = new AtomicInteger();
+    private volatile boolean running;
 
-    /** 可用容器队列 */
-    private final BlockingQueue<String> containerQueue;
-    /** containerId -> containerName */
-    private final ConcurrentHashMap<String, String> containerNameMap = new ConcurrentHashMap<>();
-    /** 核心容器 ID 集合（不会被销毁） */
-    private final Set<String> coreContainerIds = ConcurrentHashMap.newKeySet();
-    /** 容器归还时间（用于判断空闲时长） */
-    private final ConcurrentHashMap<String, Long> lastReturnTime = new ConcurrentHashMap<>();
-    /** 当前容器总数（核心 + 临时） */
-    private final AtomicInteger currentSize = new AtomicInteger(0);
-    /** 临时容器命名序号 */
-    private final AtomicInteger tempContainerSeq = new AtomicInteger(0);
-    /** 定时清理调度器 */
-    private ScheduledExecutorService cleanupScheduler;
-
-    public DockerSandBoxPool(DockerClient dockerClient, String sandboxImage,
-                             String volumeDir, Long memoryLimit,
-                             Long memorySwapLimit, Long cpuLimit,
-                             int corePoolSize, int maxPoolSize,
-                             long keepAliveTime, long pollTimeout,
-                             String containerNamePrefix) {
+    public DockerSandBoxPool(DockerClient dockerClient, String sandboxImage, String volumeDir,
+                             Long memoryLimit, Long memorySwapLimit, Long cpuLimit,
+                             int corePoolSize, int maxPoolSize, int queueCapacity,
+                             long keepAliveTime, String containerNamePrefix) {
+        if (corePoolSize <= 0 || maxPoolSize < corePoolSize || queueCapacity <= 0) {
+            throw new IllegalArgumentException("容器池参数无效");
+        }
         this.dockerClient = dockerClient;
         this.sandboxImage = sandboxImage;
         this.volumeDir = volumeDir;
@@ -69,235 +62,218 @@ public class DockerSandBoxPool {
         this.cpuLimit = cpuLimit;
         this.corePoolSize = corePoolSize;
         this.maxPoolSize = maxPoolSize;
+        this.queueCapacity = queueCapacity;
         this.keepAliveTime = keepAliveTime;
-        this.pollTimeout = pollTimeout;
         this.containerNamePrefix = containerNamePrefix;
-        this.containerQueue = new LinkedBlockingQueue<>(maxPoolSize);
+        this.taskQueue = new LinkedBlockingQueue<>(queueCapacity);
     }
 
-    /**
-     * 初始化容器池：预热核心容器 + 启动定时清理任务
-     */
-    public void initDockerPool() {
-        log.info("------  容器池初始化开始 (核心: {}, 最大: {})  -----", corePoolSize, maxPoolSize);
-        pullJavaEnvImage();
-        for (int i = 0; i < corePoolSize; i++) {
-            String containerName = containerNamePrefix + "-" + i;
-            String containerId = doCreateContainer(containerName);
-            coreContainerIds.add(containerId);
-            containerQueue.add(containerId);
-            containerNameMap.put(containerId, containerName);
-        }
-        currentSize.set(corePoolSize);
-        startCleanupTask();
-        log.info("------  容器池初始化完成，当前容器数: {}  -----", currentSize.get());
-    }
-
-    /**
-     * 获取可用容器（类似线程池获取线程）
-     * 1. 先从队列 poll(timeout) 等待获取
-     * 2. 超时后尝试动态扩容创建临时容器
-     * 3. 已达最大容量则返回 null（系统繁忙）
-     */
-    public String getContainer() {
+    public synchronized void initDockerPool() {
+        if (running) return;
         try {
-            String containerId = containerQueue.poll(pollTimeout, TimeUnit.MILLISECONDS);
-            if (containerId != null) {
-                lastReturnTime.remove(containerId);
-                return containerId;
+            pullJavaEnvImage();
+            for (int i = 0; i < corePoolSize; i++) {
+                addWorker(containerNamePrefix + "-" + i, true, null);
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            shutdownWorkers();
+            throw new IllegalStateException("核心容器初始化失败，判题服务无法就绪", e);
         }
-        // 队列超时无可用容器，尝试扩容
-        return tryCreateTempContainer();
+        running = true;
+        workers.forEach(ContainerWorker::start);
+        log.info("容器池初始化完成，核心容器数: {}，最大容器数: {}，任务队列容量: {}",
+                corePoolSize, maxPoolSize, queueCapacity);
     }
 
-    /**
-     * 归还容器到池中
-     */
-    public void returnContainer(String containerId) {
-        lastReturnTime.put(containerId, System.currentTimeMillis());
-        containerQueue.add(containerId);
+    public boolean submit(JudgeTask task) {
+        if (!running || !task.transition(JudgeTaskState.CREATED, JudgeTaskState.QUEUED)) return false;
+        if (workers.isEmpty()) {
+            task.reject(SandBoxExecuteResult.fail(com.lyw.common.core.enums.CodeRunStatus.SYSTEM_BUSY));
+            return false;
+        }
+        if (taskQueue.offer(task)) return true;
+        synchronized (this) {
+            if (workers.size() < maxPoolSize) {
+                String name = containerNamePrefix + "-tmp-" + tempContainerSeq.incrementAndGet();
+                try {
+                    addWorker(name, false, task).start();
+                    return true;
+                } catch (RuntimeException e) {
+                    log.error("临时容器创建失败: {}", name, e);
+                }
+            }
+        }
+        task.reject(SandBoxExecuteResult.fail(
+                com.lyw.common.core.enums.CodeRunStatus.SYSTEM_BUSY,
+                com.lyw.common.core.enums.CodeRunStatus.SYSTEM_BUSY.getMsg()));
+        return false;
     }
 
-    /**
-     * 获取容器对应的用户代码目录
-     */
+    public int getQueueSize() { return taskQueue.size(); }
+    public int getWorkerCount() { return workers.size(); }
     public String getCodeDir(String containerId) {
-        String containerName = containerNameMap.get(containerId);
-        log.info("containerName：{}", containerName);
-        return System.getProperty("user.dir") + File.separator
-                + JudgeConstants.CODE_DIR_POOL + File.separator + containerName;
+        String name = containerNameMap.get(containerId);
+        return System.getProperty("user.dir") + File.separator + JudgeConstants.CODE_DIR_POOL
+                + File.separator + name;
     }
 
-    /**
-     * 关闭容器池：停止清理调度器
-     */
-    public void shutdown() {
-        if (cleanupScheduler != null && !cleanupScheduler.isShutdown()) {
-            cleanupScheduler.shutdown();
-            log.info("容器池清理调度器已关闭");
+    public synchronized void shutdown() {
+        if (!running) return;
+        running = false;
+        shutdownWorkers();
+        JudgeTask task;
+        while ((task = taskQueue.poll()) != null) {
+            task.reject(SandBoxExecuteResult.fail(com.lyw.common.core.enums.CodeRunStatus.SYSTEM_BUSY));
         }
     }
 
-    // ==================== 扩容逻辑 ====================
-
-    /**
-     * 尝试创建临时容器（CAS 保证线程安全，不会超过 maxPoolSize）
-     */
-    private String tryCreateTempContainer() {
-        int current = currentSize.get();
-        while (current < maxPoolSize) {
-            if (currentSize.compareAndSet(current, current + 1)) {
-                String containerName = containerNamePrefix + "-tmp-" + tempContainerSeq.incrementAndGet();
-                log.info("高峰扩容，创建临时容器: {}，当前容器数: {}", containerName, currentSize.get());
-                String containerId = doCreateContainer(containerName);
-                containerNameMap.put(containerId, containerName);
-                // 直接返回给调用方，不放入队列
-                return containerId;
-            }
-            current = currentSize.get();
-        }
-        log.warn("容器池已达最大容量 {}，无法扩容", maxPoolSize);
-        return null;
-    }
-
-    // ==================== 缩容逻辑 ====================
-
-    /**
-     * 启动定时清理任务：周期性销毁空闲的临时容器
-     */
-    private void startCleanupTask() {
-        cleanupScheduler = Executors.newSingleThreadScheduledExecutor(r -> {
-            Thread t = new Thread(r, "sandbox-pool-cleanup");
-            t.setDaemon(true);
-            return t;
+    private void shutdownWorkers() {
+        workers.forEach(worker -> {
+            worker.stop();
+            destroyContainer(worker.containerId, worker.containerName);
+            containerNameMap.remove(worker.containerId);
         });
-        long checkInterval = Math.max(keepAliveTime / 2, 10000);
-        cleanupScheduler.scheduleAtFixedRate(this::cleanupIdleContainers,
-                keepAliveTime, checkInterval, TimeUnit.MILLISECONDS);
+        workers.clear();
+        currentSize.set(0);
     }
 
-    /**
-     * 清理空闲超时的临时容器（只清理临时容器，核心容器永不销毁）
-     */
-    private void cleanupIdleContainers() {
-        if (currentSize.get() <= corePoolSize) {
-            return;
-        }
-        long now = System.currentTimeMillis();
-        Iterator<Map.Entry<String, Long>> it = lastReturnTime.entrySet().iterator();
-        while (it.hasNext() && currentSize.get() > corePoolSize) {
-            Map.Entry<String, Long> entry = it.next();
-            String containerId = entry.getKey();
-            // 核心容器不清理
-            if (coreContainerIds.contains(containerId)) {
-                continue;
-            }
-            // 临时容器空闲超过 keepAliveTime 则销毁
-            if (now - entry.getValue() > keepAliveTime) {
-                if (containerQueue.remove(containerId)) {
-                    String containerName = containerNameMap.remove(containerId);
-                    destroyContainer(containerId, containerName);
-                    currentSize.decrementAndGet();
-                    it.remove();
-                    log.info("低峰缩容，销毁临时容器: {}，当前容器数: {}", containerName, currentSize.get());
-                }
-            }
-        }
+    private ContainerWorker addWorker(String name, boolean core, JudgeTask firstTask) {
+        String id = doCreateContainer(name);
+        destroyedContainers.remove(id);
+        containerNameMap.put(id, name);
+        currentSize.incrementAndGet();
+        ContainerWorker worker = new ContainerWorker(id, name, core, firstTask);
+        workers.add(worker);
+        return worker;
     }
 
-    /**
-     * 销毁容器：停止 -> 删除 -> 清理挂载目录
-     */
-    private void destroyContainer(String containerId, String containerName) {
-        try {
-            dockerClient.stopContainerCmd(containerId).exec();
-        } catch (Exception e) {
-            log.warn("停止容器 {} 失败: {}", containerName, e.getMessage());
-        }
-        try {
-            dockerClient.removeContainerCmd(containerId).withForce(true).exec();
-        } catch (Exception e) {
-            log.warn("移除容器 {} 失败: {}", containerName, e.getMessage());
-        }
-        if (containerName != null) {
-            String dir = System.getProperty("user.dir") + File.separator
-                    + JudgeConstants.CODE_DIR_POOL + File.separator + containerName;
-            FileUtil.del(dir);
-        }
-    }
+    private final class ContainerWorker implements Runnable {
+        private final String containerId;
+        private final String containerName;
+        private final boolean core;
+        private final JudgeTask firstTask;
+        private volatile boolean workerRunning = true;
+        private volatile boolean failed;
+        private Thread thread;
 
-    // ==================== 容器创建 ====================
+        private ContainerWorker(String id, String name, boolean core, JudgeTask firstTask) {
+            this.containerId = id; this.containerName = name; this.core = core; this.firstTask = firstTask;
+        }
+        private ContainerWorker start() {
+            thread = new Thread(this, "sandbox-worker-" + containerName);
+            thread.setDaemon(true); thread.start(); return this;
+        }
+        private void stop() { workerRunning = false; if (thread != null) thread.interrupt(); }
 
-    /**
-     * 创建或复用已有容器（支持服务重启后复用存量容器）
-     */
-    private String doCreateContainer(String containerName) {
-        // 检查是否已存在同名容器，存在则复用
-        List<Container> containerList = dockerClient.listContainersCmd().withShowAll(true).exec();
-        if (!CollectionUtil.isEmpty(containerList)) {
-            String names = JudgeConstants.JAVA_CONTAINER_PREFIX + containerName;
-            for (Container container : containerList) {
-                String[] containerNames = container.getNames();
-                if (containerNames != null && containerNames.length > 0 && names.equals(containerNames[0])) {
-                    if ("created".equals(container.getState()) || "exited".equals(container.getState())) {
-                        dockerClient.startContainerCmd(container.getId()).exec();
+        @Override public void run() {
+            JudgeTask task = firstTask;
+            try {
+                while (running && workerRunning) {
+                    if (task == null) {
+                        task = core ? taskQueue.take() : taskQueue.poll(keepAliveTime, TimeUnit.MILLISECONDS);
+                        if (task == null) break;
                     }
-                    return container.getId();
+                    executeTask(task); task = null;
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally { removeWorker(this); }
+        }
+
+        private void executeTask(JudgeTask task) {
+            if (!task.transition(JudgeTaskState.QUEUED, JudgeTaskState.RUNNING)) return;
+            try {
+                if (!isContainerRunning()) {
+                    throw new IllegalStateException("容器已停止: " + containerId);
+                }
+                var result = task.execute(containerId);
+                task.complete(result, result != null &&
+                        com.lyw.common.core.enums.CodeRunStatus.SUCCEED.equals(result.getRunStatus())
+                        ? JudgeTaskState.SUCCEEDED : JudgeTaskState.FAILED);
+            } catch (Exception e) {
+                log.error("容器执行任务失败，containerId={}, taskId={}", containerId, task.getTaskId(), e);
+                task.complete(null, JudgeTaskState.FAILED);
+                workerRunning = false;
+                failed = true;
+            }
+        }
+
+        private boolean isContainerRunning() {
+            var state = dockerClient.inspectContainerCmd(containerId).exec().getState();
+            return state != null && Boolean.TRUE.equals(state.getRunning());
+        }
+    }
+
+    private void removeWorker(ContainerWorker worker) {
+        if (!workers.remove(worker)) return;
+        currentSize.decrementAndGet();
+        destroyContainer(worker.containerId, worker.containerName);
+        containerNameMap.remove(worker.containerId);
+        if (worker.core && running) {
+            synchronized (this) {
+                if (running && workers.size() < corePoolSize) {
+                    try {
+                        addWorker(worker.containerName, true, null).start();
+                    } catch (RuntimeException e) {
+                        log.error("核心容器补建失败，判题服务核心容量暂时不足", e);
+                    }
                 }
             }
         }
-        // 不存在则创建新容器
-        HostConfig hostConfig = getHostConfig(containerName);
-        CreateContainerResponse response = dockerClient
-                .createContainerCmd(sandboxImage)
-                .withName(containerName)
-                .withEnv("JAVA_OPTS=-Djava.util.prefs.userRoot=/tmp/.java/.userPrefs")
-                .withHostConfig(hostConfig)
-                .withAttachStderr(true)
-                .withAttachStdout(true)
-                .withTty(true)
-                .exec();
-        String containerId = response.getId();
-        dockerClient.startContainerCmd(containerId).exec();
-        return containerId;
+    }
+
+    private String doCreateContainer(String name) {
+        List<Container> containers = dockerClient.listContainersCmd().withShowAll(true).exec();
+        if (!CollectionUtil.isEmpty(containers)) {
+            String expected = JudgeConstants.JAVA_CONTAINER_PREFIX + name;
+            for (Container c : containers) {
+                String[] names = c.getNames();
+                if (names != null && names.length > 0 && expected.equals(names[0])) {
+                    if ("created".equals(c.getState()) || "exited".equals(c.getState()))
+                        dockerClient.startContainerCmd(c.getId()).exec();
+                    return c.getId();
+                }
+            }
+        }
+        CreateContainerResponse response = dockerClient.createContainerCmd(sandboxImage)
+                .withName(name).withEnv("JAVA_OPTS=-Djava.util.prefs.userRoot=/tmp/.java/.userPrefs")
+                .withHostConfig(getHostConfig(name)).withAttachStderr(true).withAttachStdout(true)
+                .withTty(true).exec();
+        dockerClient.startContainerCmd(response.getId()).exec();
+        return response.getId();
     }
 
     private void pullJavaEnvImage() {
-        List<Image> imageList = dockerClient.listImagesCmd().exec();
-        for (Image image : imageList) {
-            String[] repoTags = image.getRepoTags();
-            if (repoTags != null && repoTags.length > 0 && sandboxImage.equals(repoTags[0])) {
-                return;
-            }
+        for (Image image : dockerClient.listImagesCmd().exec()) {
+            String[] tags = image.getRepoTags();
+            if (tags != null && tags.length > 0 && sandboxImage.equals(tags[0])) return;
         }
         try {
-            dockerClient.pullImageCmd(sandboxImage).exec(new PullImageResultCallback()).awaitCompletion();
+            dockerClient.pullImageCmd(sandboxImage)
+                    .exec(new com.github.dockerjava.core.command.PullImageResultCallback()).awaitCompletion();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt(); throw new IllegalStateException("Java 沙箱镜像拉取被中断", e);
         }
     }
 
-    private HostConfig getHostConfig(String containerName) {
-        HostConfig hostConfig = new HostConfig();
-        String userCodeDir = createContainerDir(containerName);
-        hostConfig.setBinds(new Bind(userCodeDir, new Volume(volumeDir)));
-        hostConfig.withMemory(memoryLimit);
-        hostConfig.withMemorySwap(memorySwapLimit);
-        hostConfig.withCpuCount(cpuLimit);
-        hostConfig.withNetworkMode("none");
-        hostConfig.withReadonlyRootfs(true);
-        return hostConfig;
+    private HostConfig getHostConfig(String name) {
+        HostConfig config = new HostConfig();
+        config.setBinds(new Bind(createContainerDir(name), new Volume(volumeDir)));
+        config.withMemory(memoryLimit).withMemorySwap(memorySwapLimit).withCpuCount(cpuLimit)
+                .withNetworkMode("none").withReadonlyRootfs(true);
+        return config;
     }
 
-    private String createContainerDir(String containerName) {
-        String codeDir = System.getProperty("user.dir") + File.separator + JudgeConstants.CODE_DIR_POOL;
-        if (!FileUtil.exist(codeDir)) {
-            FileUtil.mkdir(codeDir);
-        }
-        return codeDir + File.separator + containerName;
+    private String createContainerDir(String name) {
+        String dir = System.getProperty("user.dir") + File.separator + JudgeConstants.CODE_DIR_POOL;
+        if (!FileUtil.exist(dir)) FileUtil.mkdir(dir);
+        return dir + File.separator + name;
+    }
+
+    private void destroyContainer(String id, String name) {
+        if (id == null || !destroyedContainers.add(id)) return;
+        try { dockerClient.stopContainerCmd(id).exec(); } catch (Exception e) { log.warn("停止容器 {} 失败: {}", name, e.getMessage()); }
+        try { dockerClient.removeContainerCmd(id).withForce(true).exec(); } catch (Exception e) { log.warn("移除容器 {} 失败: {}", name, e.getMessage()); }
+        if (name != null) FileUtil.del(System.getProperty("user.dir") + File.separator + JudgeConstants.CODE_DIR_POOL + File.separator + name);
     }
 }

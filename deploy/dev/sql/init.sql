@@ -1,5 +1,5 @@
 #
-创建管理员账户
+-- 创建管理员账户
 create table tb_sys_user
 (
     user_id      bigint unsigned not null comment '用户id（主键）',
@@ -34,7 +34,7 @@ create table tb_question
     primary key (`question_id`)
 );
 
---竞赛管理
+-- 竞赛管理
 -- B端：列表、新增、编辑、删除、发布、撤销发布
 
 -- C端：列表（未开始、历史） 、报名参赛、我的比赛、参加竞赛（竞赛倒计时、竞赛内题目切换、完成竞赛） 、竞赛练习、查看排名、我的消息
@@ -50,7 +50,7 @@ create table tb_exam
     update_by   bigint unsigned comment '更新人',
     update_time datetime comment '更新时间',
     primary key (exam_id)
-)
+);
 
 -- 题目和竞赛之间是多对一的关系
 -- 题目和竞赛的关系表
@@ -65,7 +65,7 @@ create table tb_exam_question
     update_by        bigint unsigned comment '更新人',
     update_time      datetime comment '更新时间',
     primary key (exam_question_id)
-)
+);
 
 -- B端对C端的用户管理
 
@@ -89,7 +89,7 @@ create table tb_user(
     update_by    bigint unsigned  comment '更新人',
     update_time  datetime comment '更新时间',
     primary key(`user_id`)
-)
+);
 
 -- 用户竞赛报名 竞赛用户表
 create table tb_user_exam(
@@ -103,7 +103,7 @@ create table tb_user_exam(
     update_by    bigint unsigned  comment '更新人',
     update_time  datetime comment '更新时间',
     primary key(user_exam_id)
-)
+);
 
 
 
@@ -117,17 +117,18 @@ create table tb_user_submit(
     user_code   text NOT NULL COMMENT '用户代码',
     pass tinyint NOT NULL COMMENT '0：未通过  1：通过',
     exe_message  varchar(500) NOT NULL COMMENT '执行结果',
+    case_judge_res text COMMENT '用例判题结果(JSON)',
     score int NOT NULL DEFAULT '0' COMMENT '得分',
     create_by    bigint unsigned not null  comment '创建人',
     create_time  datetime not null comment '创建时间',
     update_by    bigint unsigned  comment '更新人',
     update_time  datetime comment '更新时间',
     primary key(`submit_id`)
-)
+);
 
 
 
-    消息内容表
+-- 消息内容表
 create table tb_message_text(
     text_id  bigint unsigned NOT NULL COMMENT '消息内容id（主键）',
     message_title varchar(10)  NOT NULL COMMENT '消息标题',
@@ -137,10 +138,10 @@ create table tb_message_text(
     update_by    bigint unsigned  comment '更新人',
     update_time  datetime comment '更新时间',
     primary key (text_id)
-)
+);
 
 
-    消息表
+-- 消息表
 create table tb_message(
     message_id  bigint unsigned NOT NULL COMMENT '消息id（主键）',
     text_id  bigint unsigned NOT NULL COMMENT '消息内容id（主键）',
@@ -151,7 +152,4 @@ create table tb_message(
     update_by    bigint unsigned  comment '更新人',
     update_time  datetime comment '更新时间',
     primary key (message_id)
-)
-
-
-
+);

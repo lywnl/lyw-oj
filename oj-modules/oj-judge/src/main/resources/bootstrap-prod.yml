@@ -1,4 +1,8 @@
 spring:
+  rabbitmq:
+    listener:
+      simple:
+        prefetch: ${sandbox.docker.pool.prefetch:8}
   application:
     name: oj-judge
 
@@ -20,4 +24,3 @@ spring:
         file-extension: yaml
         username: nacos
         password: lyw666
-
