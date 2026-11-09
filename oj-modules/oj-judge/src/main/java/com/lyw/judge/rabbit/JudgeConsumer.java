@@ -1,10 +1,13 @@
 package com.lyw.judge.rabbit;
 
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
+import com.lyw.api.domain.dto.JudgeSubmissionIdentity;
+import com.lyw.api.domain.enums.JudgeResultState;
 import com.lyw.api.domain.vo.UserQuestionResultVO;
 import com.lyw.common.core.constants.RabbitMQConstants;
 import com.lyw.common.core.enums.CodeRunStatus;
 import com.lyw.judge.service.IJudgeService;
+import com.lyw.judge.service.JudgeSystemException;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -13,51 +16,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
 @Slf4j
 public class JudgeConsumer {
-
     @Autowired
     private IJudgeService judgeService;
-
-    private static final int MAX_RETRY = 3;
+    private static final int MAX_ATTEMPTS = 3;
 
     @RabbitListener(queues = RabbitMQConstants.OJ_WORK_QUEUE, ackMode = "MANUAL",
             concurrency = "${sandbox.docker.pool.consumer-concurrency:8}")
-    public void consumeMsg(JudgeSubmitDTO judgeSubmitDTO, Channel channel,
+    public void consumeMsg(JudgeSubmitDTO submission, Channel channel,
                            @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
-        log.info("rabbitmq接收消息：{}", judgeSubmitDTO);
-        for (int i = 1; i <= MAX_RETRY; i++) {
+        if (!JudgeSubmissionIdentity.isValid(submission)) {
+            log.error("非法判题消息进入死信隔离，deliveryTag={}", deliveryTag);
+            MessageAcknowledgement.reject(channel, deliveryTag);
+            return;
+        }
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             try {
-                UserQuestionResultVO result = judgeService.doJudgeJavaCode(judgeSubmitDTO);
-                if (result != null && CodeRunStatus.SYSTEM_BUSY.getMsg().equals(result.getExeMessage())) {
-                    channel.basicNack(deliveryTag, false, false);
+                UserQuestionResultVO result = judgeService.doJudgeJavaCode(submission);
+                if (result == null || result.getResultState() != JudgeResultState.JUDGED) {
+                    throw new IllegalStateException("判题服务未返回已持久化结果");
+                }
+            } catch (Exception failure) {
+                if (failure instanceof JudgeSystemException system && system.getStatus() == CodeRunStatus.SYSTEM_BUSY) {
+                    MessageAcknowledgement.reject(channel, deliveryTag);
                     return;
                 }
-                channel.basicAck(deliveryTag, false);
-                return;
-            } catch (Exception e) {
-                log.warn("判题消费失败，第{}次重试，原因：{}", i, e.getMessage());
-                if (i < MAX_RETRY) {
-                    try {
-                        // 指数退避：1秒、2秒、4秒
-                        Thread.sleep(1000L * (1L << (i - 1)));
-                    } catch (InterruptedException ie) {
-                        Thread.currentThread().interrupt();
-                        break;
-                    }
+                log.warn("判题尝试失败，submitId={}，deliveryTag={}，次数={}，原因={}",
+                        submission.getSubmitId(), deliveryTag, attempt, failure.getMessage());
+                if (attempt == MAX_ATTEMPTS || Thread.currentThread().isInterrupted()) break;
+                try {
+                    Thread.sleep(1000L * (1L << (attempt - 1)));
+                } catch (InterruptedException interrupted) {
+                    Thread.currentThread().interrupt();
+                    break;
                 }
+                continue;
             }
+            // 与业务 try/catch 分离：ACK 失败不能触发再次判题。
+            MessageAcknowledgement.ack(channel, deliveryTag);
+            return;
         }
-        // 重试耗尽，拒绝消息，不重回队列，进入死信队列
-        log.error("判题消费失败，已重试{}次，消息进入死信队列，userId={}，questionId={}",
-                MAX_RETRY, judgeSubmitDTO.getUserId(), judgeSubmitDTO.getQuestionId());
-        try {
-            channel.basicNack(deliveryTag, false, false);
-        } catch (IOException e) {
-            log.error("消息nack失败：{}", e.getMessage());
-        }
+        MessageAcknowledgement.reject(channel, deliveryTag);
     }
 }

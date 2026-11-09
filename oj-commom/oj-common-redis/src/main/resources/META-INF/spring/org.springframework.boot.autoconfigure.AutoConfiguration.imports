@@ -1,2 +1,3 @@
 com.lyw.common.redis.service.RedisService
 com.lyw.common.redis.config.RedisConfig
+com.lyw.common.redis.service.StateCacheService

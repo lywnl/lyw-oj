@@ -9,6 +9,9 @@ import java.util.List;
 @Setter
 public class JudgeSubmitDTO {
 
+    // 同一次提交的消息重发、消费重试都沿用此 ID。
+    private Long submitId;
+
     private Long userId;
 
     private Long examId;

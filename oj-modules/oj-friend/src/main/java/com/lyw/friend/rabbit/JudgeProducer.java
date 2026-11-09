@@ -1,15 +1,17 @@
 package com.lyw.friend.rabbit;
 
+import com.alibaba.fastjson2.JSON;
+import com.lyw.api.domain.cache.JudgeResultCache;
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
-import com.lyw.api.domain.vo.UserQuestionResultVO;
+import com.lyw.api.domain.dto.JudgeSubmissionIdentity;
 import com.lyw.common.core.constants.CacheConstants;
-import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.constants.RabbitMQConstants;
 import com.lyw.common.core.enums.ResultCode;
-import com.lyw.common.redis.service.RedisService;
+import com.lyw.common.redis.service.StateCacheService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,106 +23,107 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class JudgeProducer {
-
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
     @Autowired
-    private RedisService redisService;
+    private StateCacheService stateCacheService;
 
     private static final int MAX_RETRY = 3;
-
-    // 记录待确认的消息，用于Confirm失败时重发
     private final ConcurrentHashMap<String, JudgeSubmitDTO> pendingMessages = new ConcurrentHashMap<>();
-    // 记录每条消息的重试次数
     private final ConcurrentHashMap<String, Integer> retryCount = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
-        // 消息到达交换机的确认回调
+        rabbitTemplate.setMandatory(true);
+        if (rabbitTemplate.getConnectionFactory() instanceof CachingConnectionFactory factory) {
+            factory.setPublisherReturns(true);
+            factory.setPublisherConfirmType(CachingConnectionFactory.ConfirmType.CORRELATED);
+        }
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
-            if (correlationData == null) {
-                return;
-            }
+            if (correlationData == null) return;
             String msgId = correlationData.getId();
             if (ack) {
-                // 确认成功，清理缓存
                 pendingMessages.remove(msgId);
                 retryCount.remove(msgId);
             } else {
-                // 确认失败，尝试重发
-                log.error("消息Confirm失败，msgId={}，原因：{}", msgId, cause);
+                log.warn("消息确认失败，messageId={}，原因={}", msgId, cause);
                 retryMessage(msgId);
             }
         });
-        // 消息从交换机路由到队列失败的回调
         rabbitTemplate.setReturnsCallback(returned -> {
-            log.error("消息路由到队列失败，交换机：{}，路由键：{}，原因：{}",
-                    returned.getExchange(), returned.getRoutingKey(), returned.getReplyText());
+            String msgId = returned.getMessage().getMessageProperties().getMessageId();
+            JudgeSubmitDTO submission = msgId == null ? null : pendingMessages.remove(msgId);
+            if (msgId != null) retryCount.remove(msgId);
+            // Returns 与 Confirm 可能交错，原始业务身份仍在消息正文中。
+            if (submission == null) {
+                try {
+                    submission = JSON.parseObject(returned.getMessage().getBody(), JudgeSubmitDTO.class);
+                } catch (Exception e) {
+                    log.error("无法识别退回消息，messageId={}", msgId);
+                    return;
+                }
+            }
+            log.warn("消息路由失败，messageId={}，submitId={}，原因={}", msgId,
+                    submission == null ? null : submission.getSubmitId(), returned.getReplyText());
+            markJudgeFailed(submission);
         });
     }
 
-    public void produceMsg(JudgeSubmitDTO judgeSubmitDTO) {
+    public void produceMsg(JudgeSubmitDTO submission) {
+        if (!JudgeSubmissionIdentity.isValid(submission)) throw new IllegalArgumentException("发送消息缺少有效提交身份");
         String msgId = UUID.randomUUID().toString();
-        pendingMessages.put(msgId, judgeSubmitDTO);
+        pendingMessages.put(msgId, submission);
         retryCount.put(msgId, 0);
         try {
-            CorrelationData correlationData = new CorrelationData(msgId);
-            rabbitTemplate.convertAndSend(
-                    RabbitMQConstants.OJ_EXCHANGE,
-                    RabbitMQConstants.OJ_ROUTING_KEY,
-                    judgeSubmitDTO,
-                    correlationData);
+            send(msgId, submission);
         } catch (Exception e) {
             pendingMessages.remove(msgId);
             retryCount.remove(msgId);
-            log.error("rabbitmq发送消息失败：{}", e.getMessage());
-            throw new RuntimeException(ResultCode.FAILED_RABBIT_PRODUCE.getMsg());
+            markJudgeFailed(submission);
+            throw new IllegalStateException(ResultCode.FAILED_RABBIT_PRODUCE.getMsg(), e);
         }
+    }
+
+    private void send(String msgId, JudgeSubmitDTO submission) {
+        rabbitTemplate.convertAndSend(RabbitMQConstants.OJ_EXCHANGE, RabbitMQConstants.OJ_ROUTING_KEY,
+                submission, message -> {
+                    message.getMessageProperties().setMessageId(msgId);
+                    message.getMessageProperties().setHeader("submitId", submission.getSubmitId().toString());
+                    return message;
+                }, new CorrelationData(msgId));
     }
 
     private void retryMessage(String msgId) {
-        int count = retryCount.getOrDefault(msgId, 0) + 1;
+        JudgeSubmitDTO submission = pendingMessages.get(msgId);
+        if (submission == null) return;
+        int count = retryCount.merge(msgId, 1, Integer::sum);
         if (count > MAX_RETRY) {
-            log.error("消息重发已达最大次数{}，放弃发送，msgId={}", MAX_RETRY, msgId);
-            // 重试耗尽，更新Redis为失败状态，让前端感知
-            JudgeSubmitDTO dto = pendingMessages.remove(msgId);
-            retryCount.remove(msgId);
-            if (dto != null) {
-                markJudgeFailed(dto);
-            }
-            return;
-        }
-        retryCount.put(msgId, count);
-        JudgeSubmitDTO dto = pendingMessages.get(msgId);
-        if (dto == null) {
-            return;
-        }
-        log.warn("消息第{}次重发，msgId={}", count, msgId);
-        try {
-            CorrelationData correlationData = new CorrelationData(msgId);
-            rabbitTemplate.convertAndSend(
-                    RabbitMQConstants.OJ_EXCHANGE,
-                    RabbitMQConstants.OJ_ROUTING_KEY,
-                    dto,
-                    correlationData);
-        } catch (Exception e) {
-            log.error("消息重发异常，msgId={}，原因：{}", msgId, e.getMessage());
             pendingMessages.remove(msgId);
             retryCount.remove(msgId);
-            markJudgeFailed(dto);
+            markJudgeFailed(submission);
+            return;
+        }
+        try {
+            log.info("消息重发，submitId={}，messageId={}，次数={}", submission.getSubmitId(), msgId, count);
+            send(msgId, submission);
+        } catch (Exception e) {
+            pendingMessages.remove(msgId);
+            retryCount.remove(msgId);
+            markJudgeFailed(submission);
         }
     }
 
-    private void markJudgeFailed(JudgeSubmitDTO dto) {
+    private void markJudgeFailed(JudgeSubmitDTO submission) {
+        if (!JudgeSubmissionIdentity.isValid(submission)) {
+            log.error("发送失败消息缺少提交身份，不能写结果缓存");
+            return;
+        }
         try {
-            String key = CacheConstants.getJudgeResultKey(dto.getUserId(), dto.getQuestionId(), dto.getExamId());
-            UserQuestionResultVO failResult = new UserQuestionResultVO();
-            failResult.setPass(Constants.FALSE);
-            failResult.setExeMessage("判题服务暂时不可用，请稍后重试");
-            redisService.setCacheObject(key, failResult, CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
+            stateCacheService.update(CacheConstants.getJudgeResultKey(submission.getUserId(), submission.getSubmitId()),
+                    JudgeResultCache.error(submission.getUserId(), submission.getSubmitId(), "判题服务暂时不可用，请继续查询结果"),
+                    CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
         } catch (Exception e) {
-            log.error("更新Redis判题失败状态异常：{}", e.getMessage());
+            log.warn("发送失败提示未写入缓存，submitId={}，原因={}", submission.getSubmitId(), e.getMessage());
         }
     }
 }

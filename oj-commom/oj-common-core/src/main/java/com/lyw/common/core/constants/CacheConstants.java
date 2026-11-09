@@ -50,7 +50,7 @@ public class CacheConstants {
 
     public static final long DEFAULT_END = -1;
 
-    public static String getJudgeResultKey(Long userId, Long questionId, Long examId) {
-        return JUDGE_RESULT + userId + ":" + questionId + ":" + (examId == null ? 0 : examId);
+    public static String getJudgeResultKey(Long userId, Long submitId) {
+        return JUDGE_RESULT + userId + ":" + submitId;
     }
 }

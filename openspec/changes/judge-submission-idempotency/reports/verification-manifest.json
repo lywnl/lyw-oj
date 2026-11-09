@@ -1,0 +1,1437 @@
+{
+  "mode": "manual",
+  "profile": "strict",
+  "created_at": "2026-11-08T18:00:18.063961+00:00",
+  "roots": {
+    "B": "/Users/lllyw/lyw-oj",
+    "F": "/Users/lllyw/oj-fe-c"
+  },
+  "requirements": [
+    {
+      "id": "judge/submission-results/同一次提交必须使用固定身份",
+      "name": "同一次提交必须使用固定身份",
+      "source": "B:openspec/changes/judge-submission-idempotency/specs/judge/submission-results/spec.md",
+      "status": "verified",
+      "implementation": [
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+        "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml"
+      ],
+      "tests": [
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ],
+      "scenarios": [
+        {
+          "id": "judge/submission-results/同一次提交必须使用固定身份/提交回执和发送不确定",
+          "name": "提交回执和发送不确定",
+          "status": "verified",
+          "implementation": [
+            "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+            "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+            "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+            "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+            "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml"
+          ],
+          "tests": [
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "failedSendKeepsGeneratedIdAndSerializesItAsString",
+            "retriesKeepBusinessIdAndOriginalDto"
+          ]
+        },
+        {
+          "id": "judge/submission-results/同一次提交必须使用固定身份/非法身份与越权",
+          "name": "非法身份与越权",
+          "status": "verified",
+          "implementation": [
+            "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+            "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+            "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+            "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+            "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml"
+          ],
+          "tests": [
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "controllerRejectsMissingMalformedAndOverflowIds",
+            "foreignCacheCannotBeReturned",
+            "missingLoginCannotReadCacheOrDatabase",
+            "productionQueryXmlReturnsOnlyTheAuthenticatedUsersSubmission",
+            "missingIdDoesNotExecuteBusiness"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "judge/submission-results/真实判题记录必须入库幂等",
+      "name": "真实判题记录必须入库幂等",
+      "source": "B:openspec/changes/judge-submission-idempotency/specs/judge/submission-results/spec.md",
+      "status": "verified",
+      "implementation": [
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ],
+      "scenarios": [
+        {
+          "id": "judge/submission-results/真实判题记录必须入库幂等/并发判题与插入冲突",
+          "name": "并发判题与插入冲突",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "twoRealExecutionsCommitOneCanonicalRecord",
+            "rollbackFinishesBeforeReusingPrimaryKeyWinner",
+            "cacheUsesDatabaseWinnerInsteadOfCurrentComputation"
+          ]
+        },
+        {
+          "id": "judge/submission-results/真实判题记录必须入库幂等/确认前断连",
+          "name": "确认前断连",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "realBrokerRedeliveryAfterCommitBeforeAckReusesDatabase",
+            "existingResultSkipsSandboxAndSurvivesCacheFailure"
+          ]
+        },
+        {
+          "id": "judge/submission-results/真实判题记录必须入库幂等/用户程序错误与系统故障",
+          "name": "用户程序错误与系统故障",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "systemResultsNeverInsert",
+            "dockerExceptionNeverInsert",
+            "compilationFailureIsARealResult",
+            "systemErrorCannotEnterInsertTransaction",
+            "insertFailureRollsBackAndRetryMayJudgeAgain"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "judge/submission-results/统一结果缓存必须防止真实状态降级",
+      "name": "统一结果缓存必须防止真实状态降级",
+      "source": "B:openspec/changes/judge-submission-idempotency/specs/judge/submission-results/spec.md",
+      "status": "verified",
+      "implementation": [
+        "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+        "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+        "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ],
+      "scenarios": [
+        {
+          "id": "judge/submission-results/统一结果缓存必须防止真实状态降级/状态更新竞争",
+          "name": "状态更新竞争",
+          "status": "verified",
+          "implementation": [
+            "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+            "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+            "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "realLuaPreservesPriorityLargeIdAndTtl",
+            "concurrentLuaCannotDowngradeRealResult",
+            "earlySystemFailureThenRealResultIsNotADuplicateKeyFailure",
+            "protectedRealCacheStillAcknowledgesTheDuplicate",
+            "returnedMessageStillReportsItsIdAfterConfirmMapWasCleared",
+            "synchronousSendFailureUsesConditionalErrorUpdate"
+          ]
+        },
+        {
+          "id": "judge/submission-results/统一结果缓存必须防止真实状态降级/缓存过期与恢复",
+          "name": "缓存过期与恢复",
+          "status": "verified",
+          "implementation": [
+            "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+            "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+            "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "cacheFailureAfterCommitAndExpiryCanBeRecoveredWithoutJudgingAgain",
+            "cacheServiceLoadsFromProductionAutoConfigurationMetadata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "judge/submission-results/查询必须区分暂时无结果与依赖故障",
+      "name": "查询必须区分暂时无结果与依赖故障",
+      "source": "B:openspec/changes/judge-submission-idempotency/specs/judge/submission-results/spec.md",
+      "status": "verified",
+      "implementation": [
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+        "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml",
+        "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+        "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+        "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ],
+      "scenarios": [
+        {
+          "id": "judge/submission-results/查询必须区分暂时无结果与依赖故障/普通缓存查询",
+          "name": "普通缓存查询",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+            "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml",
+            "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+            "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+            "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "ordinaryWaitingErrorAndMissingNeverQueryDatabase",
+            "judgedCacheAvoidsDatabaseEvenDuringVerification"
+          ]
+        },
+        {
+          "id": "judge/submission-results/查询必须区分暂时无结果与依赖故障/数据库核对与缓存故障",
+          "name": "数据库核对与缓存故障",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+            "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+            "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml",
+            "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+            "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+            "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+            "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "verificationFindsRealResultDespiteErrorCacheAndFailedRefill",
+            "redisReadFailureCanReturnDatabaseResult",
+            "unreadableCacheAndAbsentDatabaseAreQueryFailure",
+            "databaseFailureIsNotNoResult",
+            "productionQueryXmlReturnsOnlyTheAuthenticatedUsersSubmission"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果",
+      "name": "前端必须在限定窗口内继续查询迟到真实结果",
+      "source": "B:openspec/changes/judge-submission-idempotency/specs/judge/submission-results/spec.md",
+      "status": "verified",
+      "implementation": [
+        "F:src/utils/judgeResultPoller.js",
+        "F:src/views/Answer.vue",
+        "F:src/utils/request.js",
+        "F:src/apis/user.js",
+        "F:src/apis/question.js"
+      ],
+      "tests": [
+        "F:tests/judgeResultPoller.test.js",
+        "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+        "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+        "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+        "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png"
+      ],
+      "command_ids": [
+        "frontend-unit",
+        "frontend-build",
+        "ui-fixture"
+      ],
+      "scenarios": [
+        {
+          "id": "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果/临时错误后出现真实结果",
+          "name": "临时错误后出现真实结果",
+          "status": "verified",
+          "implementation": [
+            "F:src/utils/judgeResultPoller.js",
+            "F:src/views/Answer.vue",
+            "F:src/utils/request.js",
+            "F:src/apis/user.js",
+            "F:src/apis/question.js"
+          ],
+          "tests": [
+            "F:tests/judgeResultPoller.test.js",
+            "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+            "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+            "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+            "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+            "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+            "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png"
+          ],
+          "test_nodes": [
+            "系统错误后继续查询，后到的真实结果结束轮询",
+            "重复错误不延长窗口，末尾只核对一次数据库",
+            "Chrome stage=initial / send_failure_late_success"
+          ]
+        },
+        {
+          "id": "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果/最终核对与手动重新查询",
+          "name": "最终核对与手动重新查询",
+          "status": "verified",
+          "implementation": [
+            "F:src/utils/judgeResultPoller.js",
+            "F:src/views/Answer.vue",
+            "F:src/utils/request.js",
+            "F:src/apis/user.js",
+            "F:src/apis/question.js"
+          ],
+          "tests": [
+            "F:tests/judgeResultPoller.test.js",
+            "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+            "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+            "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+            "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+            "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+            "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png"
+          ],
+          "test_nodes": [
+            "第55秒取消普通请求后串行核对，不提示查询失败",
+            "最终核对受60秒总预算限制，超时只结束一次",
+            "手动重新查询先核对原ID，无结果后进入普通查询",
+            "Chrome stage=final_database_check / manual_requery"
+          ]
+        },
+        {
+          "id": "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果/迟到响应与查询失败",
+          "name": "迟到响应与查询失败",
+          "status": "verified",
+          "implementation": [
+            "F:src/utils/judgeResultPoller.js",
+            "F:src/views/Answer.vue",
+            "F:src/utils/request.js",
+            "F:src/apis/user.js",
+            "F:src/apis/question.js"
+          ],
+          "tests": [
+            "F:tests/judgeResultPoller.test.js",
+            "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+            "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+            "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+            "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+            "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+            "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+            "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png"
+          ],
+          "test_nodes": [
+            "切换提交后，旧请求即使晚到也不覆盖当前结果",
+            "页面取消请求不弹查询错误，也不再调度请求",
+            "普通查询失败暂停并允许使用同一ID重新开始",
+            "普通请求自身超时不能冒充页面主动取消",
+            "结果ID不匹配不能作为当前提交的真实结果展示",
+            "Chrome stage=submit_timeout / receipt_after_navigation / query_error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "judge/container-pool/满载时必须执行可观察的拒绝策略",
+      "name": "满载时必须执行可观察的拒绝策略",
+      "source": "B:openspec/changes/judge-submission-idempotency/specs/judge/container-pool/spec.md",
+      "status": "verified",
+      "implementation": [
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ],
+      "scenarios": [
+        {
+          "id": "judge/container-pool/满载时必须执行可观察的拒绝策略/同步任务达到容量上限",
+          "name": "同步任务达到容量上限",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "systemResultsNeverInsert"
+          ],
+          "validation_note": "核对同步控制器对 JudgeSystemException 的 SYSTEM_ERROR 响应以及原 submitId；未启动整套 Spring HTTP 服务。"
+        },
+        {
+          "id": "judge/container-pool/满载时必须执行可观察的拒绝策略/异步任务达到容量上限",
+          "name": "异步任务达到容量上限",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "busyIsRecognizedByStatusAndImmediatelyDeadLettered",
+            "protectedRealCacheStillAcknowledgesTheDuplicate"
+          ]
+        },
+        {
+          "id": "judge/container-pool/满载时必须执行可观察的拒绝策略/死信状态无法写入",
+          "name": "死信状态无法写入",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "threeCacheFailuresPauseWithoutAcknowledging",
+            "malformedMessageIsKeptWithoutCacheWrite",
+            "cacheFailurePausesOnlyDeadListenerAndBrokerRetainsThenRecoversMessage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "judge/container-pool/判题完成和容器故障必须正确收敛",
+      "name": "判题完成和容器故障必须正确收敛",
+      "source": "B:openspec/changes/judge-submission-idempotency/specs/judge/container-pool/spec.md",
+      "status": "verified",
+      "implementation": [
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ],
+      "scenarios": [
+        {
+          "id": "judge/container-pool/判题完成和容器故障必须正确收敛/用户代码判题失败后复用健康容器",
+          "name": "用户代码判题失败后复用健康容器",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "compilationFailureIsARealResult",
+            "substituteClientKeepsSingleExecutionAndCapacityAccounting"
+          ],
+          "validation_note": "验证本次真实失败的持久化边界并运行原有池化单元回归；容器健康检查与文件清理由既有引擎保持，本轮未改。"
+        },
+        {
+          "id": "judge/container-pool/判题完成和容器故障必须正确收敛/容器执行异常后隔离恢复",
+          "name": "容器执行异常后隔离恢复",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "dockerExceptionNeverInsert",
+            "systemResultsNeverInsert",
+            "substituteClientKeepsSingleExecutionAndCapacityAccounting"
+          ],
+          "validation_note": "新增系统故障零入库已验证；隔离/补建保留既有引擎，源码核对，未重复执行原 DockerSandBoxPoolIntegrationTest 的真实沙箱场景。"
+        },
+        {
+          "id": "judge/container-pool/判题完成和容器故障必须正确收敛/异步任务完成后确认消息",
+          "name": "异步任务完成后确认消息",
+          "status": "verified",
+          "implementation": [
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+            "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java"
+          ],
+          "tests": [
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+            "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java"
+          ],
+          "evidence": [
+            "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+            "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+            "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+            "B:.codex/judge-submission-idempotency/evidence/junit"
+          ],
+          "test_nodes": [
+            "acknowledgementFailureDoesNotRepeatBusiness",
+            "failedBusinessHasThreeAttemptsThenDeadLetter",
+            "ackFailureClosesChannelWithoutRetryingCacheWrite",
+            "realBrokerRedeliveryAfterCommitBeforeAckReusesDatabase"
+          ]
+        }
+      ],
+      "validation_note": "本轮真实中间件测试使用可控沙箱结果，符合已确认测试范围，不作为完整真实沙箱或性能验收。"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1.1",
+      "name": "增加消息 ID、字符串提交回执和三态结果、参数与归属验证；通过协议序列化、非法参数和发送失败回执测试。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/同一次提交必须使用固定身份"
+      ],
+      "implementation": [
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml"
+      ],
+      "tests": [
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "1.2",
+      "name": "实现单 key 缓存对象与共享 Lua 状态更新；通过真实 Redis 的并发顺序、同级不续期、过期和序列化测试。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/统一结果缓存必须防止真实状态降级"
+      ],
+      "implementation": [
+        "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+        "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+        "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "1.3",
+      "name": "改造生产者等待初始化、重发/路由/发送失败提示，移除破坏性删除；通过重发保留 ID 和晚到失败保护测试。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/同一次提交必须使用固定身份",
+        "judge/submission-results/统一结果缓存必须防止真实状态降级"
+      ],
+      "implementation": [
+        "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+        "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+        "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "2.1",
+      "name": "实现真实结果分类、消费前查询、短事务保存和冲突后复用；通过用户失败可入库、系统异常零入库及缓存失败不重判测试。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/真实判题记录必须入库幂等"
+      ],
+      "implementation": [
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "2.2",
+      "name": "分离普通消费业务重试与确认失败，非法消息隔离；通过三次处理、繁忙立即死信、ACK 失败不重跑测试。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/真实判题记录必须入库幂等",
+        "judge/container-pool/判题完成和容器故障必须正确收敛"
+      ],
+      "implementation": [
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "2.3",
+      "name": "实现独立死信监听、原子状态保护、有限重试和线程外暂停；通过受保护状态 ACK、三次失败保留及普通监听不受影响测试。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/container-pool/满载时必须执行可观察的拒绝策略"
+      ],
+      "implementation": [
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "2.4",
+      "name": "用隔离 MySQL/RabbitMQ 验证并发主键竞争、ACK 前断连重投、死信暂停与恢复，保留真实命令与结果证据。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/真实判题记录必须入库幂等",
+        "judge/container-pool/满载时必须执行可观察的拒绝策略"
+      ],
+      "implementation": [
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java"
+      ],
+      "tests": [
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "3.1",
+      "name": "实现普通 Redis 查询、显式核对、Redis 异常回源及用户隔离；通过数据库调用次数、缓存回填失败、查询异常与越权测试。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/查询必须区分暂时无结果与依赖故障"
+      ],
+      "implementation": [
+        "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+        "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+        "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml"
+      ],
+      "tests": [
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit"
+      ],
+      "command_ids": [
+        "backend"
+      ]
+    },
+    {
+      "id": "3.2",
+      "name": "实现串行 60 秒查询控制器、截止核对、手动核对和取消；用可控时钟覆盖 SYSTEM_ERROR 不停止/不续期、迟到 JUDGED、单在途与预算截止。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果"
+      ],
+      "implementation": [
+        "F:src/apis/question.js",
+        "F:src/apis/user.js",
+        "F:src/utils/judgeResultPoller.js",
+        "F:src/utils/request.js",
+        "F:src/views/Answer.vue"
+      ],
+      "tests": [
+        "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs",
+        "F:tests/judgeResultPoller.test.js"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+        "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+        "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png"
+      ],
+      "command_ids": [
+        "frontend-build",
+        "frontend-unit",
+        "ui-fixture"
+      ]
+    },
+    {
+      "id": "3.3",
+      "name": "接入 Answer 页面与 API、保留错误响应 ID 和鉴权；通过发送不确定、切题/离开/新提交、取消无重复提示测试和 npm 构建。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/同一次提交必须使用固定身份",
+        "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果"
+      ],
+      "implementation": [
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml",
+        "F:src/apis/question.js",
+        "F:src/apis/user.js",
+        "F:src/utils/judgeResultPoller.js",
+        "F:src/utils/request.js",
+        "F:src/views/Answer.vue"
+      ],
+      "tests": [
+        "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "F:tests/judgeResultPoller.test.js"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit",
+        "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+        "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png"
+      ],
+      "command_ids": [
+        "backend",
+        "frontend-build",
+        "frontend-unit",
+        "ui-fixture"
+      ]
+    },
+    {
+      "id": "3.4",
+      "name": "用 Chrome 验证实际页面的错误后继续、真实结果替换、超时手动查询和旧响应隔离，保留测试场景及截图证据。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果"
+      ],
+      "implementation": [
+        "F:src/apis/question.js",
+        "F:src/apis/user.js",
+        "F:src/utils/judgeResultPoller.js",
+        "F:src/utils/request.js",
+        "F:src/views/Answer.vue"
+      ],
+      "tests": [
+        "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs",
+        "F:tests/judgeResultPoller.test.js"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+        "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+        "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png"
+      ],
+      "command_ids": [
+        "frontend-build",
+        "frontend-unit",
+        "ui-fixture"
+      ]
+    },
+    {
+      "id": "4.1",
+      "name": "在 Docker JDK 17 下运行后端相关测试与 JudgeTaskTest、DockerSandBoxPoolConcurrencyTest，前端完成正式构建，两仓库 git diff --check 通过。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/同一次提交必须使用固定身份",
+        "judge/submission-results/真实判题记录必须入库幂等",
+        "judge/submission-results/统一结果缓存必须防止真实状态降级",
+        "judge/submission-results/查询必须区分暂时无结果与依赖故障",
+        "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果",
+        "judge/container-pool/满载时必须执行可观察的拒绝策略",
+        "judge/container-pool/判题完成和容器故障必须正确收敛"
+      ],
+      "implementation": [
+        "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+        "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+        "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+        "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+        "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+        "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "F:src/apis/question.js",
+        "F:src/apis/user.js",
+        "F:src/utils/judgeResultPoller.js",
+        "F:src/utils/request.js",
+        "F:src/views/Answer.vue"
+      ],
+      "tests": [
+        "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+        "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+        "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java",
+        "F:tests/judgeResultPoller.test.js"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+        "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+        "B:.codex/judge-submission-idempotency/evidence/junit",
+        "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+        "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+        "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+        "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png",
+        "B:.codex/judge-submission-idempotency/evidence/final-checks.json"
+      ],
+      "command_ids": [
+        "backend",
+        "frontend-build",
+        "frontend-unit",
+        "ui-fixture",
+        "backend-diff",
+        "frontend-diff",
+        "planning-baseline",
+        "openspec-validate"
+      ]
+    },
+    {
+      "id": "4.2",
+      "name": "核对全部需求场景映射，清理本轮隔离进程、容器与依赖缓存，保留必要原始验收证据和已有基准报告，并记录清理结果。",
+      "status": "verified",
+      "requirement_ids": [
+        "judge/submission-results/同一次提交必须使用固定身份",
+        "judge/submission-results/真实判题记录必须入库幂等",
+        "judge/submission-results/统一结果缓存必须防止真实状态降级",
+        "judge/submission-results/查询必须区分暂时无结果与依赖故障",
+        "judge/submission-results/前端必须在限定窗口内继续查询迟到真实结果",
+        "judge/container-pool/满载时必须执行可观察的拒绝策略",
+        "judge/container-pool/判题完成和容器故障必须正确收敛"
+      ],
+      "implementation": [
+        "B:.codex/judge-submission-idempotency/cleanup_resources.py"
+      ],
+      "tests": [
+        "B:.codex/judge-submission-idempotency/cleanup_resources.py"
+      ],
+      "evidence": [
+        "B:.codex/judge-submission-idempotency/evidence/cleanup.json",
+        "B:.codex/judge-submission-idempotency/evidence/environment-baseline.json",
+        "B:.codex/judge-submission-idempotency/evidence/resources.json",
+        "B:.codex/judge-submission-idempotency/evidence/source-recheck.json"
+      ],
+      "command_ids": [
+        "cleanup"
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "id": "backend",
+      "command": "docker create --name codex-oj-idem-4f488e98-final-backend --label codex.task=judge-submission-idempotency --network codex-oj-idem-4f488e98 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/judge-submission-idempotency/backend-build,dst=/workspace --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/judge-submission-idempotency/maven-cache,dst=/maven -w /workspace maven:3.9.9-eclipse-temurin-17 mvn -B --no-transfer-progress -Dmaven.repo.local=/maven -pl oj-modules/oj-friend,oj-modules/oj-judge -am test -Dtest=UserQuestionResultTest,UserQuestionLookupIntegrationTest,JudgeProducerTest,JudgeServiceIdempotencyTest,UserSubmitStoreTest,JudgeConsumerTest,DeadLetterConsumerTest,JudgeStorageIntegrationTest,DeadLetterIntegrationTest,JudgeTaskTest,DockerSandBoxPoolConcurrencyTest -Dsurefire.failIfNoSpecifiedTests=false -Doj.integration=true",
+      "cwd": "B:.codex/judge-submission-idempotency/backend-build",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:18:54.776138+00:00",
+      "finished_at": "2026-11-08T17:19:19.011313+00:00",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+      "cwd_after_cleanup": "本轮隔离目录已按计划清理，原工作目录保留为历史执行位置"
+    },
+    {
+      "id": "frontend-unit",
+      "command": "npm test --cache /Users/lllyw/oj-fe-c/.codex/judge-submission-idempotency/npm-cache --userconfig /Users/lllyw/oj-fe-c/.codex/judge-submission-idempotency/empty.npmrc --globalconfig /Users/lllyw/oj-fe-c/.codex/judge-submission-idempotency/global.npmrc",
+      "cwd": "F:.",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:16:28.072427+00:00",
+      "finished_at": "2026-11-08T17:16:28.368498+00:00",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+      "cwd_after_cleanup": "retained"
+    },
+    {
+      "id": "frontend-build",
+      "command": "npm run build --cache /Users/lllyw/oj-fe-c/.codex/judge-submission-idempotency/npm-cache --userconfig /Users/lllyw/oj-fe-c/.codex/judge-submission-idempotency/empty.npmrc --globalconfig /Users/lllyw/oj-fe-c/.codex/judge-submission-idempotency/global.npmrc",
+      "cwd": "F:.codex/judge-submission-idempotency/build",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:16:28.368781+00:00",
+      "finished_at": "2026-11-08T17:16:31.332765+00:00",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/frontend-build-command.json",
+      "cwd_after_cleanup": "本轮隔离目录已按计划清理，原工作目录保留为历史执行位置"
+    },
+    {
+      "id": "backend-diff",
+      "command": "git diff --check",
+      "cwd": "B:.",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:52:18.534Z",
+      "finished_at": "2026-11-08T17:52:18.625Z",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/final-checks.json"
+    },
+    {
+      "id": "frontend-diff",
+      "command": "git diff --check",
+      "cwd": "F:.",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:52:18.547Z",
+      "finished_at": "2026-11-08T17:52:18.625Z",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/final-checks.json"
+    },
+    {
+      "id": "planning-baseline",
+      "command": "python3 .codex/judge-submission-idempotency/manual_baseline.py check",
+      "cwd": "B:.",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:52:18.547Z",
+      "finished_at": "2026-11-08T17:52:18.678Z",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/final-checks.json"
+    },
+    {
+      "id": "openspec-validate",
+      "command": "openspec validate judge-submission-idempotency --strict --no-interactive",
+      "cwd": "B:.",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:52:18.547Z",
+      "finished_at": "2026-11-08T17:52:58.716Z",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/final-checks.json"
+    },
+    {
+      "id": "cleanup",
+      "command": "python3 .codex/judge-submission-idempotency/cleanup_resources.py",
+      "cwd": "B:.",
+      "exit_code": 0,
+      "started_at": "2026-11-08T17:50:51.707005+00:00",
+      "finished_at": "2026-11-08T17:50:54.571574+00:00",
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/cleanup.json"
+    },
+    {
+      "id": "ui-fixture",
+      "command": "node .codex/judge-submission-idempotency/ui-fixture.mjs",
+      "cwd": "F:.",
+      "exit_code": 143,
+      "evidence": "B:.codex/judge-submission-idempotency/evidence/ui-fixture-command.json",
+      "exit_note": "补充轮 PID 38591 在完成页面验收后主动 SIGTERM，按终端返回记录实际退出码；首轮和补充轮请求按 stage 区分。",
+      "validation": "Chrome 页面操作以 ui-audit.json、ui-requests.jsonl 和截图核验；不将进程退出码视为浏览器断言结果。"
+    }
+  ],
+  "limitations": [
+    "数据库、Redis、RabbitMQ 为真实 Docker 服务；沙箱计算为受控替身。",
+    "Chrome 使用真实页面和受控 HTTP API，未部署生产完整链路。",
+    "原始命令的临时 cwd 已清理，保留实际历史位置，复跑需要重建隔离目录。",
+    "7 项需求、18 个场景、13 个任务按此清单核对；既有未改执行引擎的边界见对应场景说明。"
+  ]
+}

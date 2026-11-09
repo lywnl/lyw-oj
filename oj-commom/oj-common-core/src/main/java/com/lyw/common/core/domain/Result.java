@@ -41,6 +41,10 @@ public class Result<T> {
         return assembleResult(null, resultCode);
     }
 
+    public static <T> Result<T> fail(ResultCode resultCode, T data) {
+        return assembleResult(data, resultCode);
+    }
+
     private static <T> Result assembleResult(T data, ResultCode resultCode) {
         Result<T> r = new Result<>();
         r.setCode(resultCode.getCode());

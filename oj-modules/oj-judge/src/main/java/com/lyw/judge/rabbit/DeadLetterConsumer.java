@@ -1,17 +1,17 @@
 package com.lyw.judge.rabbit;
 
+import com.alibaba.fastjson2.JSON;
+import com.lyw.api.domain.cache.JudgeResultCache;
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
-import com.lyw.api.domain.vo.UserQuestionResultVO;
+import com.lyw.api.domain.dto.JudgeSubmissionIdentity;
 import com.lyw.common.core.constants.CacheConstants;
-import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.constants.RabbitMQConstants;
-import com.lyw.common.redis.service.RedisService;
+import com.lyw.common.redis.service.StateCacheService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -19,32 +19,56 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class DeadLetterConsumer {
-
     @Autowired
-    private RedisService redisService;
+    private StateCacheService stateCacheService;
+    @Autowired
+    private DeadLetterListenerLifecycle lifecycle;
 
-    @RabbitListener(queues = RabbitMQConstants.OJ_DLX_QUEUE, ackMode = "MANUAL")
-    public void consumeDeadLetter(JudgeSubmitDTO judgeSubmitDTO, Channel channel,
-                                  @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
-        log.error("死信队列收到消息，判题失败：userId={}，questionId={}，examId={}",
-                judgeSubmitDTO.getUserId(), judgeSubmitDTO.getQuestionId(), judgeSubmitDTO.getExamId());
+    @RabbitListener(id = DeadLetterListenerLifecycle.LISTENER_ID, queues = RabbitMQConstants.OJ_DLX_QUEUE,
+            containerFactory = "deadLetterContainerFactory", ackMode = "MANUAL")
+    public void consumeDeadLetter(Message message, Channel channel) {
+        long tag = message.getMessageProperties().getDeliveryTag();
+        String messageId = message.getMessageProperties().getMessageId();
+        JudgeSubmitDTO submission;
         try {
-            // 更新Redis缓存为失败状态，让前端轮询感知到判题失败
-            String key = CacheConstants.getJudgeResultKey(
-                    judgeSubmitDTO.getUserId(), judgeSubmitDTO.getQuestionId(), judgeSubmitDTO.getExamId());
-            UserQuestionResultVO failResult = new UserQuestionResultVO();
-            failResult.setPass(Constants.FALSE);
-            failResult.setExeMessage("系统判题异常，请稍后重试");
-            redisService.setCacheObject(key, failResult, CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
-            channel.basicAck(deliveryTag, false);
+            submission = JSON.parseObject(message.getBody(), JudgeSubmitDTO.class);
+            if (!JudgeSubmissionIdentity.isValid(submission)) throw new IllegalArgumentException("非法提交身份");
         } catch (Exception e) {
-            log.error("死信队列消费异常：{}", e.getMessage());
+            log.error("非法死信保留待人工处理，queue={}，messageId={}，deliveryTag={}",
+                    RabbitMQConstants.OJ_DLX_QUEUE, messageId, tag);
+            pause(channel);
+            return;
+        }
+        for (int attempt = 1; attempt <= 3; attempt++) {
             try {
-                // 死信消费失败也ACK，避免消息堆积（已记录日志）
-                channel.basicAck(deliveryTag, false);
-            } catch (Exception ex) {
-                log.error("死信队列ACK失败：{}", ex.getMessage());
+                stateCacheService.update(CacheConstants.getJudgeResultKey(submission.getUserId(), submission.getSubmitId()),
+                        JudgeResultCache.error(submission.getUserId(), submission.getSubmitId(), "系统判题异常，请继续查询结果"),
+                        CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
+            } catch (Exception e) {
+                log.error("死信缓存更新失败，queue={}，submitId={}，messageId={}，次数={}，原因={}",
+                        RabbitMQConstants.OJ_DLX_QUEUE, submission.getSubmitId(), messageId, attempt, e.getMessage());
+                if (attempt == 3 || Thread.currentThread().isInterrupted()) break;
+                try {
+                    Thread.sleep(attempt * 1000L);
+                } catch (InterruptedException interrupted) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+                continue;
             }
+            // 被已有真实/同级结果保护也算完成，不要求发生一次实际覆盖。
+            MessageAcknowledgement.ack(channel, tag);
+            return;
+        }
+        pause(channel);
+    }
+
+    private void pause(Channel channel) {
+        try {
+            lifecycle.pause();
+        } catch (RuntimeException shutdownFailure) {
+            log.error("无法调度死信监听暂停，关闭通道保留未确认消息");
+            MessageAcknowledgement.abort(channel);
         }
     }
 }

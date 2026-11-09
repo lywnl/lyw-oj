@@ -1,22 +1,23 @@
 package com.lyw.judge.service.impl;
 
-import com.alibaba.fastjson2.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lyw.api.domain.UserExeResult;
+import com.lyw.api.domain.cache.JudgeResultCache;
 import com.lyw.api.domain.dto.JudgeSubmitDTO;
+import com.lyw.api.domain.dto.JudgeSubmissionIdentity;
+import com.lyw.api.domain.enums.JudgeResultState;
 import com.lyw.api.domain.vo.UserQuestionResultVO;
 import com.lyw.common.core.constants.CacheConstants;
 import com.lyw.common.core.constants.Constants;
 import com.lyw.common.core.constants.JudgeConstants;
 import com.lyw.common.core.enums.CodeRunStatus;
-import com.lyw.common.redis.service.RedisService;
+import com.lyw.common.redis.service.StateCacheService;
 import com.lyw.judge.domain.SandBoxExecuteResult;
 import com.lyw.judge.domain.UserSubmit;
-import com.lyw.judge.mapper.UserSubmitMapper;
 import com.lyw.judge.service.IJudgeService;
 import com.lyw.judge.service.ISandboxPoolService;
+import com.lyw.judge.service.JudgeSystemException;
+import com.lyw.judge.service.UserSubmitStore;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,41 +33,59 @@ public class JudgeServiceImpl implements IJudgeService {
     private ISandboxPoolService sandboxPoolService;
 
     @Autowired
-    private UserSubmitMapper userSubmitMapper;
+    private UserSubmitStore userSubmitStore;
 
     @Autowired
-    private RedisService redisService;
+    private StateCacheService stateCacheService;
 
     @Override
     public UserQuestionResultVO doJudgeJavaCode(JudgeSubmitDTO judgeSubmitDTO) {
-        SandBoxExecuteResult sandBoxExecuteResult = sandboxPoolService
-                .exeJavaCode(judgeSubmitDTO.getUserId(), judgeSubmitDTO.getUserCode(), judgeSubmitDTO.getInputList());
-        UserQuestionResultVO userQuestionResultVO = new UserQuestionResultVO();
-        if (sandBoxExecuteResult != null && CodeRunStatus.SYSTEM_BUSY.equals(sandBoxExecuteResult.getRunStatus())) {
-            userQuestionResultVO.setPass(Constants.FALSE);
-            userQuestionResultVO.setScore(JudgeConstants.ERROR_SCORE);
-            userQuestionResultVO.setExeMessage(CodeRunStatus.SYSTEM_BUSY.getMsg());
-            updateJudgeResultCache(judgeSubmitDTO, userQuestionResultVO);
-            return userQuestionResultVO;
+        if (!JudgeSubmissionIdentity.isValid(judgeSubmitDTO)) {
+            throw new IllegalArgumentException("判题消息缺少有效提交身份");
         }
-        if (sandBoxExecuteResult != null && CodeRunStatus.SUCCEED.equals(sandBoxExecuteResult.getRunStatus())) {
+        UserSubmit existing = userSubmitStore.findCompleted(judgeSubmitDTO);
+        if (existing != null) return returnSaved(judgeSubmitDTO, existing);
+        if (judgeSubmitDTO.getUserCode() == null || judgeSubmitDTO.getInputList() == null
+                || judgeSubmitDTO.getOutputList() == null
+                || judgeSubmitDTO.getInputList().size() != judgeSubmitDTO.getOutputList().size()) {
+            throw new JudgeSystemException(CodeRunStatus.UNKNOWN_FAILED);
+        }
+        SandBoxExecuteResult sandBoxExecuteResult;
+        try {
+            sandBoxExecuteResult = sandboxPoolService.exeJavaCode(judgeSubmitDTO.getUserId(),
+                    judgeSubmitDTO.getUserCode(), judgeSubmitDTO.getInputList());
+        } catch (Exception e) {
+            throw new JudgeSystemException(CodeRunStatus.UNKNOWN_FAILED, e);
+        }
+        if (sandBoxExecuteResult == null || sandBoxExecuteResult.getRunStatus() == null) {
+            throw new JudgeSystemException(CodeRunStatus.UNKNOWN_FAILED);
+        }
+        CodeRunStatus status = sandBoxExecuteResult.getRunStatus();
+        if (status == CodeRunStatus.SYSTEM_BUSY || status == CodeRunStatus.UNKNOWN_FAILED
+                || status == CodeRunStatus.RUNNING) {
+            throw new JudgeSystemException(status == CodeRunStatus.SYSTEM_BUSY
+                    ? CodeRunStatus.SYSTEM_BUSY : CodeRunStatus.UNKNOWN_FAILED);
+        }
+        UserQuestionResultVO userQuestionResultVO = new UserQuestionResultVO();
+        if (status == CodeRunStatus.SUCCEED) {
+            if (sandBoxExecuteResult.getOutputList() == null || sandBoxExecuteResult.getUseMemory() == null
+                    || sandBoxExecuteResult.getUseTime() == null || judgeSubmitDTO.getDifficulty() == null
+                    || judgeSubmitDTO.getSpaceLimit() == null || judgeSubmitDTO.getTimeLimit() == null) {
+                throw new JudgeSystemException(CodeRunStatus.UNKNOWN_FAILED);
+            }
             //比对直接结果 时间限制 空间限制比对
             userQuestionResultVO = doJudge(judgeSubmitDTO, sandBoxExecuteResult, userQuestionResultVO);
         } else {
             userQuestionResultVO.setPass(Constants.FALSE);
-            if (sandBoxExecuteResult != null) {
-                userQuestionResultVO.setExeMessage(sandBoxExecuteResult.getExeMessage());
-            } else {
-                userQuestionResultVO.setExeMessage(CodeRunStatus.UNKNOWN_FAILED.getMsg());
-            }
+            userQuestionResultVO.setExeMessage(sandBoxExecuteResult.getExeMessage() == null
+                    ? status.getMsg() : sandBoxExecuteResult.getExeMessage());
 
             userQuestionResultVO.setScore(JudgeConstants.ERROR_SCORE);
         }
 
-        // 先更新Redis缓存（让前端轮询立即感知结果），再写数据库
-        updateJudgeResultCache(judgeSubmitDTO, userQuestionResultVO);
-        saveUserSubmit(judgeSubmitDTO, userQuestionResultVO);
-        return userQuestionResultVO;
+        userQuestionResultVO.setSubmitId(judgeSubmitDTO.getSubmitId());
+        userQuestionResultVO.setResultState(JudgeResultState.JUDGED);
+        return returnSaved(judgeSubmitDTO, userSubmitStore.saveOrReuse(judgeSubmitDTO, userQuestionResultVO));
     }
 
     private UserQuestionResultVO doJudge(JudgeSubmitDTO judgeSubmitDTO, SandBoxExecuteResult sandBoxExecuteResult, UserQuestionResultVO userQuestionResultVO) {
@@ -149,24 +168,15 @@ public class JudgeServiceImpl implements IJudgeService {
         return isPass;
     }
 
-    private void updateJudgeResultCache(JudgeSubmitDTO judgeSubmitDTO, UserQuestionResultVO userQuestionResultVO) {
-        String key = CacheConstants.getJudgeResultKey(
-                judgeSubmitDTO.getUserId(), judgeSubmitDTO.getQuestionId(), judgeSubmitDTO.getExamId());
-        redisService.setCacheObject(key, userQuestionResultVO, CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
-    }
-
-    private void saveUserSubmit(JudgeSubmitDTO judgeSubmitDTO, UserQuestionResultVO userQuestionResultVO) {
-        UserSubmit userSubmit = new UserSubmit();
-        BeanUtils.copyProperties(userQuestionResultVO, userSubmit);
-        userSubmit.setUserId(judgeSubmitDTO.getUserId());
-        userSubmit.setQuestionId(judgeSubmitDTO.getQuestionId());
-        userSubmit.setExamId(judgeSubmitDTO.getExamId());
-        userSubmit.setProgramType(judgeSubmitDTO.getProgramType());
-        userSubmit.setUserCode(judgeSubmitDTO.getUserCode());
-        userSubmit.setCaseJudgeRes(JSON.toJSONString(userQuestionResultVO.getUserExeResultList()));
-        userSubmit.setCreateBy(judgeSubmitDTO.getUserId());
-
-        userSubmitMapper.insert(userSubmit);
+    private UserQuestionResultVO returnSaved(JudgeSubmitDTO submission, UserSubmit saved) {
+        UserQuestionResultVO result = UserSubmitStore.toResult(saved);
+        try {
+            stateCacheService.update(CacheConstants.getJudgeResultKey(submission.getUserId(), submission.getSubmitId()),
+                    JudgeResultCache.judged(submission.getUserId(), result), CacheConstants.JUDGE_RESULT_TTL, TimeUnit.MINUTES);
+        } catch (Exception e) {
+            log.warn("真实结果已保存但缓存更新失败，submitId={}，原因={}", submission.getSubmitId(), e.getMessage());
+        }
+        return result;
     }
 
 }

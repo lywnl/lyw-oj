@@ -1,0 +1,2677 @@
+{
+  "format": "manual-multi-root-file-list",
+  "mode": "manual",
+  "profile": "strict",
+  "created_at": "2026-11-08T18:00:18.307162+00:00",
+  "executor": "/root",
+  "roots": {
+    "B": "/Users/lllyw/lyw-oj",
+    "F": "/Users/lllyw/oj-fe-c"
+  },
+  "scopes": {
+    "B": [
+      ".agents/shared/openspec",
+      ".agents/skills/openspec-apply-change",
+      ".agents/skills/openspec-review-change",
+      ".agents/skills/openspec-verify-change",
+      ".codex/judge-submission-idempotency",
+      ".codex/plans/判题提交幂等与系统失败反馈改造执行计划.md",
+      "AGENTS.md",
+      "oj-api/pom.xml",
+      "oj-api/src",
+      "oj-commom/oj-common-core/pom.xml",
+      "oj-commom/oj-common-core/src",
+      "oj-commom/oj-common-elasticsearch/pom.xml",
+      "oj-commom/oj-common-file/pom.xml",
+      "oj-commom/oj-common-message/pom.xml",
+      "oj-commom/oj-common-mybatis/pom.xml",
+      "oj-commom/oj-common-rabbitmq/pom.xml",
+      "oj-commom/oj-common-rabbitmq/src",
+      "oj-commom/oj-common-redis/pom.xml",
+      "oj-commom/oj-common-redis/src",
+      "oj-commom/oj-common-security/pom.xml",
+      "oj-commom/oj-common-swagger/pom.xml",
+      "oj-commom/pom.xml",
+      "oj-gateway/pom.xml",
+      "oj-modules/oj-friend/pom.xml",
+      "oj-modules/oj-friend/src",
+      "oj-modules/oj-job/pom.xml",
+      "oj-modules/oj-judge/pom.xml",
+      "oj-modules/oj-judge/src",
+      "oj-modules/oj-system/pom.xml",
+      "oj-modules/pom.xml",
+      "openspec/changes/judge-submission-idempotency",
+      "openspec/config.yaml",
+      "openspec/specs/judge/container-pool/spec.md",
+      "pom.xml"
+    ],
+    "F": [
+      "src",
+      "tests",
+      "package.json",
+      "package-lock.json",
+      "vite.config.js"
+    ]
+  },
+  "excluded_output_files": [
+    "openspec/changes/judge-submission-idempotency/reports/verification-inputs.json",
+    "openspec/changes/judge-submission-idempotency/reports/verification-inputs.md"
+  ],
+  "excluded_directory_names": [
+    ".git",
+    "__pycache__",
+    "node_modules",
+    "target"
+  ],
+  "normalization": "none（包含原始任务完成状态）",
+  "entries": [
+    {
+      "path": "B:.agents/shared/openspec",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.agents/shared/openspec/project-context.md",
+      "type": "file",
+      "sha256": "7fcd62d9e0c8257044f34ab08dc2c1a5830d427dfd8e7992c06532375ee13d71",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/shared/openspec/review-checklist.md",
+      "type": "file",
+      "sha256": "f9b0b88624f17a916b52c027ec9490abc64484ad935b33dc24df36a33a76a3fa",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/shared/openspec/scripts",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.agents/shared/openspec/scripts/archive_checkpoint.py",
+      "type": "file",
+      "sha256": "1adfb611c4890d60b2fce28dfc03d1893ea44adac82725a5c3315ba9dbb46cab",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/shared/openspec/scripts/evidence.py",
+      "type": "file",
+      "sha256": "41ce338f9192ab63f47ba78ef2efedc038e3273b8430e26f62d75a14184afa5a",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/shared/openspec/scripts/evidence_manifest.py",
+      "type": "file",
+      "sha256": "fbc2095dfc310ea167b9e410fdbb8e705750cd95ef0d00c7ab4b88cb7f29c28b",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/shared/openspec/scripts/test_evidence.py",
+      "type": "file",
+      "sha256": "869bd3cb4244d51e1f9f1d339ac9a2779387328f364442bba7d25d3fccc33c25",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/shared/openspec/verification-evidence.md",
+      "type": "file",
+      "sha256": "6061d192eefbb4b0e8207b36d78a0ebb1aef7904f5d9caf6a5fbd52cb600cd19",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/shared/openspec/workflow-policy.md",
+      "type": "file",
+      "sha256": "8a324454d91d27dda2fbf140198cbbc7413c3ca3fd9a1af75553b12517b60d1d",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/skills/openspec-apply-change",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.agents/skills/openspec-apply-change/SKILL.md",
+      "type": "file",
+      "sha256": "f6520a47c7a62b3a7988597c75721470bf0a711094a5d539aea193b9139ff8b3",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/skills/openspec-review-change",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.agents/skills/openspec-review-change/SKILL.md",
+      "type": "file",
+      "sha256": "5274cb3aeb7db1ff741925013940778134bc493aca77ed25b9b1c7c2d3aeba76",
+      "executable": 0
+    },
+    {
+      "path": "B:.agents/skills/openspec-verify-change",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.agents/skills/openspec-verify-change/SKILL.md",
+      "type": "file",
+      "sha256": "74032e79fbc63e8cb59838c0e9ff846c7350f2db1bab074bc08494165a4ca0ff",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/cleanup_resources.py",
+      "type": "file",
+      "sha256": "2435ec8c1ab9030ac001f92a2811ea852edb2cee5b2fb3ea4b1d75f1b9cd03d9",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/environment-baseline.json",
+      "type": "file",
+      "sha256": "164184cbaa4e15b7a7e54d7163c7a8147d0cb9a3a6d79f9b40e799f804ab6901",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempt-history.json",
+      "type": "file",
+      "sha256": "2abef41120fdba2f3c592f7d8ec76ea23d4079fd4ae993f0d058e3974b0fb71f",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/compile-1-command.json",
+      "type": "file",
+      "sha256": "06ba1577cbd6fd5d5a24f7dc2c94b493a0e46678d042072581ba7e31990fc313",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/compile-1.log",
+      "type": "file",
+      "sha256": "414e4b6dd76ddea1bf86d38f1c1b2dc1069ea9550e05f4050a074a585b451918",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/compile-2-command.json",
+      "type": "file",
+      "sha256": "d112e18cc5533ef9bfeb5e3e699e6bc7b40f8193d22175a8271e6c730454e884",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/compile-2.log",
+      "type": "file",
+      "sha256": "79b6e8622a54ba5c2d421a7ed38414953d4591211593fce207992ad591574c3b",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/integration-1-command.json",
+      "type": "file",
+      "sha256": "f133cc2907461f5b1dee22f52f3607e82f2c4dadba311aced3d3084727638526",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/integration-1.log",
+      "type": "file",
+      "sha256": "87212b5977915a0b1f7e35829a7d15eb466f0bbd9afa55622b3e827e5b01206b",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/unit-1-command.json",
+      "type": "file",
+      "sha256": "c8f6305b837040efad004891407687f6173948a5dd95481e4109abc66560fa22",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/attempts/unit-1.log",
+      "type": "file",
+      "sha256": "e3ef99ff424cea81bba89493e7f58c878aaf4cb12246b0cf043ed8d12be595b5",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/backend-test-summary.json",
+      "type": "file",
+      "sha256": "cb2f84f680f048a6fedb3d61a37e171a2102595d2ab95a30edf8130944db1461",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/cleanup.json",
+      "type": "file",
+      "sha256": "61be64f923591998c716225fd941cc2e16b4c90f98f99d87cc350e62cbd65837",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/completion-checks.json",
+      "type": "file",
+      "sha256": "3b232b909274111b390d2bd39b5c079fa7f6e719676b27d929b3118e698f1e44",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/environment-baseline.json",
+      "type": "file",
+      "sha256": "164184cbaa4e15b7a7e54d7163c7a8147d0cb9a3a6d79f9b40e799f804ab6901",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/final-backend-command.json",
+      "type": "file",
+      "sha256": "1f4e851817711ec121491a7703780fbcffb65fb30b43328bf4674433c2ada6c7",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/final-backend.log",
+      "type": "file",
+      "sha256": "933dc1e843c84ee4a2446fd347e93ce740fa8d92f103a52b004b473a1b355cf8",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/final-checks.json",
+      "type": "file",
+      "sha256": "d310ec262748e9417993eb7c0a766ec3a590281c29f89e388e85b8da641513d3",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/final-git-status.json",
+      "type": "file",
+      "sha256": "f117d29ad676e22412af6fc2e4dabb0bae48fa46685c10b2f443fb203d8a6bd7",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/final-source-files.json",
+      "type": "file",
+      "sha256": "399faf86f7a621b637148812d86190bc84d231b92058653f575b79e3151c7d94",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/frontend-build-command.json",
+      "type": "file",
+      "sha256": "ba71c474972647912e4fce7677f606cc0f165053ad656fbaaed42c3bf0a8ad5f",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/frontend-build.log",
+      "type": "file",
+      "sha256": "93e49a79306b2421e6ed6a7dd7a2ddfe13a792a90ba7b22929130d5f2facc24b",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/frontend-unit-command.json",
+      "type": "file",
+      "sha256": "7a0f8de9f7df400c45891b2057e3aaf29e8e6e3780057b015f5f98a4d1aff583",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/frontend-unit.log",
+      "type": "file",
+      "sha256": "c0fb3d55de5651161cb833b18d81649f153a261eb10babf72670380b8f824632",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-friend",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-friend/TEST-com.lyw.friend.service.JudgeProducerTest.xml",
+      "type": "file",
+      "sha256": "19d26f57b2d261d6878c52d6eb27ce49c4e0044933314e1f00cf53b45b2f10ab",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-friend/TEST-com.lyw.friend.service.UserQuestionLookupIntegrationTest.xml",
+      "type": "file",
+      "sha256": "11e82adab3bd851e51116b30a784f992234ab948cb5f4235602787b00d1f72de",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-friend/TEST-com.lyw.friend.service.UserQuestionResultTest.xml",
+      "type": "file",
+      "sha256": "8d74ea1c15e687450991bf0a817218fbdda99bc083f909da94a134785b5bb073",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.config.DockerSandBoxPoolConcurrencyTest.xml",
+      "type": "file",
+      "sha256": "edb7ebc00a73f1646b39f4317bea427554dc9f15cbb976cd22696172b26db0fd",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.domain.JudgeTaskTest.xml",
+      "type": "file",
+      "sha256": "e6f45bcbcc21e5d682e6077a7b8e3d0e7f3fe360a0d84fce8cec4f339850312a",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.rabbit.DeadLetterConsumerTest.xml",
+      "type": "file",
+      "sha256": "0cdab6db86345bfc2efd7226b40823da3ab2e28c22eccbcd915f1db3a08a0058",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.rabbit.DeadLetterIntegrationTest.xml",
+      "type": "file",
+      "sha256": "c73fa78d5f150aeb0a59f169713154e8cae413c46c090520f653a07c31edffea",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.rabbit.JudgeConsumerTest.xml",
+      "type": "file",
+      "sha256": "3147275c895aa43ce8901efd8ca023b26d2149d17532036804003a13dadf01f6",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.service.JudgeServiceIdempotencyTest.xml",
+      "type": "file",
+      "sha256": "c3e60a9876d42231de9381c8e6ceef8122b28a3af0d7c366f3e3f0768c0d7151",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.service.JudgeStorageIntegrationTest.xml",
+      "type": "file",
+      "sha256": "b828371ac33ed859b928ad1d4e66ad0a91c2f8326a1fa8e2fd866a7700db7d61",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/junit/oj-judge/TEST-com.lyw.judge.service.UserSubmitStoreTest.xml",
+      "type": "file",
+      "sha256": "34ce8a99c06d6fc8213f7f8069f147ecd257d6b8e2d047d9cf0dbf34da54e24a",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/resources.json",
+      "type": "file",
+      "sha256": "b241ae12f1747a9d67c9d302f4f1e6f7b9fe22e0fee01a8c919488a7a14dd30e",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/runtime-environment.json",
+      "type": "file",
+      "sha256": "a839034e9be101c3bdf9774ea3d98377a228d1e90da5b0aa0e53a92a2135ec46",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/source-recheck.json",
+      "type": "file",
+      "sha256": "fe1341c24c2334b23548e6c35335a1c74d92dc3a75f3976668fe5468941073db",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/support",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/support/run_maven.py",
+      "type": "file",
+      "sha256": "248397f2d79f0daa5369b52926849963725df1d4c2c82ae07b8c78e07b39f41c",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/support/ui-fixture.mjs",
+      "type": "file",
+      "sha256": "1860d3ad7fd0514520312a011651c5466a347e7b2ff407cfbbdfd20800e5384f",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-audit.json",
+      "type": "file",
+      "sha256": "801f53853fc82975cac1060ce760e9c7a56315864200a6f8b3c57a8ba8be83aa",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-browser-logs.json",
+      "type": "file",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-final-database-result.png",
+      "type": "file",
+      "sha256": "b32ac6a1dd4b6f2305eb3bee54c808aa99bc0676ee3a83ab84ae9f7085e53474",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-fixture-command.json",
+      "type": "file",
+      "sha256": "58651d86227e4c2a15be322cf87a13709eba0c71676f9ba18246411c735f2083",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-fixture.json",
+      "type": "file",
+      "sha256": "75fe31776789c986aaa6a4ec9000016067130fc33679b4539abd51cb458d4367",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-late-receipt-isolated.png",
+      "type": "file",
+      "sha256": "11b4f812bab8e5a6b24eb9a36ed37a9c2cdbba5bed9e18a8c1a94afc3edbf312",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-process-stop.json",
+      "type": "file",
+      "sha256": "49e6aec4d483ac8314faaf9045d14abb06ef81ea56fe44a798263ecf78880c04",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-query-error.png",
+      "type": "file",
+      "sha256": "86cb48e5474a8dffc155b983ad1af32051a1fae86a733f66a3aa128ad7a0cc27",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-real-result.png",
+      "type": "file",
+      "sha256": "b32ac6a1dd4b6f2305eb3bee54c808aa99bc0676ee3a83ab84ae9f7085e53474",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-requests.jsonl",
+      "type": "file",
+      "sha256": "3f7916427f3ffd6ceb4527d0ba285b39098c96bf2c29eb4501107c47eedc966a",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-send-failure-recovered.png",
+      "type": "file",
+      "sha256": "b32ac6a1dd4b6f2305eb3bee54c808aa99bc0676ee3a83ab84ae9f7085e53474",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-submit-timeout.png",
+      "type": "file",
+      "sha256": "c43ce13112f096d10cfbe0e3eb6571146eb7b1e890d28382aaf36a7b92cc3f3d",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/evidence/ui-system-error-polling.png",
+      "type": "file",
+      "sha256": "ec9a7d2ea38930fb451da04c679b6f5645497cd71c2ac2f28674171a2e6340a8",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/manual_baseline.py",
+      "type": "file",
+      "sha256": "7648efadcb1977f0915979ff7f53d64d5f01cd23eec4f1acd72ed4a9fc7bd92b",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/manual_verification.py",
+      "type": "file",
+      "sha256": "0782eafc21c4f1ba152bb170930b4320a1d92ad38bc911b297ab747a10e604aa",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/resources.json",
+      "type": "file",
+      "sha256": "b241ae12f1747a9d67c9d302f4f1e6f7b9fe22e0fee01a8c919488a7a14dd30e",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/run_maven.py",
+      "type": "file",
+      "sha256": "248397f2d79f0daa5369b52926849963725df1d4c2c82ae07b8c78e07b39f41c",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/judge-submission-idempotency/write_verification_manifest.py",
+      "type": "file",
+      "sha256": "b79c4c53d1794833e5091ca5f59b6b2d564bf1fbcf17f8b75d8a8d77acc8dc21",
+      "executable": 0
+    },
+    {
+      "path": "B:.codex/plans/判题提交幂等与系统失败反馈改造执行计划.md",
+      "type": "file",
+      "sha256": "329acb0d50b63118c5b480164a7c8d9b636cd3251395e2e44a0a1b6c28dbb89e",
+      "executable": 0
+    },
+    {
+      "path": "B:AGENTS.md",
+      "type": "file",
+      "sha256": "20357a5428a4639631d2cccf23c6b9eb47b615960acc1f30db1a77c7f4bb4409",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/pom.xml",
+      "type": "file",
+      "sha256": "312243068b145a3df49fdab7e9a94072b80244f2f0dcfc873825dfc85e99ef17",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/UserExeResult.java",
+      "type": "file",
+      "sha256": "3a3bb5e8889f343bfb1a225dde2e555ac58c57882d8623189370157f072db078",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/cache",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/cache/JudgeResultCache.java",
+      "type": "file",
+      "sha256": "42f4975e919eefd6e28590c6ce9c3fba762ff9a34ea3b2ee701541358594e633",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/dto",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmissionIdentity.java",
+      "type": "file",
+      "sha256": "4b15b2de3fc6e04f5d1129fd0b09c828a3237f5e6d5ff3758486775bca567711",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/dto/JudgeSubmitDTO.java",
+      "type": "file",
+      "sha256": "15151cf3702da819a4f067bef8b57c36b5bcf6153ca45ad726128e66076be685",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/enums",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/enums/JudgeResultState.java",
+      "type": "file",
+      "sha256": "93d505d908e7cc5c70e7268d13279bbcee1052751926902fd2c2e47dacbc7960",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/vo",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionResultVO.java",
+      "type": "file",
+      "sha256": "60d0aa03aecee1da43692565438438ca119d9214cea2319a2fa17d305f9f4cf3",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/domain/vo/UserQuestionSubmitVO.java",
+      "type": "file",
+      "sha256": "4ab54d1cbcce3eeb7650e524de242dfff12fb564e98ff8da916a1e125269a11d",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/service",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-api/src/main/java/com/lyw/api/service/RemoteJudgeService.java",
+      "type": "file",
+      "sha256": "3796740586340de4ee004d893f4d044fcd7a2aa3c7b7361a400ff5b845aaa25f",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/pom.xml",
+      "type": "file",
+      "sha256": "be4cef1ab34ec92aa86556cbfb559609e79f9697da579e5aaca9e815de22f242",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/CacheConstants.java",
+      "type": "file",
+      "sha256": "2f06ab240f957d54cc036f28e6e560667187b41c81a617dc575ca7afb37c57d0",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/Constants.java",
+      "type": "file",
+      "sha256": "9346d9395951bb0d95a42bc10d2843a49cef73360d9c01787f5a18605209e71e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/HttpConstants.java",
+      "type": "file",
+      "sha256": "b52ee6e55697d7bf49e7aa23e2a377bf8c37f5acd970e37e82f8c75dd9d25a32",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/JudgeConstants.java",
+      "type": "file",
+      "sha256": "adfb3ee3e3d5a4911887868a52d1ab2f3a46bb8400d0bd120e2da5701afac4fd",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/JwtConstants.java",
+      "type": "file",
+      "sha256": "b0a10c8f8aa5609d01cf27733cbc7bd34ba996e8cc171a346b6dd58bd1500864",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/constants/RabbitMQConstants.java",
+      "type": "file",
+      "sha256": "41586f7d26c94d8b4e78e942d0179860b72ec4a9592a6d8a3e472f58d8395269",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/controller",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/controller/BaseController.java",
+      "type": "file",
+      "sha256": "2d96aabfa158144527d1c6e293be98ddfdc020b3b2df38fc415b0b00b44d64e3",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/BaseEntity.java",
+      "type": "file",
+      "sha256": "c0bd633bef2b3d0b01cb4fd57ca857dea73397084f94566eba4a1d1019b71f7a",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/LoginUser.java",
+      "type": "file",
+      "sha256": "1648b06f461b1459c525da07af9234527ec9c38026dc8a9ab61ad67c4da3e6ae",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/Result.java",
+      "type": "file",
+      "sha256": "200e7626316cbfdb4e7c68fce7942c4aa2f23eaf512fe98c47508675af368ec6",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/TableDataInfo.java",
+      "type": "file",
+      "sha256": "f53b1fb3ce7f8a8c8914fa23ed9a5894ece434bfb7371b2eb5a93f5447aa8088",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/dto",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/dto/PageQueryDTO.java",
+      "type": "file",
+      "sha256": "49aeb1dca746bac6a0560f7b0fc551be424c0426bcae4693c7f6059b19595ffa",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/vo",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/domain/vo/LoginUserVO.java",
+      "type": "file",
+      "sha256": "0ce507859e389ad6edf4c6d7a873b0d92bcbff173f10e18f18baa42e49df10bb",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/CodeRunStatus.java",
+      "type": "file",
+      "sha256": "94b7122edbe8a58a7ee5a056f5f7fa71d8092ae7221dcb2f440fc84a5b7e54ca",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ExamListType.java",
+      "type": "file",
+      "sha256": "a83e1854d8be630a23f22bfa1a3587a541e0821b889d9b1b7821486bde08866d",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ProgramType.java",
+      "type": "file",
+      "sha256": "cd679fea348550767d33730f586ed672bb7b6181031f1d027b40ba57b4164e49",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/QuestionResult.java",
+      "type": "file",
+      "sha256": "219d6355122e26ef266386f5281baff1ccc564463821cea4cb2b3d0fc6335375",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+      "type": "file",
+      "sha256": "7dd841fcc2f4b6c3a60698c4954546a46ba426e9f603917a9b125a04901165a4",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/UserIdentity.java",
+      "type": "file",
+      "sha256": "0f844d2b1eeb6382eca86c6cbfe5ec0714cb0f584e50b406438d9bfdad38af1b",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/UserStatus.java",
+      "type": "file",
+      "sha256": "fa9196b5474cb01e5369f30861b5d82b3b0570154718e4b05e048486cc27f94b",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/utils",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/utils/JwtUtils.java",
+      "type": "file",
+      "sha256": "9ab6ac24ac8bf955ed385824dbba9a5fafc37a24ee992214e0711aff26b06277",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-core/src/main/java/com/lyw/common/core/utils/ThreadLocalUtil.java",
+      "type": "file",
+      "sha256": "3f3b65dbc43a068bd255e88cfe9a2607a1a3603895a9b7da0ea8a34897faf5b6",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-elasticsearch/pom.xml",
+      "type": "file",
+      "sha256": "06529bbec506f405965063c89055567f26664530ccc29627870bfbe38ac01a0b",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-file/pom.xml",
+      "type": "file",
+      "sha256": "4ad1af71064c52b0e9bf2cd8c72660db143d9e3053bbf8b635d3b14597a33b57",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-message/pom.xml",
+      "type": "file",
+      "sha256": "fb695ed8855be4885ad81dbf78af2e7f3c77c9449fd5e848dc4bcb2decea3052",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-mybatis/pom.xml",
+      "type": "file",
+      "sha256": "7fb0bfa397e3458cd8b94e4326e737f8d76de10feecb69a94bfb7cd35f2362a5",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/pom.xml",
+      "type": "file",
+      "sha256": "59fdcd9c81afc03693c27a6562203bf7c79d92d58bcb17556006a1d2c4b8d80f",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/java/com/lyw/common",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/java/com/lyw/common/rabbitmq",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/java/com/lyw/common/rabbitmq/config",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/java/com/lyw/common/rabbitmq/config/RabbitConfig.java",
+      "type": "file",
+      "sha256": "cf8944cb7b723fe086c9b8e6579d5b7b6a5df557057e31deb4a4967165ad6cdc",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/resources",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/resources/META-INF",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/resources/META-INF/spring",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-rabbitmq/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+      "type": "file",
+      "sha256": "67b96e68780b1f571f2198f772c64a9e72d386314c08da1fa84c6b3f411dc650",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/pom.xml",
+      "type": "file",
+      "sha256": "5d977ba6971697b156aa79f09e5afd055ec4565231ced65e1b3b3f275438c1d1",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/config",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/config/JsonRedisSerializer.java",
+      "type": "file",
+      "sha256": "c8714a1ef8e1c015749e27efaaf73d86299104f41e3c2c94dcc683661877da73",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/config/RedisConfig.java",
+      "type": "file",
+      "sha256": "1295bc86643cd6663a611171b2c6f68f3548126e3b655a0648465da097285169",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/RedisService.java",
+      "type": "file",
+      "sha256": "b964e42ebb9306a8d699e6014d9f0012cff64b9e5551b02d9494f05478366fc8",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/java/com/lyw/common/redis/service/StateCacheService.java",
+      "type": "file",
+      "sha256": "708915f9fd9f346159302b358854e16d69a3fc7d411f2bef499bd0ae996d3ff0",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/resources",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/resources/META-INF",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/resources/META-INF/spring",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+      "type": "file",
+      "sha256": "ea7d86aec212b4263bc99b4a77ea0d0d57c44f519dff2b98cfeed6c26f3d62f9",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/resources/lua",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-commom/oj-common-redis/src/main/resources/lua/update-result-state.lua",
+      "type": "file",
+      "sha256": "b0a95fad5219aa9594eb5da5757c6090b201a4e2be77367d6aa2f205ae80e895",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-security/pom.xml",
+      "type": "file",
+      "sha256": "17f7c675cc580fe7da1bc4fc6deead02e8c0fb66970a1a0d6bcfd0fa7c895466",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/oj-common-swagger/pom.xml",
+      "type": "file",
+      "sha256": "86b5f8fc17986e3cf91b7ce1b3106b5610d17b97a705a8b9e413878a57f705b6",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-commom/pom.xml",
+      "type": "file",
+      "sha256": "e5cb568324ea6b9f00ba19898e04e38fb13b4ece893624e2460f6570a227c8f0",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-gateway/pom.xml",
+      "type": "file",
+      "sha256": "3926b51d036c550c9fc2bf9d9265f911ab1292d6704b47c7368ba37033aba8c2",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/pom.xml",
+      "type": "file",
+      "sha256": "577138b20c055ea9bfdbd3c701fff860c55c565548ec25b8720a643dc4386fb0",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/OjFriendApplication.java",
+      "type": "file",
+      "sha256": "2fe080575e05524824f7e3581c28d84bb977af7f9c2758ba3c0a912330ad58c6",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/aspect",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/aspect/CheckUserStatus.java",
+      "type": "file",
+      "sha256": "45d31ef2a180113f8c661c2fcafbfdae0c6069ec7a2bc1f87c00ac1e67f2655a",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/aspect/UserStatusCheckAspect.java",
+      "type": "file",
+      "sha256": "7e0ee58eef4d1aba222960f9de88501c454d78eb11b51c8d7d30c2336c1788c7",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/exam",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/exam/ExamController.java",
+      "type": "file",
+      "sha256": "be942e08dc4b5c7b3dc33ea0e1def657084ca342eef2b068ef7f6c1dd7562410",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/file",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/file/FileController.java",
+      "type": "file",
+      "sha256": "233068da82f743a91418ac373479bb8ee91a38c6b1c02fb92377638256fe10a2",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/question/QuestionController.java",
+      "type": "file",
+      "sha256": "d1ac71f89b9a7ee40898addbaff70bcde65db339826fafe4f5dbf4a2d4a4f851",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserController.java",
+      "type": "file",
+      "sha256": "b13356924b4d17b6d9352e119d4e22a8b6b830e076239bfa080d4762f32ac3bc",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserExamController.java",
+      "type": "file",
+      "sha256": "ade49e92246040e4efadf47812a0c46971348febb1cd84cb5cbb49a6bf822d60",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserMessageController.java",
+      "type": "file",
+      "sha256": "e86fbdd2cca0ebebd983e0077c1e1a8efd79861df1088e8ca48424aed920df3e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/controller/user/UserQuestionController.java",
+      "type": "file",
+      "sha256": "c103b5e251fe81bdb2787f5116d9def6af4f788fa0b8daaf31c1b9b9b128d2e0",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/Exam.java",
+      "type": "file",
+      "sha256": "a36b410cd5499bff822abde1d631f49011d1e5925e65d1cffecdb7b17fe9e7bb",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/ExamQuestion.java",
+      "type": "file",
+      "sha256": "05578022d5c0b73b877017f1c2196efaf193b3e99b09bf0ef32d930034fdb38a",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/dto",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/dto/ExamDTO.java",
+      "type": "file",
+      "sha256": "f1202a4f2b22a4a8522da1ea0a5ed864b959e95a4125ea903c4610ab94ddaf02",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/dto/ExamQueryDTO.java",
+      "type": "file",
+      "sha256": "9bf37e20204b2c4525d78b2eb923a39897e38465b60e404a53212e3a6de4b29d",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/dto/ExamRankDTO.java",
+      "type": "file",
+      "sha256": "6ef43fa559e9f480bedc4db47cd6bac9bdedb739689a1766701faa9f3b705831",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/vo",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/vo/ExamRankVO.java",
+      "type": "file",
+      "sha256": "6267f8f316c6d623153bde1e54be58b7a7057f8e3759c6e856c770db81508afb",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/exam/vo/ExamVO.java",
+      "type": "file",
+      "sha256": "b6b78a4bfb9735103d1f0fb36d44142ee1effa3aba9c79021e5d045a1f5079c3",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/message",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/message/MessageText.java",
+      "type": "file",
+      "sha256": "fbacc46a217fceb318d751f74273af2f4a905fdb2ef18cba6b22ad6836a4900a",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/message/vo",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/message/vo/MessageTextVO.java",
+      "type": "file",
+      "sha256": "2eaca9dbe363ad65ff3870cac21453ee65db22bd37af12f1785045113cbda6c2",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/Question.java",
+      "type": "file",
+      "sha256": "2e959051829f81fb230f3845480b0aa4b577980bb2bd7d499738fd5b3bd3bfdc",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/QuestionCase.java",
+      "type": "file",
+      "sha256": "664179a72d732f989372ba9c69ed0bc42edc92361fb861a6ea61c5415d6a2c02",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/dto",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/dto/QuestionQueryDTO.java",
+      "type": "file",
+      "sha256": "0297b3324c5a75b92d24b82cd377151a059bd59d91bb1b3c1ce8735843a9d0a7",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/es",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/es/QuestionES.java",
+      "type": "file",
+      "sha256": "4e75524192739b70c7713eacd0daf091bcd9c638664f8faa6f7bc2bb43802022",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/vo",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/vo/QuestionDetailVO.java",
+      "type": "file",
+      "sha256": "62a79936e9fab1fd0e3f3a13cd85ca13d76ff913def4f54a2342b413af7a635e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/vo/QuestionVO.java",
+      "type": "file",
+      "sha256": "0a4a97c3f2b24fc04059636fa09f518e3740f8d553b44b9444a8c3e53ada3a99",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/User.java",
+      "type": "file",
+      "sha256": "b7cbbcc7a9dad0f48abb6de61cea0323cecd1cdd653b370f6b07cb858f33ff7b",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/UserExam.java",
+      "type": "file",
+      "sha256": "be92d70bf498a93886570e73dead902420fda2195c900ecad97ed35a90efb1a6",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/UserSubmit.java",
+      "type": "file",
+      "sha256": "5d97cd3c2c87cf1fce07d82aea1856f341f74fab5d79f2ae51dc9ef5f4bb172f",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/dto",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/dto/UserDTO.java",
+      "type": "file",
+      "sha256": "acb9404290a00383ba34031115137b66fee209d7763dea082b850553a44f793e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/dto/UserQuestionSubmitDTO.java",
+      "type": "file",
+      "sha256": "7bbf28b78548c0caf8253f21672eea61c6517d7c1e0716ce0969083540c66009",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/dto/UserUpdateDTO.java",
+      "type": "file",
+      "sha256": "a7223db2ca6ae9fb013cdd977c6aad3f68924c434b6eacb60ea82d7be92aaef5",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/user/vo/UserVO.java",
+      "type": "file",
+      "sha256": "6d573e628619dafcab5f6b26587d9c006389ab7075d2707105f516a0252b8f1e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/elasticsearch",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/elasticsearch/QuestionRepository.java",
+      "type": "file",
+      "sha256": "62725e3f22a8dfd3adbd394c61c709cf75d7a00c274eab952d4e17cb2b49db9a",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/manager",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/manager/ExamCacheManager.java",
+      "type": "file",
+      "sha256": "0623d71da649b0a655eb48b5c32adaf7353fb96cb99c8315749d74d5708f0ec1",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/manager/MessageCacheManager.java",
+      "type": "file",
+      "sha256": "32433a37e900d3da2d0f8e9f5fe9b33d769b59315bd5e20211e973da3ce6decb",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/manager/QuestionCacheManager.java",
+      "type": "file",
+      "sha256": "10a580ec3934d2d826ec68187b712302c1977c950ef93e45d48365832bc4a181",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/manager/UserCacheManager.java",
+      "type": "file",
+      "sha256": "39850d6248034361bfc9001744e4b4de4a20ac6a9a7dd56f08a3367ac67d11c8",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/exam",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/exam/ExamMapper.java",
+      "type": "file",
+      "sha256": "4a2e59545f4e428e83d1bddd2d3120212db6efc56bca1e1e5c0dada2dbc01a30",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/exam/ExamQuestionMapper.java",
+      "type": "file",
+      "sha256": "cb5546cefeb586ee00217925e43e9c520e526e92e23eee5b669de6eac4a1296b",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/message",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/message/MessageTextMapper.java",
+      "type": "file",
+      "sha256": "03e71d75af00b772ff04655e8b7fc7e1a1889cd1e194d8a5ca94cffb42df4444",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/question",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/question/QuestionMapper.java",
+      "type": "file",
+      "sha256": "8aa9c0c3a8af3b116bfe68f52ffc2d8b3ad6f37b25be1ad21b363a5904430457",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserExamMapper.java",
+      "type": "file",
+      "sha256": "243d08df3361b790f2631c935126fa2617e927c61af54c12e0022d5cd66be71d",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserMapper.java",
+      "type": "file",
+      "sha256": "33087a16ed6d660b8deac761a28a4a65c4d0f94284a403b906a9c1221dbf6b3d",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/mapper/user/UserSubmitMapper.java",
+      "type": "file",
+      "sha256": "b10c3bc1dac707aae8a1290fbd1d2b619c322beb0b37c1a8d82591d0d5b91aeb",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/rabbit/JudgeProducer.java",
+      "type": "file",
+      "sha256": "5181aabc32f534dd6eecd0233fcd09bd63b7667204e43e7ac8f53cdfaeb33597",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam/IExamService.java",
+      "type": "file",
+      "sha256": "73a332d676dee5b1a82dc018ae557092127bbbc07c9f9caef601c0f4cb60a1d8",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam/impl",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/exam/impl/ExamServiceImpl.java",
+      "type": "file",
+      "sha256": "be7017ecb7a186ac3f18bcea6e97f64571b101b4051d47aded65b28ca2a48351",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/file",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/file/IFileService.java",
+      "type": "file",
+      "sha256": "87fbab2844656902a6f75f6a76d2968697a4f9e0b5148ec4ebaae753f133aaee",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/file/impl",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/file/impl/FileServiceImpl.java",
+      "type": "file",
+      "sha256": "afe7ff217d9b1d11763c1fb3d8f6f0e607c2908538b2702e57da5bd31f24f81a",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/IQuestionService.java",
+      "type": "file",
+      "sha256": "55830b389a033d4e77192b5a8c5cb68ad2c76d14b2cb7183401e62b72682d589",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java",
+      "type": "file",
+      "sha256": "655d251a79790695232f18420889e44707307fe896fdecab3a18bdac49291b7c",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserExamService.java",
+      "type": "file",
+      "sha256": "155d3c81c8fae5b330085715bf1bbef093079104339d8fa9b99d919b81108e06",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserMessageService.java",
+      "type": "file",
+      "sha256": "33a258bc1e57481a0149acca65af1c17cfd8cfb23c7b64aa6f3bfe78fa21e828",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserQuestionService.java",
+      "type": "file",
+      "sha256": "7c70c5b317a37193d75343bca1f1529bdaf0ce9bda4fd85fe921b8370a15770e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/IUserService.java",
+      "type": "file",
+      "sha256": "6be1248da37a2a21ebeec422791b7a4d234e538131f0ef8a682478c7213d0396",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserExamServiceImpl.java",
+      "type": "file",
+      "sha256": "e98421dfffc7d035112548d6b9afe6a7af263956eb7f578d28544090dd526102",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserMessageServiceImpl.java",
+      "type": "file",
+      "sha256": "37500f6348a7f3a2934c3ef8cd1f0e89293f053b66864a5a60d4005fe839930c",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+      "type": "file",
+      "sha256": "069b356e647737dd3ce29b3671612cfcbc26e48b41b33f66a3f6b9647883513a",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserServiceImpl.java",
+      "type": "file",
+      "sha256": "dcb6724a5dad1a83e2efed1b0b9288318287ce6b90a0f10b0b809e03d5fe84b3",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/test",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/java/com/lyw/friend/test/NginxTestController.java",
+      "type": "file",
+      "sha256": "260d592163fd1ba516e1bf6842dcfed620a3034df79d19eeec213c50cc7d6adc",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/bootstrap-dev.yml",
+      "type": "file",
+      "sha256": "7ca62a8679a2b2aad620e8eb9de65bcdb86ab2306214b01653e94c06ea0d73dd",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/bootstrap-prod.yml",
+      "type": "file",
+      "sha256": "afad3d238bcfe5c1eb35049a03c18502f881a044ed140cadada813d45be9e6a2",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/bootstrap.yml",
+      "type": "file",
+      "sha256": "af0c2aa6033229573b7566ac8d494013f3a0cd2fbbbf28f0bba06aa34401077c",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper/exam",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper/exam/ExamMapper.xml",
+      "type": "file",
+      "sha256": "5bf25877ca86d8a6220f99b92cd34427af45a6beb46b0b5deee34b5020c6a74d",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper/message",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper/message/MessageTextMapper.xml",
+      "type": "file",
+      "sha256": "ea5608e222c6b9d20ee2b80736ef90dfbb3ebbcab899dfff06129f48317675fb",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper/user",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserExamMapper.xml",
+      "type": "file",
+      "sha256": "a57c21b031c1da0ef5fe7bc989144c651897c1a9d4ed4562b2b95b9ca7b8cee4",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/main/resources/mapper/user/UserSubmitMapper.xml",
+      "type": "file",
+      "sha256": "47fbc2a0b207dd75ae8e32f52a3c6067a5cfe866552985ea43a64475573d95e6",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java/com/lyw/friend",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+      "type": "file",
+      "sha256": "1d9416e77b1f24b6700845ebb18e6aec7754471f3ecb696673866b7ef02ea724",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+      "type": "file",
+      "sha256": "e75387d623d3196eaa796fa6204fbfe9c70f8ad1b3a9a403586d72b4803ee3dd",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+      "type": "file",
+      "sha256": "52405a5cf7e28430dadb0a41ec7c3b51cb79a9b9a7ef17014335dbfe51e3ce9f",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-job/pom.xml",
+      "type": "file",
+      "sha256": "f886b8238eb4e93c67275f464e0bdbec6dfae749a4f8c369a8b4b3de70649678",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/pom.xml",
+      "type": "file",
+      "sha256": "3a07df13a53feaf1b6eb51726aa5ca6e57189742d316b1d74c6505eaf1bddafe",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/OjJudgeApplication.java",
+      "type": "file",
+      "sha256": "817223157bb10b41f0e284d3f5a0813cc85b58e7d5fc7dddecd80668d0e66452",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/callback",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/DockerStartResultCallback.java",
+      "type": "file",
+      "sha256": "f9d27b8cdd5b18582d6858b81354827f366031251559eb299f8a5512ab4a32e4",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/StatisticsCallback.java",
+      "type": "file",
+      "sha256": "7c1691a53cf390ec1c360bd797c6b01fb943e074123c1b755cb19062ad4ed0e2",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DeadLetterListenerConfig.java",
+      "type": "file",
+      "sha256": "c951b41ec48c8a19439b161ccb230cf2d5738183890afb911b90f10159687f9e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+      "type": "file",
+      "sha256": "7ccb7b4f9fb79afc9f9780a392bab82b44c31ad40d7a926b4ccaa082203147b3",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+      "type": "file",
+      "sha256": "96028bc0b2addb7d460a406d42bd17f2f9a1910ed3379f65e8c23d7cb6cf9388",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/controller/JudgeController.java",
+      "type": "file",
+      "sha256": "da42110386311f112443583b7d3852736a205cfe2afccbd4099f012e8d8cf1ff",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/domain",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/CompileResult.java",
+      "type": "file",
+      "sha256": "bbe3a9ca21341c72383e56510436711c5196d327ff23f01ffbbc5081e2864023",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+      "type": "file",
+      "sha256": "c4b670c2dac8b1f9cc057398fe8a12b5c560643c0b5c618e10e9e5ed4e0b1e32",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTaskState.java",
+      "type": "file",
+      "sha256": "0ce43b422e0c8096ac82a562c1a4c70ef7db7f68aed8138540a5e3f9d01ad1c1",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandBoxExecuteResult.java",
+      "type": "file",
+      "sha256": "18766d84c287f98bd1a18ec8cc554f58940a5b6593cd4f5de7f8b77610c9aa68",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/UserSubmit.java",
+      "type": "file",
+      "sha256": "ad9b46ec46484086f8c9117d8b802847011496a6beea8228c95bac6bb48b2851",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/mapper",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/mapper/UserSubmitMapper.java",
+      "type": "file",
+      "sha256": "54a61cf6f7eebf828819db9ceed01f1afb2d891eb9c85c0e6faf2b19b03c234c",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterConsumer.java",
+      "type": "file",
+      "sha256": "ad57a79f3c3d3825e2a4bde1d54bd3366672d4f11fa70c919db38be1ba24b646",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/DeadLetterListenerLifecycle.java",
+      "type": "file",
+      "sha256": "671351c97726a8b9c16991edb9be055e2852f4262004441804317199f2fd2d59",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/JudgeConsumer.java",
+      "type": "file",
+      "sha256": "50c4468248f1e82648f96d70ccf41e34f93dbe09662fc6250919191cb9521bc9",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/rabbit/MessageAcknowledgement.java",
+      "type": "file",
+      "sha256": "8a9678e719a224d286b5be674dc9664fdcc9c601ef58989b63f94de2d8343cd8",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/IJudgeService.java",
+      "type": "file",
+      "sha256": "c8000c5fab75d363a4edafcffa018a8df1bc2827a937cd2c59a66db353586dd3",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java",
+      "type": "file",
+      "sha256": "22f7267069a44949cf54baef7013931a3f75071379bb77a0fd6c1a67ae46d6f4",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxService.java",
+      "type": "file",
+      "sha256": "ce4f367de73f8079bc7fbb146b7c732725399ee9520a4819c9973ff25d8ec1fe",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/JudgeSystemException.java",
+      "type": "file",
+      "sha256": "3ca176b61716042b1d2800d4812859ad3ada38aa36102a34053b323eb07764db",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/UserSubmitStore.java",
+      "type": "file",
+      "sha256": "894d1b339c68ac3cfbd4d9585046a911eeddc92a6fe8269c0add9048d353e2fa",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+      "type": "file",
+      "sha256": "cf9667dcfe644af9aed781b99958201461542bcf1588d59c88900af30d67ed04",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+      "type": "file",
+      "sha256": "8c95d2bb71901d8c869410833bd49ae3e7b783f5c40241503a7aeed342f1cdad",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxServiceImpl.java",
+      "type": "file",
+      "sha256": "6da2fbc728aa18de0c926f040e4d2c2f1d9da6e81e49d92fc20077945c884d9b",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/resources",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/resources/bootstrap-dev.yml",
+      "type": "file",
+      "sha256": "f4ddd263258a9b18042c087a1895a8ee792b67abdbb0e3c3baae9c3d0ec95d0c",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/resources/bootstrap-prod.yml",
+      "type": "file",
+      "sha256": "62766db3ae60f2e506fc91bd8a4ecdeaff5d613fdfeed500ceebcab8617d0fd5",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/main/resources/bootstrap.yml",
+      "type": "file",
+      "sha256": "bb81749e8577b9058163bdadea45612fac6c503a0d7ed01f1a966625c3a98d86",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java",
+      "type": "file",
+      "sha256": "c74a37a25f88cdb665daeb20c958033d907b09109b471e2e9900c51280cc58f5",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+      "type": "file",
+      "sha256": "2b9256a825b3a5951021737cd3449d67f9f5871ccbc4be2e09ea6803acb44e95",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+      "type": "file",
+      "sha256": "8d4abf7b4b11279c43d33424a90a670542230e0ccae1ff32230861f255a08348",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterConsumerTest.java",
+      "type": "file",
+      "sha256": "52c15f65b833ed1470d350a8b7dba21e0a6757a446174f506dea23f893129ee6",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/DeadLetterIntegrationTest.java",
+      "type": "file",
+      "sha256": "4e9f08260e087f8649b0dffc61089aa3994f92a440a5cbee5d417c3091b0453d",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java",
+      "type": "file",
+      "sha256": "a30cd2164daa559bb81ba834bc16e423e6e0a3312f5150478c75d95df106eddc",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+      "type": "file",
+      "sha256": "431398e229f2636b75f389e771e002ba697a101e9cfe74ee5154ea1ff50edebe",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeStorageIntegrationTest.java",
+      "type": "file",
+      "sha256": "175021e4344ebba23993358e9c03cd9278d391fa5962eaef4745c4b962c0f057",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-judge/src/test/java/com/lyw/judge/service/UserSubmitStoreTest.java",
+      "type": "file",
+      "sha256": "fe4c652535f8a815f470560454491982adaed09b7402c30fcbfb7ef5e8162307",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/oj-system/pom.xml",
+      "type": "file",
+      "sha256": "4375984c2bca3125f11b3a1cc0559baf621b1f64a4260bb67bb968ed3ffa346e",
+      "executable": 0
+    },
+    {
+      "path": "B:oj-modules/pom.xml",
+      "type": "file",
+      "sha256": "5e3bc360947ee1dc25028ee07ffbbe9d1764b65ce16455f8917653ce6551c2c1",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/.openspec.yaml",
+      "type": "file",
+      "sha256": "2cfdfca6746ff52637524b7074ffc78ed96a49115d2e3ca6139baafc791a06d6",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/design.md",
+      "type": "file",
+      "sha256": "d304dca40d7ade5e1b0307d4c15d755d230500e7e75eed78b194e91f60095e66",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/proposal.md",
+      "type": "file",
+      "sha256": "3410825a72289bada8e5df99cce9442656ecbe50fcca240e387766018e14654f",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reports",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reports/verification-manifest.json",
+      "type": "file",
+      "sha256": "5f043c4c653a0a3c1edd2c1616aaa8640654bdf4e6304ab74676fb7d4d87dd7f",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reports/verification.md",
+      "type": "file",
+      "sha256": "720e751ccc4248df0d3bb2b296d05fd070193cf682115a552568d9b85dcf433c",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reviews",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reviews/change-review.md",
+      "type": "file",
+      "sha256": "8712a27c2c89ce79ee14d2d35fd2666e70237dac04ce49fbb448b2f2918aecf7",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reviews/independent-code-review.md",
+      "type": "file",
+      "sha256": "bfacc921857e05892fb74bfbb95cfd0eec061811be0897b4ca9efde4b984166e",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reviews/independent-planning-review.md",
+      "type": "file",
+      "sha256": "63fd2a86b7e7d0200efbfc828409972c5b0c6501e663629d2f9932514434538e",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reviews/manual-planning-snapshot.json",
+      "type": "file",
+      "sha256": "e171bfd81b97387d29f51abc535f47e275de67df435da5548c9c38a408eec0c5",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/reviews/planning-inputs.md",
+      "type": "file",
+      "sha256": "8361a4b17f7601d88c6bc1fe5b82f64b4e418bbb77f9350d2c1b97e9f3143955",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/specs",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/specs/judge",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/specs/judge/container-pool",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/specs/judge/container-pool/spec.md",
+      "type": "file",
+      "sha256": "5eecc9cdc1932e68f83b626a2cfcc674d6bf7bbc37120c9bccc098c6103b5796",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/specs/judge/submission-results",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/specs/judge/submission-results/spec.md",
+      "type": "file",
+      "sha256": "d390a703a0753bf77980fc4266b7a1d73d40d36ed80ff1149cfc47239d07e975",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/changes/judge-submission-idempotency/tasks.md",
+      "type": "file",
+      "sha256": "887eaca3f9b3b39a78b08f04186499da12a6a4d7f6273ac30b383f8d09b5031c",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/config.yaml",
+      "type": "file",
+      "sha256": "e8826c219d6cfa70e6c4732ad39e124354a60b28317b9b818c41250144d33bb7",
+      "executable": 0
+    },
+    {
+      "path": "B:openspec/specs/judge/container-pool/spec.md",
+      "type": "file",
+      "sha256": "30ef6e2833675691b7a3494ec82c65730eeb40898b84dc791d2943e577da9f56",
+      "executable": 0
+    },
+    {
+      "path": "B:pom.xml",
+      "type": "file",
+      "sha256": "2270275160c7f651a978323ed5ebc897e16875f1b50ba9cff0082e85ec02de89",
+      "executable": 0
+    },
+    {
+      "path": "F:package-lock.json",
+      "type": "file",
+      "sha256": "893b6ae02d963e48735f754a4a7691ed47422028804e1b122e983122a4abcdec",
+      "executable": 0
+    },
+    {
+      "path": "F:package.json",
+      "type": "file",
+      "sha256": "421968d14bee510dbcf117664a576df4e0a48262059361a8beb8209c3bbdae88",
+      "executable": 0
+    },
+    {
+      "path": "F:src",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/App.vue",
+      "type": "file",
+      "sha256": "912a1c09ae8f631f102a5f068a865158730d36a4bafb9ae75bfef6c18fafee86",
+      "executable": 0
+    },
+    {
+      "path": "F:src/apis",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/apis/exam.js",
+      "type": "file",
+      "sha256": "40db566b6e759ae0b9c1b7337b171b8666479bb8f3260b99214f2c016e836413",
+      "executable": 0
+    },
+    {
+      "path": "F:src/apis/message.js",
+      "type": "file",
+      "sha256": "9453e4c39907efb0e534a73b7dd56a5eebf182b06f40ea92b52868262ed39d1f",
+      "executable": 0
+    },
+    {
+      "path": "F:src/apis/question.js",
+      "type": "file",
+      "sha256": "63cc79b773ac1f1181dd2e68f8a6d2fc07aa687ffae79f1c494bcbbe8373cfb9",
+      "executable": 0
+    },
+    {
+      "path": "F:src/apis/user.js",
+      "type": "file",
+      "sha256": "8d6e3fe8b412fcc2d9ccfb4681978fe175e1d82db04a66a61e4caede80c6caaa",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/assets/ide",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/assets/ide/ceshijieguo.png",
+      "type": "file",
+      "sha256": "cf1deaced533766f1c024a8424fa9c0e631f1897137a6efbc695544bc76a5213",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/ide/codeResult.png",
+      "type": "file",
+      "sha256": "5f58ada84f2d4bf4ef543f5232249f71a6109e47a8b3e942f8b0e41ff8d802ef",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/ide/daima.png",
+      "type": "file",
+      "sha256": "ce0281dad5f5d0213f179a87e2d642472a2127d26e88815562cbf993ae592b3b",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/ide/jingsai.png",
+      "type": "file",
+      "sha256": "413a24a9a96bb34927ad16dcf964ff777fe2a775a35f4cdb7065e8a17eabfc9c",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/ide/liebiao.png",
+      "type": "file",
+      "sha256": "2706a3013412ea5310c5ea23423ca20ab7eb449d894131bc60fa1f3f7c447a5a",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/ide/xiaobiaoti.png",
+      "type": "file",
+      "sha256": "9d1c63f8742796c3a2dc173b9f45bf6afe45c79bfe7ffbd6a7daf5c5aa7719f5",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/assets/images/banner.png",
+      "type": "file",
+      "sha256": "5b6920e381fbd085a54f89ad28b87cd10a83e95c3cd68154fdb8f983ef9f2239",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/exam.png",
+      "type": "file",
+      "sha256": "7e215afb42a3b145ff5dd2df6407b1cd7642b15122c639becf49b0e0eb565a9f",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/headimage.jpg",
+      "type": "file",
+      "sha256": "920a60a10be864c0e82debef8825531f154720d057c1e13bed56a111c4858551",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/icon_1.png",
+      "type": "file",
+      "sha256": "e4afb84dfbe26e142a0dfd894464ed9d5090e6ff8568a74b27ab210604652e2c",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/icon_2.png",
+      "type": "file",
+      "sha256": "2857c07f93d54a740b3e78487403b586472336e4337ec685f723db28f7ccbcc0",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/icon_3.png",
+      "type": "file",
+      "sha256": "b703b12bc3db9e56ad57f6f317011c0a964f9e7eed6fe3b6b8afc24385c5fe82",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/log-banner.png",
+      "type": "file",
+      "sha256": "2a96740efce8c73b818ef6071f42eec77f070f9e29c6c4baa2d1e98ba177f41e",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/rili.png",
+      "type": "file",
+      "sha256": "45df2553eb19b7046e38d94c5ee5c1d11bec9bfa3fc3b335d84f1bb696a8a255",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/shangyue@2x.png",
+      "type": "file",
+      "sha256": "c92184072ea319746f756ee893941c647712b3715e4a4bc6aa720d8acf8314f1",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/shouji.png",
+      "type": "file",
+      "sha256": "08f8e28ef95a5c97b9c77a5bb99e29442191e051889c0197ec371a20deec5e10",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/sousuo@2x.png",
+      "type": "file",
+      "sha256": "41cf1d7d226f121adbb2ed7629baaa579e601f601992b0f84e75f9ac9e628f01",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/xiala@2x.png",
+      "type": "file",
+      "sha256": "7de3bdac6786d70260ab2ce676de5dd2281ae86d8d5c5c1db0bdcde4e5c777f5",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/xiayue@2x.png",
+      "type": "file",
+      "sha256": "c384bced159267f840d7f307103de2afa046a19b919f827b076eac635c06ab46",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/images/yanzhengma.png",
+      "type": "file",
+      "sha256": "80d40c78f00e135fce011f9d325fbab558bf69e8a357cf282adb528727264cd5",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/index_bg.png",
+      "type": "file",
+      "sha256": "6bcbf6e0e7645753964dcba48a9d4d16bf75f7eba84b86e0a46200cc4ec284fb",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/logo.png",
+      "type": "file",
+      "sha256": "70a9e990042e1c9f29fef032f5feb440b1fa075564932bceba1b5006a114a9a6",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/main.scss",
+      "type": "file",
+      "sha256": "9a71bc91d9b5a40294d5dfffcdfae40ecc9126c39ff9e5a192006d07b2b1958b",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/message",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/assets/message/message.png",
+      "type": "file",
+      "sha256": "2fdf11ed82249c59f575d2a36e3d6a729bbed6a37d6b6c508e67fbbe7eee0e73",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/message/notice.png",
+      "type": "file",
+      "sha256": "8d008fde7b8f0967e9f3040ca5ff023e6366957394f52f15628929866c7c4c98",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/rebang.png",
+      "type": "file",
+      "sha256": "2dce9f4de5f1cf57cee013a3220d70fc6701da29b0bc1e384536408804a222a8",
+      "executable": 0
+    },
+    {
+      "path": "F:src/assets/user",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/assets/user/head_image.png",
+      "type": "file",
+      "sha256": "bac9cfda6c5e554298b655838aed73ae86ed1fa177dd2d3a55b609aaa6b5d3fc",
+      "executable": 0
+    },
+    {
+      "path": "F:src/components",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/components/CodeEditor.vue",
+      "type": "file",
+      "sha256": "3f03335c59c5ce3ec58efe347fa25a727b356debcef620e3f14d23510411ce1d",
+      "executable": 0
+    },
+    {
+      "path": "F:src/components/Navbar.vue",
+      "type": "file",
+      "sha256": "66e0b20d6ce1096eab95922f7387450861c4de3588e7d06973e1f9e8364ac475",
+      "executable": 0
+    },
+    {
+      "path": "F:src/components/QuestionSelector.vue",
+      "type": "file",
+      "sha256": "08dd77da62be25f1138e9f82a80ab48f77478c8db836453ceebeded01b77c274",
+      "executable": 0
+    },
+    {
+      "path": "F:src/main.js",
+      "type": "file",
+      "sha256": "d03fa50f0ad349e2cd457e6964cd98b9f9db431594e954978c1a5bebd4023b9c",
+      "executable": 0
+    },
+    {
+      "path": "F:src/router",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/router/index.js",
+      "type": "file",
+      "sha256": "5b6891f4e6f94b751ee6a9781332599f5bc73efa46d96518479ea11783f7dfe9",
+      "executable": 0
+    },
+    {
+      "path": "F:src/utils",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/utils/cookie.js",
+      "type": "file",
+      "sha256": "46ffbabfbe7bd965ed257198d5f11324f1c754039dc2f8e30bc92929899643c7",
+      "executable": 0
+    },
+    {
+      "path": "F:src/utils/judgeResultPoller.js",
+      "type": "file",
+      "sha256": "dd455438c86b8644320e7438ecf7b0230e9401bd7628df5685f1b18a84168ab7",
+      "executable": 0
+    },
+    {
+      "path": "F:src/utils/request.js",
+      "type": "file",
+      "sha256": "2b7a0115238261391fc81bb885832455c86585a5fc2821bbeb2720db99c614d2",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:src/views/Answer.vue",
+      "type": "file",
+      "sha256": "49fcefd9f6365b8a34340a4c3505ff3d569a85a06f9843a7a5bd04f81fc70cc8",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views/Exam.vue",
+      "type": "file",
+      "sha256": "919567c932e293b916c92d26dedb5d2eb6f6d3a116fe698bbd3d183fd0835aee",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views/Home.vue",
+      "type": "file",
+      "sha256": "e10d57862c32e5065fb1b6ed4ae9cb56b28e19eb814f237878198d771194170f",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views/Login.vue",
+      "type": "file",
+      "sha256": "51d519c7db2a944f5775aa543d2cf204227a15f94b9c7d726cbf7f77f84feba9",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views/Question.vue",
+      "type": "file",
+      "sha256": "f9518663e2df7880d2e59690e530db1a0565b06ea1e92c0b262da99c08c5dc43",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views/UserDetail.vue",
+      "type": "file",
+      "sha256": "f33769c98bed5d64ed849bb14298ee5ec2549e74db40254114832050fbd5b950",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views/UserExam.vue",
+      "type": "file",
+      "sha256": "8f1107ad7c1da6e80b26dce1cb1d84eb63c829583cc446e2e92c62ea7f2cb6f6",
+      "executable": 0
+    },
+    {
+      "path": "F:src/views/UserMessage.vue",
+      "type": "file",
+      "sha256": "729deefb677f715ec569ddb7b8eb036af9e181ec17dd8c3fc3c285863380c184",
+      "executable": 0
+    },
+    {
+      "path": "F:tests",
+      "type": "directory",
+      "executable": 73
+    },
+    {
+      "path": "F:tests/judgeResultPoller.test.js",
+      "type": "file",
+      "sha256": "e8cbad81e370c7b010832595358bff4765098ffa45c26043c6964db560e5e9a5",
+      "executable": 0
+    },
+    {
+      "path": "F:vite.config.js",
+      "type": "file",
+      "sha256": "b015398c60f271953dede876fcd2931ebac6ba8e3744e783ef52e9239b6b073e",
+      "executable": 0
+    }
+  ],
+  "comparison": {
+    "checked_at": "2026-11-08T18:00:18.322763+00:00",
+    "result": "matched",
+    "entries": 460,
+    "files": 301,
+    "note": "写入后重新枚举实际文件并逐项比较；不证明外部运行状态或评审语义。"
+  }
+}
