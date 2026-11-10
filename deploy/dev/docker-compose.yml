@@ -15,6 +15,10 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_general_ci
+      - --server-id=1
+      - --log-bin=mysql-bin
+      - --binlog-format=ROW
+      - --binlog-row-image=FULL
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p123456"]
       interval: 10s
@@ -71,3 +75,20 @@ services:
       interval: 10s
       timeout: 10s
       retries: 12
+
+  oj-canal-server:
+    image: canal/canal-server:v1.1.8
+    profiles: ["question-sync"]
+    entrypoint: ["/bin/sh", "/opt/oj-canal-entrypoint.sh"]
+    environment:
+      CANAL_HEAP: ${CANAL_HEAP:-256m}
+    volumes:
+      - ../canal/entrypoint.sh:/opt/oj-canal-entrypoint.sh:ro
+      - ${CANAL_CONFIG_DIR:-../../.codex/canal/dev/config}:/config:ro
+      - ${CANAL_STATE_DIR:-../../.codex/canal/dev/state}:/state
+    mem_limit: 768m
+    depends_on:
+      oj-mysql-server:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:11111:11111"

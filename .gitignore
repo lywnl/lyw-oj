@@ -25,3 +25,8 @@ target/
 .DS_Store
 
 user-code-pool
+
+# Canal 生产运行数据与生成的敏感配置
+deploy/prod/canal/state/
+deploy/prod/canal/config/
+deploy/prod/canal/backups/

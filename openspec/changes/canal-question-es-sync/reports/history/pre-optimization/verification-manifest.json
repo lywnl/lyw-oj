@@ -1,0 +1,973 @@
+{
+  "version": 1,
+  "profile": "strict",
+  "requirements": [
+    {
+      "id": "需求：完整行增量投影",
+      "requirement": "完整行增量投影",
+      "tasks": [
+        "1.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionDocument.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：行变化直接更新索引",
+      "requirement": "完整行增量投影",
+      "tasks": [
+        "1.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionDocument.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：数据与格式验证",
+      "requirement": "完整行增量投影",
+      "tasks": [
+        "1.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionDocument.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "需求：可恢复的批次消费",
+      "requirement": "可恢复的批次消费",
+      "tasks": [
+        "1.2",
+        "2.1",
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionEsSyncRunnerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/TcpCanalSourceTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/ElasticsearchIndexStoreTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：部分成功与确认不确定",
+      "requirement": "可恢复的批次消费",
+      "tasks": [
+        "1.2",
+        "2.1",
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionEsSyncRunnerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/TcpCanalSourceTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/ElasticsearchIndexStoreTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：容器重建续传",
+      "requirement": "可恢复的批次消费",
+      "tasks": [
+        "1.2",
+        "2.1",
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionEsSyncRunnerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/TcpCanalSourceTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/ElasticsearchIndexStoreTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "需求：阻塞与人工恢复",
+      "requirement": "阻塞与人工恢复",
+      "tasks": [
+        "1.1",
+        "1.2",
+        "2.1",
+        "3.1",
+        "4.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java",
+        "deploy/canal/prepare.py"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+        ".codex/canal-question-es-sync/evidence/final-deploy-sources.json",
+        ".codex/canal-question-es-sync/evidence/final-cleanup.json"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：非行变更及位点异常",
+      "requirement": "阻塞与人工恢复",
+      "tasks": [
+        "1.1",
+        "1.2",
+        "2.1",
+        "3.1",
+        "4.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java",
+        "deploy/canal/prepare.py"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+        ".codex/canal-question-es-sync/evidence/final-deploy-sources.json",
+        ".codex/canal-question-es-sync/evidence/final-cleanup.json"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：索引缺失与空库保护",
+      "requirement": "阻塞与人工恢复",
+      "tasks": [
+        "1.1",
+        "1.2",
+        "2.1",
+        "3.1",
+        "4.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java",
+        "deploy/canal/prepare.py"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+        ".codex/canal-question-es-sync/evidence/final-deploy-sources.json",
+        ".codex/canal-question-es-sync/evidence/final-cleanup.json"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "需求：唯一索引写入与业务读路径",
+      "requirement": "唯一索引写入与业务读路径",
+      "tasks": [
+        "2.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionMaintenanceGate.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionMaintenanceGateTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real-command.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real.log",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：搜索故障不影响取题与组装提交",
+      "requirement": "唯一索引写入与业务读路径",
+      "tasks": [
+        "2.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionMaintenanceGate.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionMaintenanceGateTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real-command.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real.log",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：题目维护开关",
+      "requirement": "唯一索引写入与业务读路径",
+      "tasks": [
+        "2.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionMaintenanceGate.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionMaintenanceGateTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real-command.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real.log",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "需求：保留索引的核对与修复",
+      "requirement": "保留索引的核对与修复",
+      "tasks": [
+        "3.1",
+        "3.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/JdbcQuestionReader.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceApplication.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/OjSystemApplication.java",
+        "deploy/canal/maintain.sh"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0169.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0171.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：既有索引差异处理",
+      "requirement": "保留索引的核对与修复",
+      "tasks": [
+        "3.1",
+        "3.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/JdbcQuestionReader.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceApplication.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/OjSystemApplication.java",
+        "deploy/canal/maintain.sh"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0169.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0171.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：对账调度与查询异常",
+      "requirement": "保留索引的核对与修复",
+      "tasks": [
+        "3.1",
+        "3.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/JdbcQuestionReader.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceApplication.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/OjSystemApplication.java",
+        "deploy/canal/maintain.sh"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0169.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0171.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "需求：配置与切换边界",
+      "requirement": "配置与切换边界",
+      "tasks": [
+        "3.2",
+        "4.2"
+      ],
+      "implementation": [
+        "deploy/dev/docker-compose.yml",
+        "deploy/prod/docker-compose.yml",
+        "deploy/canal/prepare.py",
+        "deploy/canal/entrypoint.sh",
+        "deploy/canal/README.md",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java"
+      ],
+      "tests": [
+        "deploy/canal/tests/test_prepare.py",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+        ".codex/canal-question-es-sync/evidence/final-deploy-sources.json",
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：切换不漏历史和新变化",
+      "requirement": "配置与切换边界",
+      "tasks": [
+        "3.2",
+        "4.2"
+      ],
+      "implementation": [
+        "deploy/dev/docker-compose.yml",
+        "deploy/prod/docker-compose.yml",
+        "deploy/canal/prepare.py",
+        "deploy/canal/entrypoint.sh",
+        "deploy/canal/README.md",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java"
+      ],
+      "tests": [
+        "deploy/canal/tests/test_prepare.py",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+        ".codex/canal-question-es-sync/evidence/final-deploy-sources.json",
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "需求：搜索可见性",
+      "requirement": "搜索可见性",
+      "tasks": [
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "场景：真实搜索延迟",
+      "requirement": "搜索可见性",
+      "tasks": [
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：1.1",
+      "requirement": "完整行增量投影",
+      "tasks": [
+        "1.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionDocument.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：1.2",
+      "requirement": "可恢复的批次消费",
+      "tasks": [
+        "1.2",
+        "2.1",
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionEsSyncRunnerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/TcpCanalSourceTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/ElasticsearchIndexStoreTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：2.1",
+      "requirement": "可恢复的批次消费",
+      "tasks": [
+        "1.2",
+        "2.1",
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionEsSyncRunnerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/TcpCanalSourceTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/ElasticsearchIndexStoreTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：2.2",
+      "requirement": "唯一索引写入与业务读路径",
+      "tasks": [
+        "2.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionMaintenanceGate.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionMaintenanceGateTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real-command.json",
+        ".codex/canal-question-es-sync/evidence/it13-friend-real.log",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：3.1",
+      "requirement": "保留索引的核对与修复",
+      "tasks": [
+        "3.1",
+        "3.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/JdbcQuestionReader.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceApplication.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/OjSystemApplication.java",
+        "deploy/canal/maintain.sh"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0169.log",
+        ".codex/canal-question-es-sync/integration/it13/evidence/command-0171.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：3.2",
+      "requirement": "配置与切换边界",
+      "tasks": [
+        "3.2",
+        "4.2"
+      ],
+      "implementation": [
+        "deploy/dev/docker-compose.yml",
+        "deploy/prod/docker-compose.yml",
+        "deploy/canal/prepare.py",
+        "deploy/canal/entrypoint.sh",
+        "deploy/canal/README.md",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java"
+      ],
+      "tests": [
+        "deploy/canal/tests/test_prepare.py",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+        ".codex/canal-question-es-sync/evidence/final-deploy-sources.json",
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：4.1",
+      "requirement": "搜索可见性",
+      "tasks": [
+        "4.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "任务：4.2",
+      "requirement": "阻塞与人工恢复",
+      "tasks": [
+        "1.1",
+        "1.2",
+        "2.1",
+        "3.1",
+        "4.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java",
+        "deploy/canal/prepare.py"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+        "deploy/canal/tests/integration.py"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+        ".codex/canal-question-es-sync/evidence/unit-13.log",
+        ".codex/canal-question-es-sync/evidence/unit-13-sources.json",
+        ".codex/canal-question-es-sync/integration/it13/run.json",
+        ".codex/canal-question-es-sync/integration/it13/evidence/probe-events.jsonl",
+        ".codex/canal-question-es-sync/evidence/it13-probe-2.log",
+        ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+        ".codex/canal-question-es-sync/evidence/final-deploy-sources.json",
+        ".codex/canal-question-es-sync/evidence/final-cleanup.json"
+      ],
+      "status": "verified"
+    }
+  ],
+  "commands": [
+    {
+      "command": "docker start -a e9ec9c4452a58c1f7996c211e80f15f7e9ef1bf8864277b53775bede028e34d6",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/unit-13-command.json",
+      "started_at": "2026-11-09T18:58:16.945319+00:00",
+      "finished_at": "2026-11-09T18:58:39.457580+00:00",
+      "说明": "真实执行",
+      "container_exit_code": 0
+    },
+    {
+      "command": "docker start -a c94e6e80e4aff584f8ddeedbf03377d533c1e12531564c3de3c8bccdbd34d1a7",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 137,
+      "evidence": ".codex/canal-question-es-sync/evidence/it13-probe-1-command.json",
+      "started_at": "2026-11-09T18:58:26.777972+00:00",
+      "finished_at": "2026-11-09T18:59:50.703623+00:00",
+      "说明": "在 ES 成功、ACK 前按计划杀进程，137 是预期故障注入结果",
+      "container_exit_code": 137
+    },
+    {
+      "command": "docker start -a ae2932e8681181424ea8eaaed14faf483c074697a0e08efeaee59a4b337641d1",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/it13-probe-2-command.json",
+      "started_at": "2026-11-09T18:59:50.951529+00:00",
+      "finished_at": "2026-11-09T19:01:04.273866+00:00",
+      "说明": "真实执行",
+      "container_exit_code": 0
+    },
+    {
+      "command": "docker start -a 28f3d0709878981de3a4828ea8174047ca735babf31366d65e90cae955c51452",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/it13-friend-real-command.json",
+      "started_at": "2026-11-09T18:59:30.086472+00:00",
+      "finished_at": "2026-11-09T18:59:37.783326+00:00",
+      "说明": "真实执行",
+      "container_exit_code": 0
+    },
+    {
+      "command": "docker start -a d8ad2ff1467b6c9ed699fbf5bb6a5e17aa701ac2d0e5534b2902e8cb0f02cfba",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/it13-package-1-command.json",
+      "started_at": "2026-11-09T19:00:52.888951+00:00",
+      "finished_at": "2026-11-09T19:00:59.893886+00:00",
+      "说明": "真实执行",
+      "container_exit_code": 0
+    },
+    {
+      "command": "python3 deploy/canal/tests/integration.py --run it13 --keep",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/integration/it13/run.json",
+      "started_at": "2026-11-09T18:58:15.622613+00:00",
+      "finished_at": "2026-11-09T19:01:04.318141+00:00"
+    },
+    {
+      "command": "python3 -B -m unittest discover -s deploy/canal/tests -p 'test_*.py' -v",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T18:58:17.906532+00:00",
+      "finished_at": "2026-11-09T18:58:18.071574+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-static-1.log"
+    },
+    {
+      "command": "sh -n deploy/canal/entrypoint.sh",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T18:58:18.071747+00:00",
+      "finished_at": "2026-11-09T18:58:18.082654+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+      "stdout_log": ".codex/canal-question-es-sync/evidence/final-static-2.log"
+    },
+    {
+      "command": "sh -n deploy/canal/maintain.sh",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T18:58:18.082727+00:00",
+      "finished_at": "2026-11-09T18:58:18.093076+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+      "stdout_log": ".codex/canal-question-es-sync/evidence/final-static-3.log"
+    },
+    {
+      "command": "docker compose -f deploy/dev/docker-compose.yml --profile question-sync config --quiet",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T18:58:18.093186+00:00",
+      "finished_at": "2026-11-09T18:58:18.270905+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+      "stdout_log": ".codex/canal-question-es-sync/evidence/final-static-4.log"
+    },
+    {
+      "command": "docker compose -f deploy/prod/docker-compose.yml --profile question-sync config --quiet",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T18:58:18.270984+00:00",
+      "finished_at": "2026-11-09T18:58:18.369060+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-static-5.log"
+    },
+    {
+      "command": "git diff --check",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T18:58:18.369174+00:00",
+      "finished_at": "2026-11-09T18:58:18.397457+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-static-commands.json",
+      "stdout_log": ".codex/canal-question-es-sync/evidence/final-static-6.log"
+    },
+    {
+      "command": "docker start -a f901aabb0ff1a2336ad2f99335106057b1f77f5fbe09f7af966350ead6484308",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T19:00:59.982899+00:00",
+      "finished_at": "2026-11-09T19:01:01.744539+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/integration/it13/evidence/command-0169.log"
+    },
+    {
+      "command": "docker start -a 831dbdac084fa9ff13ceda250f6dc97877b1b38c8c8b590e2013b9c929cce7d5",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "started_at": "2026-11-09T19:01:01.833599+00:00",
+      "finished_at": "2026-11-09T19:01:03.528327+00:00",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/integration/it13/evidence/command-0171.log"
+    },
+    {
+      "command": "docker ps -a --filter label=codex.task=canal-question-es-sync --format '{{.ID}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-cleanup.json"
+    },
+    {
+      "command": "docker network ls --filter label=codex.task=canal-question-es-sync --format '{{.ID}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/final-cleanup.json"
+    }
+  ],
+  "范围说明": "7项需求、12个场景、8项任务；单元门控跳过项均由单独真实集成覆盖。场景计数不与单元断言数相加。"
+}

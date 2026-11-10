@@ -52,6 +52,8 @@ public enum ResultCode {
 
     FAILED_FIRST_QUESTION               (3501, "当前题目已经是第一题了哦"),
 
+    QUESTION_MAINTENANCE         (3503, "题库维护中，请稍后重试"),
+
     FAILED_LAST_QUESTION                (3502, "当前题目已经是最后一题了哦"),
 
     FAILED_NOT_SUPPORT_PROGRAM          (3601, "当前不支持此语言"),

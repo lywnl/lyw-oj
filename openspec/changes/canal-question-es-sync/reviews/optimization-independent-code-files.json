@@ -1,0 +1,323 @@
+{
+  "version": 1,
+  "kind": "independent-code-review-file-list",
+  "change": "canal-question-es-sync",
+  "workflow_profile": "strict",
+  "reviewer": "/root/canal_review",
+  "recorded_at_utc": "2026-11-10T03:05:42.522619+00:00",
+  "root": "/Users/lllyw/lyw-oj",
+  "reference_head": "d274d57ffb21bc3b27eac1808d842cdbaa7922d4",
+  "comparison_base": ".codex/canal-question-es-sync/optimization/before",
+  "file_count": 60,
+  "aggregate_sha256": "de481b385c8e36ceb39171ef82a91cc35f04e451251ad266f966aed9b04379a7",
+  "serialization": {
+    "aggregate_input": "仅 files 数组，不包含其他元数据。",
+    "ordering": "files 按 path 升序。",
+    "canonicalization_python": "json.dumps(files, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')",
+    "executable": "bool(lstat.st_mode & 0o111)",
+    "file_types": "均为普通文件；不跟随符号链接。",
+    "note": "本文件记录独立评审版本，不能替代项目证据助手的规划或验收门禁。"
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "1383265beda31611aeda8f939802ea15e8a2e17125408df05ee0b48c1a5abb89",
+      "executable": false
+    },
+    {
+      "path": "deploy/canal/README.md",
+      "sha256": "153cbc389929f0fc15190645a9d32ae3cb8c5442a7be11600cc0c4938bf8dadd",
+      "executable": false
+    },
+    {
+      "path": "deploy/canal/entrypoint.sh",
+      "sha256": "93d18a40beed7477e4403952b4223daef98aa3ddd69360ec9f72a7d69194d3ad",
+      "executable": true
+    },
+    {
+      "path": "deploy/canal/maintain.sh",
+      "sha256": "5af5879347b481360c1233a192151714ff84798af14b27f1f09a23e930b28c97",
+      "executable": true
+    },
+    {
+      "path": "deploy/canal/prepare.py",
+      "sha256": "45c85614b07c4f48abfbec6ce0cafdfa2c468be3d0ba63165245b202f8b2adfa",
+      "executable": true
+    },
+    {
+      "path": "deploy/canal/tests/integration.py",
+      "sha256": "f4601716a420d1bb2131d5349e1e2fb1d960b79212771259b5113a811b450ede",
+      "executable": false
+    },
+    {
+      "path": "deploy/canal/tests/run_maven.py",
+      "sha256": "4bc335040066dfa782322336b546f73f9c341cf19427ddef706f8c650bb3d89c",
+      "executable": false
+    },
+    {
+      "path": "deploy/canal/tests/test_deployment.py",
+      "sha256": "1904cddfa71460240be72bf836a53659b27d48d6f357723421b665418f058351",
+      "executable": false
+    },
+    {
+      "path": "deploy/canal/tests/test_prepare.py",
+      "sha256": "1181de4543fafdbfbc3c43a0f29b169210d8a3c659e7bb69041d00f4dc0f3841",
+      "executable": false
+    },
+    {
+      "path": "deploy/dev/docker-compose.yml",
+      "sha256": "40b695aaf52b864d91fc51d48045b4da6ac29402b20a118ffe04a5b1cb9956bf",
+      "executable": false
+    },
+    {
+      "path": "deploy/prod/docker-compose.yml",
+      "sha256": "411e47e88b025ef9071ebfc38f447bc47846b0302e047630e6039001e0d9818a",
+      "executable": false
+    },
+    {
+      "path": "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+      "sha256": "98e7400efceb232542bcd33fbe29a7778c6af0d5214c209d3e21c04da5202509",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/pom.xml",
+      "sha256": "577138b20c055ea9bfdbd3c701fff860c55c565548ec25b8720a643dc4386fb0",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/main/java/com/lyw/friend/domain/question/es/QuestionES.java",
+      "sha256": "a756c8b68fdb472a9c14429b8b837df442aa478d9cc44aec8f7fc9aaa98d273b",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/question/impl/QuestionServiceImpl.java",
+      "sha256": "4ea2c91a4973591099377af1da3850c8396f9bea82c2b4ca96035c9e0405673f",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+      "sha256": "8bb4ecf733dcfe49941bef6bc1f8cc5b4d67ad261e23518cbc7a62a435b1e2f3",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/JudgeProducerTest.java",
+      "sha256": "1d9416e77b1f24b6700845ebb18e6aec7754471f3ecb696673866b7ef02ea724",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryIntegrationTest.java",
+      "sha256": "f3b612d18282eaec5c4db3e24f7b858b17805252a35baa4f5e6e3fe8a65c11e1",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/QuestionReadBoundaryTest.java",
+      "sha256": "992c60da8d96029c71dbe2dac958c4ab5671ec27f1d3b80907a1e35d649f0366",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionLookupIntegrationTest.java",
+      "sha256": "e75387d623d3196eaa796fa6204fbfe9c70f8ad1b3a9a403586d72b4803ee3dd",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+      "sha256": "0090a13268e744db804d55c64ec81163d12d3fd341f9a60a0a151d6ec783c32f",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/pom.xml",
+      "sha256": "0e1b475944b8a67f95a04cfe2454a3b3552a311796261d521b6e07342afd8f08",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/OjSystemApplication.java",
+      "sha256": "64b47adadf645f360736da4bff2dd79074b6f4ef9550b97de51b9b6882f0b760",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/domain/question/es/QuestionES.java",
+      "sha256": "7297a9bca048a321807ac8ccba3fbbc3f709bc569251d1be3112f6aa5e119781",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/BinlogPosition.java",
+      "sha256": "90804820d9b4b35a1f56a2a6f6a92537b41a40031968446ed1d9928e7d077ad2",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/CanalEventMapper.java",
+      "sha256": "75ff35cdfb608b988f4e64522a59dda6e81b8d2776204ef2b36c754575349fe7",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java",
+      "sha256": "f649b29b265438e6793a9a610fc5aa0dce76b957d7936f3a6fc486f7ae4020f6",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ExpiredPositionException.java",
+      "sha256": "dddd0eac6656d0d6ec0cb9ce2bba3f418960e6f72e2445fd7c5c4aedf341c9eb",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/IndexMutation.java",
+      "sha256": "9eb83b028bffc802f09d649cccf4812c50d2342cc6050946dab1896f3057d6ef",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/IndexStore.java",
+      "sha256": "61bf81e46b5cc70a28e9571df6a50875c2e4c41f574a6b5ca2f56377ab2d9f6a",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/JdbcQuestionReader.java",
+      "sha256": "0f3df7cd590b4c8f6a026b48633004d97e3f154189c1a6b87ec4a14238229d40",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/PositionGuard.java",
+      "sha256": "9e32dc59462201290c9f1a893f4285e55d97067a005737357bfb9e2d8c0c5f46",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionDocument.java",
+      "sha256": "edeea026b84f91ffcb6b9d29bf555e1c795a72f29e88ce5b34ea08b93a321d91",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+      "sha256": "6aa45124366fde09d5a7c87bfe3abc87445bb4fc8318d262d7b17a7acc8c3481",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionMaintenanceGate.java",
+      "sha256": "a1f513ba816aa79aa3cbdcbff355d62e0ef4ffb33d94b1b129b9c09bb6da0655",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReader.java",
+      "sha256": "f39ccf641bb6086b9051d2371508de4dcf85e43fd7367815011f76719205169e",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java",
+      "sha256": "4e83a38175202d81c611f7b97b2bf3dfe45ac3f4ebfc544048cfe8fefbe6e21d",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncConfiguration.java",
+      "sha256": "4ae935ab081916a80458c4647bdaf61d81c112905035943a2104ddad074fc9ec",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceApplication.java",
+      "sha256": "77480b732e9f7d74c5898fdc5d17c1537b0f24300277bee4f08f7f0966f9e037",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionSyncMaintenanceRunner.java",
+      "sha256": "61830fbfaa4616c6d86d7c22df90f817b72b6807a85d0ca6f1a94979d905720b",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SourcePositionGuard.java",
+      "sha256": "423f49364a7b3e0c687d303a259de83ffb8878e6c2333bea67bd364e7666329d",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncBlockedException.java",
+      "sha256": "5b244e7d5dee82560856393711005b2458a12966c4ed7853ad510a878b158a90",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java",
+      "sha256": "5fa62940bd24b041e3c5275829d4af8cfc3c88ff429227b2d7e17a786d0b93cd",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncSource.java",
+      "sha256": "ca793e99e141839a60981c3f1802c32aa61dd43d9abf6ed41ec7e8eaf5c3ec86",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java",
+      "sha256": "dacd99604f89bad16b0e5abec1a66a624aebdc9566d2c4ef7e1827b2fa1f3d38",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/java/com/lyw/system/service/question/impl/QuestionServiceImpl.java",
+      "sha256": "81b9ab55fddacea0511e02c78dd203da35f91caa8dc2564e68bb2cb35fc51a43",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/resources/bootstrap-dev.yml",
+      "sha256": "756ea9e507ac5a1b42bdc56e1e65c96bc87cd38a1e7435fab846b260e95a7b7d",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/main/resources/bootstrap-prod.yml",
+      "sha256": "75eb6afcc62baf30195303569151d798fbce96dc9ad8629dc3ef0f94aa1822d5",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalEventMapperTest.java",
+      "sha256": "d2fb25a9938dee63163598c7bd0fa52da55ea5bc525596765091af2286189f3a",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/CanalIntegrationProbeTest.java",
+      "sha256": "9e65188c714cb9f6a4909b50a96b66a9950cff128e53cbb2e3106249a01a20e2",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/ElasticsearchIndexStoreTest.java",
+      "sha256": "115b7263044625ea1282a1d1a7165b81653270b611cb3102f11efd2d45d48020",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionEsSyncRunnerTest.java",
+      "sha256": "f9cdce70f236481df158bedfe138663ecb6d7b8f3633960934996fc7708438ee",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionMaintenanceGateTest.java",
+      "sha256": "537aa7d54fbd7d3aafe1e89e3f42a0af97fec3cb883e25e9d58ebffe057d4910",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionReconcilerTest.java",
+      "sha256": "769c0019a67625e6ca97b160a89888eb3eb35def37487426b131e30980bb8f15",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionSyncMaintenanceRunnerTest.java",
+      "sha256": "eb4ceadba633aef1c308ec9b310474d4913a6231ea2300750f84182d06e6e253",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SourcePositionGuardTest.java",
+      "sha256": "c7f51347969e8539968c6dcfe902c7195cf42a55b7bb9ef861bd8b4e5da95b0a",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+      "sha256": "7b9d68c2a680f2f456ac69d686dcc049be601d94ac9ae793ee09a5575bc41168",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncFixtures.java",
+      "sha256": "3d25595423329aaa4c88adaa670243850af2eddd5e035ea33a4dc174f82ac318",
+      "executable": false
+    },
+    {
+      "path": "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/TcpCanalSourceTest.java",
+      "sha256": "be174e32c8612fc717c8c91b42e7d8b04635f54b6bce8e50cb2780ec7e7420e2",
+      "executable": false
+    },
+    {
+      "path": "pom.xml",
+      "sha256": "2270275160c7f651a978323ed5ebc897e16875f1b50ba9cff0082e85ec02de89",
+      "executable": false
+    }
+  ]
+}

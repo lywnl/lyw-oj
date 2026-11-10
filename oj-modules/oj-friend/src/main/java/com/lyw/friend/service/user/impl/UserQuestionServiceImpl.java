@@ -21,10 +21,8 @@ import com.lyw.common.redis.service.StateCacheService;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.friend.domain.question.Question;
 import com.lyw.friend.domain.question.QuestionCase;
-import com.lyw.friend.domain.question.es.QuestionES;
 import com.lyw.friend.domain.user.UserSubmit;
 import com.lyw.friend.domain.user.dto.UserQuestionSubmitDTO;
-import com.lyw.friend.elasticsearch.QuestionRepository;
 import com.lyw.friend.mapper.question.QuestionMapper;
 import com.lyw.friend.mapper.user.UserSubmitMapper;
 import com.lyw.friend.rabbit.JudgeProducer;
@@ -41,9 +39,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 public class UserQuestionServiceImpl implements IUserQuestionService {
-
-    @Autowired
-    private QuestionRepository questionRepository;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -168,26 +163,18 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
 
     private JudgeSubmitDTO assembleJudgeSubmitDTO(UserQuestionSubmitDTO submitDTO) {
         Long questionId = submitDTO.getQuestionId();
-        QuestionES questionES = questionRepository.findById(questionId).orElse(null);
+        Question question = questionMapper.selectById(questionId);
+        if (question == null) throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
         JudgeSubmitDTO judgeSubmitDTO = new JudgeSubmitDTO();
-        if (questionES != null) {
-            BeanUtils.copyProperties(questionES, judgeSubmitDTO);
-        } else {
-            Question question = questionMapper.selectById(questionId);
-            if (question == null) throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
-            BeanUtils.copyProperties(question, judgeSubmitDTO);
-            questionES = new QuestionES();
-            BeanUtils.copyProperties(question, questionES);
-            questionRepository.save(questionES);
-        }
+        BeanUtils.copyProperties(question, judgeSubmitDTO);
 
         judgeSubmitDTO.setUserId(ThreadLocalUtil.get(Constants.USER_ID, Long.class));
         judgeSubmitDTO.setQuestionId(questionId);
         judgeSubmitDTO.setExamId(submitDTO.getExamId());
         judgeSubmitDTO.setProgramType(submitDTO.getProgramType());
-        judgeSubmitDTO.setUserCode(codeConnect(submitDTO.getUserCode(), questionES.getMainFuc()));
+        judgeSubmitDTO.setUserCode(codeConnect(submitDTO.getUserCode(), question.getMainFuc()));
 
-        List<QuestionCase> questionCaseList = JSONUtil.toList(questionES.getQuestionCase(), QuestionCase.class);
+        List<QuestionCase> questionCaseList = JSONUtil.toList(question.getQuestionCase(), QuestionCase.class);
         List<String> inputList = questionCaseList.stream().map(questionCase -> questionCase.getInput()).toList();
         judgeSubmitDTO.setInputList(inputList);
         List<String> outputList = questionCaseList.stream().map(questionCase -> questionCase.getOutput()).toList();

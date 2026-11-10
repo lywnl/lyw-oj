@@ -20,3 +20,20 @@ spring:
         file-extension: yaml
         username: nacos
         password: lyw666
+
+# 同步默认关闭，只有完成题目基线切换的指定实例才能开启。
+canal:
+  sync:
+    enabled: ${CANAL_SYNC_ENABLED:false}
+    database: ${CANAL_DB_NAME:}
+    host: ${CANAL_SYNC_HOST:127.0.0.1}
+    state-directory: ${CANAL_STATE_DIR:}
+    initial-file: ${CANAL_MASTER_FILE:}
+    initial-position: ${CANAL_MASTER_POSITION:0}
+    source-jdbc-url: ${CANAL_SOURCE_JDBC_URL:}
+    source-username: ${CANAL_DB_USERNAME:canal_sync}
+    source-password: ${CANAL_DB_PASSWORD:}
+
+question:
+  maintenance:
+    enabled: ${QUESTION_MAINTENANCE_ENABLED:false}

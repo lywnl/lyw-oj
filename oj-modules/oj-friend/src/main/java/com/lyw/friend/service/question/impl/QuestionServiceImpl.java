@@ -2,7 +2,6 @@ package com.lyw.friend.service.question.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lyw.common.core.domain.TableDataInfo;
 import com.lyw.friend.domain.question.Question;
 import com.lyw.friend.domain.question.dto.QuestionQueryDTO;
@@ -35,11 +34,6 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public TableDataInfo list(QuestionQueryDTO questionQueryDTO) {
-        long count = questionRepository.count();
-        if (count <= 0) {
-            refreshQuestion();
-        }
-
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         PageRequest pageRequest = PageRequest.of(questionQueryDTO.getPageNum() - 1, questionQueryDTO.getPageSize(), sort);
 
@@ -69,19 +63,12 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public QuestionDetailVO detail(Long questionId) {
-        QuestionES questionES = questionRepository.findById(questionId).orElse(null);
         QuestionDetailVO questionDetailVO = new QuestionDetailVO();
-        if (questionES != null) {
-            BeanUtil.copyProperties(questionES, questionDetailVO);
-            return questionDetailVO;
-        }
-
         Question question = questionMapper.selectById(questionId);
         if (question == null) {
             return null;
         }
 
-        refreshQuestion();
         BeanUtil.copyProperties(question, questionDetailVO);
 
         return questionDetailVO;
@@ -107,13 +94,4 @@ public class QuestionServiceImpl implements IQuestionService {
         return questionCacheManager.nextQuestion(questionId).toString();
     }
 
-    private void refreshQuestion() {
-        List<Question> questionList = questionMapper.selectList(new LambdaQueryWrapper<>());
-        if (questionList == null) {
-            return;
-        }
-
-        List<QuestionES> questionESList = BeanUtil.copyToList(questionList, QuestionES.class);
-        questionRepository.saveAll(questionESList);
-    }
 }

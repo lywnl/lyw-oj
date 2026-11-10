@@ -10,13 +10,12 @@ import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.system.domain.question.Question;
 import com.lyw.system.domain.question.dto.QuestionAddDTO;
-import com.lyw.system.domain.question.es.QuestionES;
 import com.lyw.system.domain.question.vo.QuestionDetailVO;
 import com.lyw.system.domain.question.dto.QuestionEditDTO;
 import com.lyw.system.domain.question.dto.QuestionQueryDTO;
 import com.lyw.system.domain.question.vo.QuestionVO;
-import com.lyw.system.es.QuestionRepository;
 import com.lyw.system.manager.QuestionCacheManager;
+import com.lyw.system.questionsync.QuestionMaintenanceGate;
 import com.lyw.system.mapper.question.QuestionMapper;
 import com.lyw.system.service.question.IQuestionService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,7 @@ public class QuestionServiceImpl implements IQuestionService {
     private QuestionMapper questionMapper;
 
     @Autowired
-    private QuestionRepository questionRepository;
+    private QuestionMaintenanceGate maintenanceGate;
 
     @Autowired
     private QuestionCacheManager questionCacheManager;
@@ -62,6 +61,10 @@ public class QuestionServiceImpl implements IQuestionService {
     }
     @Override
     public boolean add(QuestionAddDTO questionAddDTO) {
+        return maintenanceGate.write(() -> doAdd(questionAddDTO));
+    }
+
+    private boolean doAdd(QuestionAddDTO questionAddDTO) {
         List<Question> questions = questionMapper.selectList(new LambdaQueryWrapper<Question>()
                 .eq(Question::getTitle, questionAddDTO.getTitle()));
         if (CollectionUtil.isNotEmpty(questions)) {
@@ -76,9 +79,6 @@ public class QuestionServiceImpl implements IQuestionService {
             return false;
         }
 
-        QuestionES questionES = new QuestionES();
-        BeanUtils.copyProperties(question, questionES);
-        questionRepository.save(questionES);
         questionCacheManager.addCache(question.getQuestionId());
 
         return true;
@@ -99,6 +99,10 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public int edit(QuestionEditDTO questionEditDTO) {
+        return maintenanceGate.write(() -> doEdit(questionEditDTO));
+    }
+
+    private int doEdit(QuestionEditDTO questionEditDTO) {
         Question oldQuestion = questionMapper.selectById(questionEditDTO.getQuestionId());
 
         if (oldQuestion == null) {
@@ -106,22 +110,22 @@ public class QuestionServiceImpl implements IQuestionService {
         }
 
         BeanUtils.copyProperties(questionEditDTO, oldQuestion);
-        QuestionES questionES = new QuestionES();
-        BeanUtils.copyProperties(oldQuestion, questionES);
-        questionRepository.save(questionES);
 
         return questionMapper.updateById(oldQuestion);
     }
 
     @Override
     public int delete(Long questionId) {
+        return maintenanceGate.write(() -> doDelete(questionId));
+    }
+
+    private int doDelete(Long questionId) {
         Question question = questionMapper.selectById(questionId);
 
         if (question == null) {
             throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
         }
 
-        questionRepository.deleteById(questionId);
         questionCacheManager.deleteCache(questionId);
 
         return questionMapper.deleteById(questionId);

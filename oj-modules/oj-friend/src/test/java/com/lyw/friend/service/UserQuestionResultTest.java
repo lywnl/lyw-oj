@@ -11,10 +11,10 @@ import com.lyw.common.core.utils.ThreadLocalUtil;
 import com.lyw.common.redis.service.StateCacheService;
 import com.lyw.common.security.exception.ServiceException;
 import com.lyw.friend.controller.user.UserQuestionController;
-import com.lyw.friend.domain.question.es.QuestionES;
+import com.lyw.friend.domain.question.Question;
 import com.lyw.friend.domain.user.UserSubmit;
 import com.lyw.friend.domain.user.dto.UserQuestionSubmitDTO;
-import com.lyw.friend.elasticsearch.QuestionRepository;
+import com.lyw.friend.mapper.question.QuestionMapper;
 import com.lyw.friend.mapper.user.UserSubmitMapper;
 import com.lyw.friend.rabbit.JudgeProducer;
 import com.lyw.friend.service.user.impl.UserQuestionServiceImpl;
@@ -25,8 +25,8 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -37,7 +37,7 @@ class UserQuestionResultTest {
     private final StateCacheService cache = mock(StateCacheService.class);
     private final UserSubmitMapper mapper = mock(UserSubmitMapper.class);
     private final JudgeProducer producer = mock(JudgeProducer.class);
-    private final QuestionRepository questions = mock(QuestionRepository.class);
+    private final QuestionMapper questions = mock(QuestionMapper.class);
 
     @BeforeEach
     void setup() {
@@ -45,7 +45,7 @@ class UserQuestionResultTest {
         ReflectionTestUtils.setField(service, "stateCacheService", cache);
         ReflectionTestUtils.setField(service, "userSubmitMapper", mapper);
         ReflectionTestUtils.setField(service, "judgeProducer", producer);
-        ReflectionTestUtils.setField(service, "questionRepository", questions);
+        ReflectionTestUtils.setField(service, "questionMapper", questions);
     }
 
     @AfterEach
@@ -122,11 +122,11 @@ class UserQuestionResultTest {
 
     @Test
     void failedSendKeepsGeneratedIdAndSerializesItAsString() throws Exception {
-        QuestionES question = new QuestionES();
+        Question question = new Question();
         question.setQuestionId(9L);
         question.setMainFuc("");
         question.setQuestionCase("[{\"input\":\"1 2\",\"output\":\"3\"}]");
-        when(questions.findById(9L)).thenReturn(Optional.of(question));
+        when(questions.selectById(9L)).thenReturn(question);
         doThrow(new IllegalStateException("发送异常")).when(producer).produceMsg(any());
         UserQuestionSubmitDTO request = new UserQuestionSubmitDTO();
         request.setQuestionId(9L);
@@ -141,6 +141,23 @@ class UserQuestionResultTest {
         var json = new ObjectMapper().readTree(new ObjectMapper().writeValueAsString(response));
         assertTrue(json.path("data").path("submitId").isTextual());
         verify(cache, times(2)).update(anyString(), any(JudgeResultCache.class), eq(5L), eq(TimeUnit.MINUTES));
+    }
+
+    @Test
+    void submissionSnapshotUsesCurrentDatabaseCasesLimitsAndEntryPoint() {
+        Question question = new Question(); question.setQuestionId(9L); question.setTimeLimit(2345L); question.setSpaceLimit(6789L);
+        question.setMainFuc("最新执行入口"); question.setQuestionCase("[{\"input\":\"7 8\",\"output\":\"15\"}]");
+        when(questions.selectById(9L)).thenReturn(question);
+        UserQuestionSubmitDTO request = new UserQuestionSubmitDTO(); request.setQuestionId(9L); request.setProgramType(0); request.setUserCode("public class Solution {}");
+        var response = service.rabbitSubmit(request);
+        ArgumentCaptor<JudgeSubmitDTO> sent = ArgumentCaptor.forClass(JudgeSubmitDTO.class); verify(producer).produceMsg(sent.capture());
+        JudgeSubmitDTO snapshot = sent.getValue();
+        assertEquals(2345L, snapshot.getTimeLimit()); assertEquals(6789L, snapshot.getSpaceLimit());
+        assertEquals(List.of("7 8"), snapshot.getInputList()); assertEquals(List.of("15"), snapshot.getOutputList());
+        assertTrue(snapshot.getUserCode().contains("最新执行入口")); assertEquals(response.getData().getSubmitId(), snapshot.getSubmitId());
+        question.setTimeLimit(999L); question.setQuestionCase("[]");
+        assertEquals(2345L, snapshot.getTimeLimit()); assertEquals(List.of("7 8"), snapshot.getInputList());
+        verify(questions, times(1)).selectById(9L);
     }
 
     @Test

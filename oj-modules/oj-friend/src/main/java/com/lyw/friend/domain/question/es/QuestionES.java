@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Document(indexName = "idx_question")
+@Document(indexName = "idx_question", createIndex = false)
 public class QuestionES {
 
     @Id

@@ -18,6 +18,10 @@ services:
     command:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_general_ci
+      --server-id=1
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --binlog-row-image=FULL
     # 通过执行特定的 MySQL 命令来检查服务的健康状态
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-u", "root", "-p123456"]
@@ -141,6 +145,7 @@ services:
       discovery.type: single-node
       ES_JAVA_OPTS: "-Xms256m -Xmx256m"
       xpack.security.enabled: false
+      action.auto_create_index: "-idx_question,+*"
     # 通过执行 curl 命令检查 Elasticsearch 的集群健康状态。
     healthcheck:
       test: [ "CMD", "curl", "-s", "http://localhost:9200/_cluster/health?wait_for_status=green&timeout=1s" ]
@@ -189,8 +194,20 @@ services:
       # 时区上海
       TZ: Asia/Shanghai
       HOST_IP: 10.2.8.10
+      CANAL_SYNC_ENABLED: ${CANAL_SYNC_ENABLED:-false}
+      CANAL_SYNC_DATABASE: ${CANAL_DB_NAME:-}
+      CANAL_SYNC_HOST: oj-canal-server
+      CANAL_SYNC_STATE_DIRECTORY: /canal-state
+      CANAL_SYNC_INITIAL_FILE: ${CANAL_MASTER_FILE:-}
+      CANAL_SYNC_INITIAL_POSITION: ${CANAL_MASTER_POSITION:-0}
+      CANAL_SYNC_SOURCE_JDBC_URL: ${CANAL_SOURCE_JDBC_URL:-}
+      CANAL_SYNC_SOURCE_USERNAME: ${CANAL_DB_USERNAME:-canal_sync}
+      CANAL_SYNC_SOURCE_PASSWORD: ${CANAL_DB_PASSWORD:-}
+      QUESTION_MAINTENANCE_ENABLED: ${QUESTION_MAINTENANCE_ENABLED:-false}
     ports:
       - "9201:9201"
+    volumes:
+      - ${CANAL_STATE_DIR:-./canal/state}:/canal-state:ro
     privileged: true
     depends_on:
       oj-nacos-server:
@@ -257,4 +274,19 @@ services:
       oj-nacos-server:
         condition: service_healthy
       oj-rabbitMQ-server:
+        condition: service_healthy
+
+  oj-canal-server:
+    image: canal/canal-server:v1.1.8
+    profiles: ["question-sync"]
+    entrypoint: ["/bin/sh", "/opt/oj-canal-entrypoint.sh"]
+    environment:
+      CANAL_HEAP: ${CANAL_HEAP:-256m}
+    volumes:
+      - ../canal/entrypoint.sh:/opt/oj-canal-entrypoint.sh:ro
+      - ${CANAL_CONFIG_DIR:-./canal/config}:/config:ro
+      - ${CANAL_STATE_DIR:-./canal/state}:/state
+    mem_limit: 768m
+    depends_on:
+      oj-mysql-server:
         condition: service_healthy
