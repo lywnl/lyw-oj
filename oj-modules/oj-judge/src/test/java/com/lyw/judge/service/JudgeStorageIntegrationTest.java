@@ -167,7 +167,7 @@ class JudgeStorageIntegrationTest {
         CountDownLatch entered = new CountDownLatch(2);
         ISandboxPoolService sandbox = mock(ISandboxPoolService.class);
         AtomicInteger executions = new AtomicInteger();
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenAnswer(call -> {
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenAnswer(call -> {
             int number = executions.incrementAndGet();
             entered.countDown();
             assertTrue(entered.await(5, TimeUnit.SECONDS));
@@ -196,7 +196,7 @@ class JudgeStorageIntegrationTest {
     void earlySystemFailureThenRealResultIsNotADuplicateKeyFailure() {
         JudgeSubmitDTO submission = submission();
         ISandboxPoolService sandbox = mock(ISandboxPoolService.class);
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList()))
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong()))
                 .thenReturn(SandBoxExecuteResult.fail(CodeRunStatus.SYSTEM_BUSY), success("3"));
         JudgeServiceImpl service = service(sandbox, cache);
         assertThrows(JudgeSystemException.class, () -> service.doJudgeJavaCode(submission));
@@ -211,7 +211,7 @@ class JudgeStorageIntegrationTest {
     void cacheFailureAfterCommitAndExpiryCanBeRecoveredWithoutJudgingAgain() throws Exception {
         JudgeSubmitDTO submission = submission();
         ISandboxPoolService sandbox = mock(ISandboxPoolService.class);
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenReturn(success("3"));
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenReturn(success("3"));
         StateCacheService unavailable = mock(StateCacheService.class);
         when(unavailable.update(anyString(), any(), anyLong(), any())).thenThrow(new IllegalStateException("缓存离线"));
         JudgeServiceImpl service = service(sandbox, unavailable);
@@ -224,14 +224,14 @@ class JudgeStorageIntegrationTest {
         assertNull(cache.get(key(submission), JudgeResultCache.class));
         service.doJudgeJavaCode(submission);
         assertEquals("JUDGED", cache.get(key(submission), JudgeResultCache.class).getCacheState());
-        verify(sandbox).exeJavaCode(anyLong(), anyString(), anyList());
+        verify(sandbox).exeJavaCode(anyLong(), anyString(), anyList(), anyLong());
     }
 
     @Test
     void insertFailureRollsBackAndRetryMayJudgeAgain() {
         JudgeSubmitDTO submission = submission();
         ISandboxPoolService sandbox = mock(ISandboxPoolService.class);
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenReturn(success("3"));
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenReturn(success("3"));
         JudgeServiceImpl service = service(sandbox, cache);
         jdbc.execute("ALTER TABLE tb_user_submit ADD CONSTRAINT reject_owned_test CHECK (submit_id <> " + submission.getSubmitId() + ")");
         try {
@@ -242,14 +242,14 @@ class JudgeStorageIntegrationTest {
         }
         assertEquals(1, service.doJudgeJavaCode(submission).getPass());
         assertEquals(1, count(submission.getSubmitId()));
-        verify(sandbox, times(2)).exeJavaCode(anyLong(), anyString(), anyList());
+        verify(sandbox, times(2)).exeJavaCode(anyLong(), anyString(), anyList(), anyLong());
     }
 
     @Test
     void realBrokerRedeliveryAfterCommitBeforeAckReusesDatabase() throws Exception {
         JudgeSubmitDTO submission = submission();
         ISandboxPoolService sandbox = mock(ISandboxPoolService.class);
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenReturn(success("3"));
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenReturn(success("3"));
         JudgeServiceImpl service = service(sandbox, cache);
         com.rabbitmq.client.ConnectionFactory factory = new com.rabbitmq.client.ConnectionFactory();
         factory.setHost(System.getProperty("oj.rabbit.host", "rabbit"));
@@ -277,7 +277,7 @@ class JudgeStorageIntegrationTest {
                 consumer.consumeMsg(JSON.parseObject(retry.getBody(), JudgeSubmitDTO.class), monitor,
                         retry.getEnvelope().getDeliveryTag());
                 assertEquals(1, count(submission.getSubmitId()));
-                verify(sandbox).exeJavaCode(anyLong(), anyString(), anyList());
+                verify(sandbox).exeJavaCode(anyLong(), anyString(), anyList(), anyLong());
                 assertEquals(0, monitor.queueDeclarePassive(queue).getMessageCount());
             } finally {
                 monitor.queueDelete(queue);

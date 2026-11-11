@@ -38,6 +38,6 @@ class JudgeTaskTest {
 
     private JudgeTask newTask() {
         return new JudgeTask(1L, "class Main {}", List.of(""),
-                containerId -> SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, List.of(), 0L, 0L), null);
+                containerId -> SandboxTaskOutcome.reusable(SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, List.of(), 0L, 0L)), null);
     }
 }

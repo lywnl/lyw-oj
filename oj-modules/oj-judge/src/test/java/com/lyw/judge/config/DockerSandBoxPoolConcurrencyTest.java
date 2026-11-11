@@ -1,91 +1,83 @@
 package com.lyw.judge.config;
 
-import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.CreateContainerResponse;
-import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.command.InspectContainerResponse;
-import com.github.dockerjava.api.model.Image;
-import com.github.dockerjava.api.model.HostConfig;
 import com.lyw.common.core.enums.CodeRunStatus;
 import com.lyw.judge.domain.JudgeTask;
+import com.lyw.judge.domain.JudgeTaskState;
 import com.lyw.judge.domain.SandBoxExecuteResult;
+import com.lyw.judge.domain.SandboxTaskOutcome;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-import static org.mockito.Mockito.RETURNS_SELF;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DockerSandBoxPoolConcurrencyTest {
+    @TempDir Path temporary;
 
     @Test
     void substituteClientKeepsSingleExecutionAndCapacityAccounting() throws Exception {
-        DockerClient client = mock(DockerClient.class, RETURNS_DEEP_STUBS);
-        Image image = mock(Image.class);
-        when(image.getRepoTags()).thenReturn(new String[]{"azul/zulu-openjdk:17"});
-        when(client.listImagesCmd().exec()).thenReturn(List.of(image));
-        when(client.listContainersCmd().withShowAll(true).exec()).thenReturn(List.of());
-        AtomicInteger sequence = new AtomicInteger();
-        CreateContainerCmd create = mock(CreateContainerCmd.class, RETURNS_SELF);
-        when(client.createContainerCmd(anyString())).thenReturn(create);
-        when(create.exec()).thenAnswer(invocation -> {
-            CreateContainerResponse response = new CreateContainerResponse();
-            response.setId("container-" + sequence.incrementAndGet());
-            return response;
-        });
-        InspectContainerResponse.ContainerState state = mock(InspectContainerResponse.ContainerState.class);
-        when(state.getRunning()).thenReturn(true);
-        when(client.inspectContainerCmd(anyString()).exec().getState()).thenReturn(state);
-
-        DockerSandBoxPool pool = new DockerSandBoxPool(client, "azul/zulu-openjdk:17",
-                "/usr/share/java", 100000000L, 100000000L, 1L,
-                1, 2, 1, 200L, "substitute-concurrency");
-        CountDownLatch started = new CountDownLatch(1);
+        FakeDocker docker = new FakeDocker();
+        SandboxLimits limits = SandboxLimits.defaults();
+        DockerSandBoxPool pool = new DockerSandBoxPool(docker.control, docker.factory(), "image", "/usr/share/java",
+                limits, 1, 2, 1, 100, "unit-capacity", new SandboxFileManager(temporary.resolve("pool"), 10000));
+        CountDownLatch started = new CountDownLatch(2);
         CountDownLatch release = new CountDownLatch(1);
         AtomicInteger executions = new AtomicInteger();
+        AtomicInteger active = new AtomicInteger();
+        AtomicInteger maximum = new AtomicInteger();
         try {
             pool.initDockerPool();
-            JudgeTask first = blockingTask(started, release, executions);
-            JudgeTask queued = blockingTask(new CountDownLatch(0), new CountDownLatch(0), executions);
-            JudgeTask expanded = blockingTask(new CountDownLatch(0), new CountDownLatch(0), executions);
-            JudgeTask rejected = blockingTask(new CountDownLatch(0), new CountDownLatch(0), executions);
+            JudgeTask first = blocking(started, release, executions, active, maximum);
+            JudgeTask queued = blocking(started, release, executions, active, maximum);
+            JudgeTask expanded = blocking(started, release, executions, active, maximum);
+            JudgeTask rejected = blocking(started, release, executions, active, maximum);
             assertTrue(pool.submit(first));
-            assertTrue(started.await(2, TimeUnit.SECONDS));
+            while (executions.get() == 0) Thread.sleep(5);
             assertTrue(pool.submit(queued));
             assertTrue(pool.submit(expanded));
-            assertTrue(!pool.submit(rejected));
-            assertTrue(executions.get() <= 2);
+            assertTrue(started.await(5, TimeUnit.SECONDS));
+            assertFalse(pool.submit(rejected));
+            assertEquals(JudgeTaskState.REJECTED, rejected.getState());
+            assertEquals(CodeRunStatus.SYSTEM_BUSY, rejected.getFuture().get(1, TimeUnit.SECONDS).getRunStatus());
+            assertEquals(2, pool.getAllocatedContainerCount());
+            assertEquals(2, docker.creates.get());
             release.countDown();
-            first.getFuture().get(2, TimeUnit.SECONDS);
-            queued.getFuture().get(2, TimeUnit.SECONDS);
-            expanded.getFuture().get(2, TimeUnit.SECONDS);
+            for (JudgeTask task : List.of(first, queued, expanded)) {
+                assertEquals(CodeRunStatus.SUCCEED, task.getFuture().get(5, TimeUnit.SECONDS).getRunStatus());
+            }
             assertEquals(3, executions.get());
-            assertEquals(2, pool.getWorkerCount());
+            assertEquals(2, maximum.get());
+            long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5);
+            while (pool.getAllocatedContainerCount() > 1 && System.nanoTime() < deadline) Thread.sleep(10);
+            assertEquals(1, pool.getWorkerCount());
+            assertEquals(1, pool.getAllocatedContainerCount());
         } finally {
+            release.countDown();
             pool.shutdown();
         }
+        assertEquals(0, pool.getAllocatedContainerCount());
     }
 
-    private JudgeTask blockingTask(CountDownLatch started, CountDownLatch release,
-                                   AtomicInteger executions) {
-        return new JudgeTask(1L, "class Main {}", List.of(""), id -> {
+    private JudgeTask blocking(CountDownLatch started, CountDownLatch release, AtomicInteger executions,
+                               AtomicInteger active, AtomicInteger maximum) {
+        return new JudgeTask(1L, "source", List.of(""), id -> {
             executions.incrementAndGet();
+            maximum.accumulateAndGet(active.incrementAndGet(), Math::max);
             started.countDown();
             try {
-                release.await(2, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
+                if (!release.await(5, TimeUnit.SECONDS)) throw new IllegalStateException("测试未释放任务");
+            } catch (InterruptedException error) {
                 Thread.currentThread().interrupt();
+                throw new IllegalStateException(error);
+            } finally {
+                active.decrementAndGet();
             }
-            return SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, List.of(), 0L, 0L);
+            return SandboxTaskOutcome.reusable(SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, List.of(), 0L, 0L));
         }, null);
     }
 }

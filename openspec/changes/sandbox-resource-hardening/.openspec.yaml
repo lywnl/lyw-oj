@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-11-10
+x-workflow-profile: strict
+x-verification-mode: machine

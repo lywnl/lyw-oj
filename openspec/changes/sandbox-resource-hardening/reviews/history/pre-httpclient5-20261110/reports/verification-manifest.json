@@ -1,0 +1,1447 @@
+{
+  "version": 1,
+  "change": "sandbox-resource-hardening",
+  "profile": "strict",
+  "verification_mode": "machine",
+  "requirements": [
+    {
+      "id": "Requirement: 执行资源必须具有可核实的限制与归属",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxLimitsTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "需求及全部子场景映射，验证口径见下列场景",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 执行资源必须具有可核实的限制与归属 / 正常容器通过准入",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxLimitsTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "kernelLimitsChineseOutputAndAllTaskFilesAreVerified；真实 inspect 与 cgroup",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 执行资源必须具有可核实的限制与归属 / 遗留资源或限制不符",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "refusesForeignContainerBeforeCreatingAnyResource / rejectsActualLimitMismatchAndCleansPartialStartup；Mockito 故障控制",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 执行资源必须具有可核实的限制与归属 / 配置无效",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxLimitsTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "无效、零/负数及 long 溢出被拒绝",
+      "status": "verified"
+    },
+    {
+      "id": "Requirement: 编译与运行等待必须有界",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "需求及全部子场景映射，验证口径见下列场景",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 编译与运行等待必须有界 / 编译等待超时",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "realCompilationTimeoutRemovesOldContainerBeforeReturning；真实 javac",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 编译与运行等待必须有界 / 运行等待超时",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "loopsDeadlocksAndUnclosedUserExecutorsAreReplaced / threadCreationHitsActualPidsLimitWithAndWithoutCatchingErrors",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 编译与运行等待必须有界 / 题目时限大于最低等待值",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxLimitsTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "longerQuestionLimitAndCompletedSlowProgramDoNotForceRetirement；真实执行5500ms、题目10000ms",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 编译与运行等待必须有界 / 普通错误退出与断流区分",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "退出码、stderr 顺序、missingExitState、真实 TCP 无响应启动及 stats 流",
+      "status": "verified"
+    },
+    {
+      "id": "Requirement: 任务文件与输出必须受控",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxFileManager.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputBudget.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxStreamCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxFileManagerTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/callback/SandboxOutputCallbackTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "需求及全部子场景映射，验证口径见下列场景",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 任务文件与输出必须受控 / 输出超过累计上限",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxFileManager.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputBudget.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxStreamCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/callback/SandboxOutputCallbackTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "stdoutAndStderrFloodsExceedDefaultBudgetAndRetireContainer / aggregateCaseBudgetEmptyOutputAndMultiFrameOutputAreCorrect",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 任务文件与输出必须受控 / 正常输出与文件清理",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxFileManager.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputBudget.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxStreamCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/callback/SandboxOutputCallbackTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "UTF-8 分帧、空输出、内部类、临时目录、正常挂载根保留",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 任务文件与输出必须受控 / 清理失败或恶意链接",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxFileManager.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputBudget.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxStreamCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxFileManagerTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "符号链接目标未删除；清理时间预算及64层深度限制；深目录隔离仍完成Future",
+      "status": "verified"
+    },
+    {
+      "id": "Requirement: 容器执行资源必须遵循核心与最大数量规则",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "需求及全部子场景映射，验证口径见下列场景",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 容器执行资源必须遵循核心与最大数量规则 / 服务启动创建核心资源",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "真实启动核心1/2个配置；默认配置仍核心4、最大8",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 容器执行资源必须遵循核心与最大数量规则 / 核心资源初始化失败",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "realDockerPoolFailsStartupWhenCoreContainerCannotBeCreated / missingNativeClientLibraryCannotLeakPartiallyCreatedContainer",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 容器执行资源必须遵循核心与最大数量规则 / 队列积压触发临时扩容",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "队列满时预留名额、真实扩容，替身并发峰值不超过最大数",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 容器执行资源必须遵循核心与最大数量规则 / 低峰期回收临时资源",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "realDockerPoolReclaimsIdleTemporaryWorker",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 容器执行资源必须遵循核心与最大数量规则 / 删除或补建失败导致容量下降",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "removalFailurePreservesSlotAndDoesNotRebuild / queuedTasksAreRejectedWhenLastCoreCannotBeRebuilt / anotherRetiringCoreCanStillRecoverQueuedTasks",
+      "status": "verified"
+    },
+    {
+      "id": "Requirement: 判题完成和容器故障必须正确收敛",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "需求及全部子场景映射，验证口径见下列场景",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 判题完成和容器故障必须正确收敛 / 用户代码判题失败后复用健康容器",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "真实编译错误、运行异常/栈溢出/已退出慢程序复用；最终题目超时由JudgeService单元测试核对",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 判题完成和容器故障必须正确收敛 / 容器执行异常后隔离恢复",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "retirementAndDirectoryRemovalPrecedeFutureCompletion；真实容器移除、补建、后续正常任务",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 判题完成和容器故障必须正确收敛 / 回收失败与所有资源不可用",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "真实容器+remove故障注入；隔离占位、SYSTEM_BUSY、无悬空队列",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 判题完成和容器故障必须正确收敛 / 中断和关闭竞争",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTimeoutGuardTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "concurrentShutdownAndExecutionRetireOnlyOnce；超时取消不误中断下一任务、Netty EOF及线程收敛",
+      "status": "verified"
+    },
+    {
+      "id": "Scenario: 判题完成和容器故障必须正确收敛 / 异步任务完成后确认消息",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "Mockito 验证原幂等、系统失败、ACK/NACK语义；未启动真实数据库/MQ",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 1.1",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxLimitsTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "默认及非法配置，真实 Linux 资源限制，双客户端与传输验证",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 1.2",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "内部时限传递、处置结果及系统失败语义",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 2.1",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxFileManager.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputBudget.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxStreamCallback.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/callback/SandboxOutputCallbackTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "共享输出预算、UTF-8合并、exec/stats关闭",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 2.2",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "编译运行等待、退出状态核验、真实长题时限与TCP异常",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 2.3",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxFileManager.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputBudget.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxStreamCallback.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxFileManagerTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "完整目录清理、符号链接、时间预算与深度边界",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 3.1",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "准入、创建预留、结果未知及明确拒绝的不同处置",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 3.2",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "回收顺序、隔离名额、补建与队列收敛",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 4.1",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/JudgeServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/ISandboxPoolService.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxLimitsTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxExecutionTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxFileManagerTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/callback/SandboxOutputCallbackTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTimeoutGuardTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/domain/JudgeTaskTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolConcurrencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/service/JudgeServiceIdempotencyTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/rabbit/JudgeConsumerTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "JDK17隔离构建、50项单元和传输测试及git diff --check",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 4.2",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxFileManager.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputBudget.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxOutputCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/callback/SandboxStreamCallback.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "17项真实Docker测试，资源、事件及JUnit证据",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 4.3",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxDockerExecutor.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/service/impl/SandboxPoolServiceImpl.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxTimeoutGuard.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTransportTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxTimeoutGuardTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolLifecycleTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "原始证据附录：unit-full-01 与 docker-full-02 的命令、JUnit、源码快照、docker-events.jsonl"
+      ],
+      "description": "真实TCP无响应、EOF与线程关闭；独立发现修复回归",
+      "status": "verified"
+    },
+    {
+      "id": "Task: 4.4",
+      "implementation": [
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPool.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/DockerSandBoxPoolConfig.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/config/SandboxLimits.java",
+        "oj-modules/oj-judge/pom.xml",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/JudgeTask.java",
+        "oj-modules/oj-judge/src/main/java/com/lyw/judge/domain/SandboxTaskOutcome.java"
+      ],
+      "tests": [
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/DockerSandBoxPoolIntegrationTest.java",
+        "oj-modules/oj-judge/src/test/java/com/lyw/judge/config/SandboxSafetyIntegrationTest.java"
+      ],
+      "evidence": [
+        ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md"
+      ],
+      "evidence_sections": [
+        "测试资源清理：实际清理命令与核对原始记录；原始证据附录：baseline.json、environment.json"
+      ],
+      "description": "本轮资源清理及基线核对；证据保留在主报告",
+      "status": "verified"
+    }
+  ],
+  "commands": [
+    {
+      "id": "compile-01",
+      "command": "docker create --name oj-safety-2188d02b-compile-01 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am -Dmaven.test.skip=true package",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "started_at": "2026-11-10T06:36:02.913525+00:00",
+      "finished_at": "2026-11-10T06:38:06.876720+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/compile-01-command.json"
+    },
+    {
+      "id": "unit-01",
+      "command": "docker create --name oj-safety-2188d02b-unit-01 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am -Dtest=SandboxLimitsTest,SandboxFileManagerTest,SandboxOutputCallbackTest,JudgeTaskTest,DockerSandBoxPoolConcurrencyTest,DockerSandBoxPoolLifecycleTest,JudgeServiceIdempotencyTest,JudgeConsumerTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 1,
+      "started_at": "2026-11-10T06:45:22.093683+00:00",
+      "finished_at": "2026-11-10T06:45:37.365481+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/unit-01-command.json"
+    },
+    {
+      "id": "unit-02",
+      "command": "docker create --name oj-safety-2188d02b-unit-02 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am -Dtest=SandboxLimitsTest,SandboxFileManagerTest,SandboxOutputCallbackTest,JudgeTaskTest,DockerSandBoxPoolConcurrencyTest,DockerSandBoxPoolLifecycleTest,JudgeServiceIdempotencyTest,JudgeConsumerTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "started_at": "2026-11-10T06:51:59.420728+00:00",
+      "finished_at": "2026-11-10T06:52:11.723349+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/unit-02-command.json"
+    },
+    {
+      "id": "docker-smoke-01",
+      "command": "docker create --name oj-safety-2188d02b-docker-smoke-01 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am '-Dtest=DockerSandBoxPoolIntegrationTest#realDockerPoolConsumesTasksAndHonorsCapacity' -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 1,
+      "started_at": "2026-11-10T06:55:50.441724+00:00",
+      "finished_at": "2026-11-10T06:55:57.795520+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/docker-smoke-01-command.json"
+    },
+    {
+      "id": "docker-smoke-02",
+      "command": "docker create --name oj-safety-2188d02b-docker-smoke-02 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am '-Dtest=DockerSandBoxPoolIntegrationTest#realDockerPoolConsumesTasksAndHonorsCapacity' -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "started_at": "2026-11-10T06:58:41.029693+00:00",
+      "finished_at": "2026-11-10T06:58:51.115127+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/docker-smoke-02-command.json"
+    },
+    {
+      "id": "unit-full-01",
+      "command": "docker create --name oj-safety-2188d02b-unit-full-01 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am -Dtest=SandboxLimitsTest,SandboxFileManagerTest,SandboxOutputCallbackTest,SandboxExecutionTest,SandboxTimeoutGuardTest,SandboxTransportTest,JudgeTaskTest,DockerSandBoxPoolConcurrencyTest,DockerSandBoxPoolLifecycleTest,JudgeServiceIdempotencyTest,JudgeConsumerTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "started_at": "2026-11-10T07:08:21.747551+00:00",
+      "finished_at": "2026-11-10T07:08:41.769223+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/unit-full-01-command.json"
+    },
+    {
+      "id": "docker-full-01",
+      "command": "docker create --name oj-safety-2188d02b-docker-full-01 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am -Dtest=DockerSandBoxPoolIntegrationTest,SandboxSafetyIntegrationTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 1,
+      "started_at": "2026-11-10T07:11:54.476545+00:00",
+      "finished_at": "2026-11-10T07:13:10.771284+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/docker-full-01-command.json"
+    },
+    {
+      "id": "docker-full-02",
+      "command": "docker create --name oj-safety-2188d02b-docker-full-02 --label codex.task=sandbox-resource-hardening --label codex.run=20261110-060034-2188d02b --memory 2048m --cpus 2 --mount type=bind,src=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b,dst=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock -e 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp' -w /Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/build maven:3.9.9-eclipse-temurin-17 bash -c 'java -version && exec \"$@\"' maven-test mvn -B --no-transfer-progress -Dmaven.repo.local=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/maven-cache -Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -DargLine=-Djava.io.tmpdir=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/tmp -Dsandbox.test.root=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/sandbox-files -Dsandbox.test.evidence=/Users/lllyw/lyw-oj/.codex/sandbox-hardening/20261110-060034-2188d02b/evidence -Ddocker.host=unix:///var/run/docker.sock -Ddocker.api.version=1.41 -pl oj-modules/oj-judge -am -Dtest=DockerSandBoxPoolIntegrationTest,SandboxSafetyIntegrationTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "started_at": "2026-11-10T07:19:07.815054+00:00",
+      "finished_at": "2026-11-10T07:20:27.325131+00:00",
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/docker-full-02-command.json"
+    },
+    {
+      "command": "git diff --check",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/final-checks.json"
+    },
+    {
+      "command": "git diff --name-only",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/final-checks.json"
+    },
+    {
+      "command": "git status --short",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "原始证据附录：evidence/final-checks.json"
+    },
+    {
+      "command": "docker ps -a --no-trunc --format '{{.ID}}\t{{.Names}}\t{{.State}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect ff4e78bd27a789fb2df441085633e623364317d608307db67b9e302af5f36a93 --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v ff4e78bd27a789fb2df441085633e623364317d608307db67b9e302af5f36a93",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect 17171ad106e856b524679c5a5504b322570eab6ac0f94d04e5651c5c43f7ed65 --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v 17171ad106e856b524679c5a5504b322570eab6ac0f94d04e5651c5c43f7ed65",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect ab9f68c87906f34b273b4fc691773eef03e76d7f8f6797bd1a429c40f3ceaac9 --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v ab9f68c87906f34b273b4fc691773eef03e76d7f8f6797bd1a429c40f3ceaac9",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect 59b195e23519c8deb3d998305f8d77f49620ab2ec16739798faf3e4daee74dd7 --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v 59b195e23519c8deb3d998305f8d77f49620ab2ec16739798faf3e4daee74dd7",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect 301d470f255668637d7ed7504c890cb013632e69796b6f17aea21011d58df30e --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v 301d470f255668637d7ed7504c890cb013632e69796b6f17aea21011d58df30e",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect e486562dd725993e7f529c32d732b37a3fea134b348fdb508d6f93d153a078d3 --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v e486562dd725993e7f529c32d732b37a3fea134b348fdb508d6f93d153a078d3",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect 20250dcd57208250e9086de656a5f4275c1f94ad357807fdc1354cc69dcb454c --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v 20250dcd57208250e9086de656a5f4275c1f94ad357807fdc1354cc69dcb454c",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker inspect e250be15fd2c6ffae8d3f3dddbc25fe3881f3e42a0711b534d534039e51485b3 --format '{\"id\":{{json .Id}},\"running\":{{json .State.Running}},\"labels\":{{json .Config.Labels}},\"mounts\":{{json .Mounts}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker rm -v e250be15fd2c6ffae8d3f3dddbc25fe3881f3e42a0711b534d534039e51485b3",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-c0d07e85-237",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-2b4456fb-dc7",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-43cc793c-286",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-1d2f0cad-f52",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-80735e4a-28d",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-d04781af-416",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-819c0084-a83",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-728a470f-001",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-67e62af7-472",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-74beb028-6cf",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-c7756f97-cfc",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-7d12ebaa-9e9",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-eec0312d-4d6",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-f75f73e7-7c0",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-f0c4b937-8e8",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-eb361e2f-48d",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-f2db14b5-202",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-68e9ff66-4f6",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-4d433c23-67e",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-14f58548-46d",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-9e6c09f6-0d2",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-249e94e0-b0c",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-52531b3c-985",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-b3f00d1c-800",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-72b3dd47-8db",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-382079f4-ab2",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-d55efce5-5e3",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-08224210-c76",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-72c9f670-553",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-20177efc-675",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-ff366c43-0c2",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-7fc1892b-68d",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-c69ca9e4-e63",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-87469a62-bff",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-95f60b29-18f",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-16939f39-1e6",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-301480d4-cf6",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter label=com.lyw.oj.sandbox.pool=oj-safety-66f3d769-156",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --format '{{.ID}}\t{{.Names}}\t{{.State}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker volume ls --quiet",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker image ls --no-trunc --quiet",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker ps -a --no-trunc --quiet --filter ancestor=sha256:199c74d897bf3d1b769474734e90878b77b75fb07090c83f01f81d89722107df",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker image inspect sha256:199c74d897bf3d1b769474734e90878b77b75fb07090c83f01f81d89722107df --format '{\"tags\":{{json .RepoTags}},\"id\":{{json .Id}}}'",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker image rm sha256:199c74d897bf3d1b769474734e90878b77b75fb07090c83f01f81d89722107df",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "docker image ls --no-trunc --quiet",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "git diff --check",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    },
+    {
+      "command": "git status --short",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/sandbox-resource-hardening-20261110-060034-2188d02b.md",
+      "evidence_section": "测试资源清理：清理命令与核对原始记录"
+    }
+  ],
+  "limitations": [
+    "未加入限流",
+    "后台子进程完整隔离不在本轮范围",
+    "未做真实HTTP/数据库/MQ验收",
+    "内存统计口径未修改",
+    "测试平台为ARM64 Linux Docker，未做生产及高并发验证"
+  ]
+}

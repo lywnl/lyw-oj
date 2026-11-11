@@ -19,14 +19,14 @@ public final class JudgeTask {
     private final Long userId;
     private final String userCode;
     private final List<String> inputList;
-    private final Function<String, SandBoxExecuteResult> executor;
+    private final Function<String, SandboxTaskOutcome> executor;
     private final CompletableFuture<SandBoxExecuteResult> future = new CompletableFuture<>();
     private final Consumer<SandBoxExecuteResult> completionHandler;
     private final AtomicReference<JudgeTaskState> state =
             new AtomicReference<>(JudgeTaskState.CREATED);
 
     public JudgeTask(Long userId, String userCode, List<String> inputList,
-                     Function<String, SandBoxExecuteResult> executor,
+                     Function<String, SandboxTaskOutcome> executor,
                      Consumer<SandBoxExecuteResult> completionHandler) {
         this.userId = userId;
         this.userCode = userCode;
@@ -35,7 +35,7 @@ public final class JudgeTask {
         this.completionHandler = completionHandler;
     }
 
-    public SandBoxExecuteResult execute(String containerId) {
+    public SandboxTaskOutcome execute(String containerId) {
         return executor.apply(containerId);
     }
 

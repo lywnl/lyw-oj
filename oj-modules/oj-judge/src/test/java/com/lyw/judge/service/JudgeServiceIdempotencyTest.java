@@ -49,7 +49,7 @@ class JudgeServiceIdempotencyTest {
     void systemResultsNeverInsert() {
         for (SandBoxExecuteResult result : Arrays.asList(null, SandBoxExecuteResult.fail(CodeRunStatus.SYSTEM_BUSY),
                 SandBoxExecuteResult.fail(CodeRunStatus.UNKNOWN_FAILED), SandBoxExecuteResult.fail(CodeRunStatus.RUNNING))) {
-            when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenReturn(result);
+            when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenReturn(result);
             assertThrows(JudgeSystemException.class, () -> service.doJudgeJavaCode(submission()));
         }
         verify(store, never()).saveOrReuse(any(), any());
@@ -58,14 +58,14 @@ class JudgeServiceIdempotencyTest {
 
     @Test
     void dockerExceptionNeverInsert() {
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenThrow(new IllegalStateException("Docker 断开"));
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenThrow(new IllegalStateException("Docker 断开"));
         assertThrows(JudgeSystemException.class, () -> service.doJudgeJavaCode(submission()));
         verify(store, never()).saveOrReuse(any(), any());
     }
 
     @Test
     void compilationFailureIsARealResult() {
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenReturn(SandBoxExecuteResult.fail(CodeRunStatus.COMPILE_FAILED));
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenReturn(SandBoxExecuteResult.fail(CodeRunStatus.COMPILE_FAILED));
         when(store.saveOrReuse(any(), any())).thenReturn(saved(0));
         service.doJudgeJavaCode(submission());
         ArgumentCaptor<UserQuestionResultVO> result = ArgumentCaptor.forClass(UserQuestionResultVO.class);
@@ -77,7 +77,7 @@ class JudgeServiceIdempotencyTest {
 
     @Test
     void cacheUsesDatabaseWinnerInsteadOfCurrentComputation() {
-        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList())).thenReturn(
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenReturn(
                 SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, List.of("3"), 1L, 1L));
         when(store.saveOrReuse(any(), any())).thenReturn(saved(0));
         assertEquals(0, service.doJudgeJavaCode(submission()).getPass());
@@ -91,6 +91,21 @@ class JudgeServiceIdempotencyTest {
         when(store.findCompleted(any())).thenThrow(new IllegalStateException("数据库不可用"));
         assertThrows(IllegalStateException.class, () -> service.doJudgeJavaCode(submission()));
         verifyNoInteractions(sandbox);
+    }
+
+    @Test
+    void completedProgramCanFailQuestionTimeLimitWithoutBecomingSystemFailure() {
+        JudgeSubmitDTO request = submission();
+        request.setTimeLimit(10L);
+        when(sandbox.exeJavaCode(anyLong(), anyString(), anyList(), anyLong())).thenReturn(
+                SandBoxExecuteResult.success(CodeRunStatus.SUCCEED, List.of("3"), 1L, 20L));
+        when(store.saveOrReuse(any(), any())).thenReturn(saved(0));
+        service.doJudgeJavaCode(request);
+        ArgumentCaptor<UserQuestionResultVO> recorded = ArgumentCaptor.forClass(UserQuestionResultVO.class);
+        verify(store).saveOrReuse(eq(request), recorded.capture());
+        assertEquals(0, recorded.getValue().getPass());
+        assertEquals(CodeRunStatus.OUT_OF_TIME.getMsg(), recorded.getValue().getExeMessage());
+        verify(sandbox).exeJavaCode(eq(7L), anyString(), anyList(), eq(10L));
     }
 
     public static JudgeSubmitDTO submission() {

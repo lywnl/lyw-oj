@@ -53,7 +53,7 @@ public class JudgeServiceImpl implements IJudgeService {
         SandBoxExecuteResult sandBoxExecuteResult;
         try {
             sandBoxExecuteResult = sandboxPoolService.exeJavaCode(judgeSubmitDTO.getUserId(),
-                    judgeSubmitDTO.getUserCode(), judgeSubmitDTO.getInputList());
+                    judgeSubmitDTO.getUserCode(), judgeSubmitDTO.getInputList(), judgeSubmitDTO.getTimeLimit());
         } catch (Exception e) {
             throw new JudgeSystemException(CodeRunStatus.UNKNOWN_FAILED, e);
         }
