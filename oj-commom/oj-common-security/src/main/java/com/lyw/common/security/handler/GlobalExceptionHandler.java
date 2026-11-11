@@ -6,6 +6,7 @@ import com.lyw.common.core.domain.Result;
 import com.lyw.common.core.enums.ResultCode;
 import com.lyw.common.security.exception.ServiceException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
@@ -37,9 +38,18 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ServiceException.class)
-    public Result<?> handleServiceException(ServiceException e, HttpServletRequest request) {
+    public Result<?> handleServiceException(ServiceException e, HttpServletRequest request,
+                                             HttpServletResponse response) {
         String requestURI = request.getRequestURI();
         ResultCode resultCode = e.getResultCode();
+        if (resultCode == ResultCode.FAILED_SUBMIT_FREQUENT || resultCode == ResultCode.FAILED_SUBMIT_BUSY) {
+            response.setStatus(429);
+            return Result.fail(resultCode);
+        }
+        if (resultCode == ResultCode.FAILED_SUBMIT_LIMIT_UNAVAILABLE) {
+            response.setStatus(503);
+            return Result.fail(resultCode);
+        }
         log.error("请求地址'{}',发生异常.异常信息:", requestURI, e);
 
         return Result.fail(resultCode);

@@ -18,6 +18,7 @@ import com.lyw.friend.mapper.question.QuestionMapper;
 import com.lyw.friend.mapper.user.UserSubmitMapper;
 import com.lyw.friend.rabbit.JudgeProducer;
 import com.lyw.friend.service.user.impl.UserQuestionServiceImpl;
+import com.lyw.friend.service.user.SubmissionRateLimiter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,7 @@ class UserQuestionResultTest {
         ReflectionTestUtils.setField(service, "userSubmitMapper", mapper);
         ReflectionTestUtils.setField(service, "judgeProducer", producer);
         ReflectionTestUtils.setField(service, "questionMapper", questions);
+        ReflectionTestUtils.setField(service, "submissionRateLimiter", mock(SubmissionRateLimiter.class));
     }
 
     @AfterEach

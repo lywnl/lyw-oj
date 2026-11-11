@@ -1,0 +1,5 @@
+schema: spec-driven
+created: 2026-11-10
+# 当前 CLI 要求自定义元数据使用 x- 扩展；风险等级和核验参数仍为 strict。
+x-workflow:
+  workflow_profile: strict

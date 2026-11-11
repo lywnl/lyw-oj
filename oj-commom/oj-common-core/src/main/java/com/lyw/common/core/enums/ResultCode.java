@@ -58,6 +58,10 @@ public enum ResultCode {
 
     FAILED_NOT_SUPPORT_PROGRAM          (3601, "当前不支持此语言"),
 
+    FAILED_SUBMIT_FREQUENT               (3602, "提交过于频繁，请稍后再试"),
+    FAILED_SUBMIT_BUSY                   (3603, "当前提交请求较多，请稍后再试"),
+    FAILED_SUBMIT_LIMIT_UNAVAILABLE      (3604, "提交服务暂时不可用，请稍后再试"),
+
     FAILED_RABBIT_PRODUCE               (3701, "mq生产消息异常");
     private int code;
     private String msg;

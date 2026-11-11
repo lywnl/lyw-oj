@@ -1,0 +1,1079 @@
+{
+  "version": 1,
+  "change": "judge-submission-rate-limit",
+  "profile": "strict",
+  "verification_mode": "machine",
+  "summary": {
+    "tests": 55,
+    "executed": 53,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "redis_executed": 14,
+    "other_executed": 39
+  },
+  "requirements": [
+    {
+      "id": "scenario:用户提交频率必须跨入口共享 / 用户冷却期内跨入口提交",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "bothRoutesUseAuthenticatedIdentityAndCheckBeforeQuestionRead",
+        "defaultFiveSecondUserCooldownRecoversAcrossClients"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:用户提交频率必须跨入口共享 / 不同用户额度隔离",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "defaultGlobalQuotaAllowsThreeThenRecoversAfterOneSecond",
+        "differentUsersAcrossClientsShareOneGlobalQuota"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:用户提交频率必须跨入口共享 / 同用户并发争抢",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "sameUserConcurrentRequestsAcrossClientsHaveOnlyOneWinner"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:提交总量必须跨用户和实例共享 / 总量额度耗尽",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "defaultGlobalQuotaAllowsThreeThenRecoversAfterOneSecond"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:提交总量必须跨用户和实例共享 / 不同实例共享总量",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "differentUsersAcrossClientsShareOneGlobalQuota"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:提交总量必须跨用户和实例共享 / 周期结束后恢复",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "defaultGlobalQuotaAllowsThreeThenRecoversAfterOneSecond"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流必须位于受理副作用之前 / 无效请求不消耗额度",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "invalidParametersAndUnsupportedLanguageDoNotConsumeQuota",
+        "missingIdentityDoesNotConsumeQuota"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流必须位于受理副作用之前 / 拒绝请求不进入判题链路",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "bothEntrypointsRejectBeforeAnyAcceptanceSideEffect",
+        "allNewFailuresHaveRealHttpStatusAndTheExistingResultShapeOnBothRoutes"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流必须位于受理副作用之前 / 放行后沿用原有提交行为",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "bothRoutesUseAuthenticatedIdentityAndCheckBeforeQuestionRead",
+        "laterSendFailurePreservesExistingReceiptAndErrorContract"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:提交尝试必须先扣用户再扣总量 / 用户超限不占用总量",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "userRejectionNeverLooksUpOrConsumesGlobalQuota"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:提交尝试必须先扣用户再扣总量 / 总量拒绝保留用户冷却",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "globalRejectionDoesNotReleaseTheUserPermit",
+        "globalHttpRejectionKeepsTheUserCoolingAndHasNoAcceptanceSideEffects"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:提交尝试必须先扣用户再扣总量 / 后续失败不退还额度",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "laterSendFailurePreservesExistingReceiptAndErrorContract",
+        "existingRulesReturningFalseStillAcquireInTheApprovedOrder"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:超限和存储故障必须返回明确错误 / 超限 HTTP 响应正确",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "allNewFailuresHaveRealHttpStatusAndTheExistingResultShapeOnBothRoutes"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:超限和存储故障必须返回明确错误 / Redis 故障时拒绝本次提交",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "realRedisResponsePauseProducesBoundedHttp503ThenRecovers",
+        "disconnectingARealRedisForwardingConnectionProducesHttp503ThenRecovers",
+        "convertsConnectionAndCommandFailuresAtEitherLayer"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:超限和存储故障必须返回明确错误 / 现有非限流错误保持原响应",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "existingValidationErrorsKeepTheirHttpAndBusinessStatus"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流状态必须有明确生命周期 / 初始化已有规则不恢复额度",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "rebuildingAClientDoesNotResetExistingUserOrGlobalState",
+        "existingRulesReturningFalseStillAcquireInTheApprovedOrder",
+        "runtimePropertyChangesDoNotSilentlyResetTheActiveRules"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流状态必须有明确生命周期 / 用户空闲状态过期后重建",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "deniedActivityRenewsIdleExpiryAndAllUserStateEventuallyExpires"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流状态必须有明确生命周期 / 活动延长空闲期限",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "deniedActivityRenewsIdleExpiryAndAllUserStateEventuallyExpires"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流状态必须有明确生命周期 / 环境隔离",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java"
+      ],
+      "test_nodes": [
+        "otherEnvironmentsDoNotConsumeEachOthersUserQuota",
+        "defaultsAndEnvironmentNamesMatchTheApprovedRules"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流接入必须复用现有单机连接并约束等待 / 客户端兼容现有缓存",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/pom.xml",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "existingLettuceAndStateCacheServiceWorkAlongsideRedisson",
+        "defaultRulesCreateAuthenticatedDatabaseScopedStateWithTheRightTtl"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流接入必须复用现有单机连接并约束等待 / 启动时不额外强制连接 Redis",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/pom.xml",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java"
+      ],
+      "test_nodes": [
+        "springCreatesTheDedicatedLazyClientWithoutAReachableRedisAndClosesIt"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:限流接入必须复用现有单机连接并约束等待 / 无效配置及时失败",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/pom.xml",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java"
+      ],
+      "test_nodes": [
+        "rejectsInvalidRulesBeforeAClientCanUseThem",
+        "rejectsEnvironmentNamesThatCouldBroadenMaintenanceMatching",
+        "rejectsOtherTopologiesInsteadOfFallingBackToLocalhost",
+        "customSslOptionsAreRejectedInsteadOfSilentlyLosingTheirTrustSettings"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:参数调整与诊断必须遵循受控边界 / 停服后统一调整规则",
+      "implementation": [
+        "oj-modules/oj-friend/docs/submission-rate-limit.md",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "maintenanceResetsOnlyValidatedLogicalLimitersAndLetsNewRulesTakeEffect",
+        "maintenanceAbortsBeforeDeletionIfACandidateIsNotALimiter"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "scenario:参数调整与诊断必须遵循受控边界 / 拒绝日志不暴露提交内容",
+      "implementation": [
+        "oj-modules/oj-friend/docs/submission-rate-limit.md",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "diagnosticsDoNotExposeRedisErrorMessagesOrStackTraces",
+        "rateLimitAdviceDoesNotEmitAnExceptionStackTrace"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:用户提交频率必须跨入口共享",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "bothRoutesUseAuthenticatedIdentityAndCheckBeforeQuestionRead",
+        "defaultFiveSecondUserCooldownRecoversAcrossClients",
+        "defaultGlobalQuotaAllowsThreeThenRecoversAfterOneSecond",
+        "differentUsersAcrossClientsShareOneGlobalQuota",
+        "sameUserConcurrentRequestsAcrossClientsHaveOnlyOneWinner"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:提交总量必须跨用户和实例共享",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "defaultGlobalQuotaAllowsThreeThenRecoversAfterOneSecond",
+        "differentUsersAcrossClientsShareOneGlobalQuota"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:限流必须位于受理副作用之前",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "invalidParametersAndUnsupportedLanguageDoNotConsumeQuota",
+        "missingIdentityDoesNotConsumeQuota",
+        "bothEntrypointsRejectBeforeAnyAcceptanceSideEffect",
+        "allNewFailuresHaveRealHttpStatusAndTheExistingResultShapeOnBothRoutes",
+        "bothRoutesUseAuthenticatedIdentityAndCheckBeforeQuestionRead",
+        "laterSendFailurePreservesExistingReceiptAndErrorContract"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:提交尝试必须先扣用户再扣总量",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "userRejectionNeverLooksUpOrConsumesGlobalQuota",
+        "globalRejectionDoesNotReleaseTheUserPermit",
+        "globalHttpRejectionKeepsTheUserCoolingAndHasNoAcceptanceSideEffects",
+        "laterSendFailurePreservesExistingReceiptAndErrorContract",
+        "existingRulesReturningFalseStillAcquireInTheApprovedOrder"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:超限和存储故障必须返回明确错误",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "allNewFailuresHaveRealHttpStatusAndTheExistingResultShapeOnBothRoutes",
+        "realRedisResponsePauseProducesBoundedHttp503ThenRecovers",
+        "disconnectingARealRedisForwardingConnectionProducesHttp503ThenRecovers",
+        "convertsConnectionAndCommandFailuresAtEitherLayer",
+        "existingValidationErrorsKeepTheirHttpAndBusinessStatus"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:限流状态必须有明确生命周期",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java"
+      ],
+      "test_nodes": [
+        "rebuildingAClientDoesNotResetExistingUserOrGlobalState",
+        "existingRulesReturningFalseStillAcquireInTheApprovedOrder",
+        "runtimePropertyChangesDoNotSilentlyResetTheActiveRules",
+        "deniedActivityRenewsIdleExpiryAndAllUserStateEventuallyExpires",
+        "otherEnvironmentsDoNotConsumeEachOthersUserQuota",
+        "defaultsAndEnvironmentNamesMatchTheApprovedRules"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:限流接入必须复用现有单机连接并约束等待",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/pom.xml",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java"
+      ],
+      "test_nodes": [
+        "existingLettuceAndStateCacheServiceWorkAlongsideRedisson",
+        "defaultRulesCreateAuthenticatedDatabaseScopedStateWithTheRightTtl",
+        "springCreatesTheDedicatedLazyClientWithoutAReachableRedisAndClosesIt",
+        "rejectsInvalidRulesBeforeAClientCanUseThem",
+        "rejectsEnvironmentNamesThatCouldBroadenMaintenanceMatching",
+        "rejectsOtherTopologiesInsteadOfFallingBackToLocalhost",
+        "customSslOptionsAreRejectedInsteadOfSilentlyLosingTheirTrustSettings"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "requirement:参数调整与诊断必须遵循受控边界",
+      "implementation": [
+        "oj-modules/oj-friend/docs/submission-rate-limit.md",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "maintenanceResetsOnlyValidatedLogicalLimitersAndLetsNewRulesTakeEffect",
+        "maintenanceAbortsBeforeDeletionIfACandidateIsNotALimiter",
+        "diagnosticsDoNotExposeRedisErrorMessagesOrStackTraces",
+        "rateLimitAdviceDoesNotEmitAnExceptionStackTrace"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:1.1",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java",
+        "oj-modules/oj-friend/pom.xml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "copiesTheEffectiveGenericStandaloneConfigurationAndSslVerification",
+        "preservesVerifiedSslAndLegacyStandaloneSettings",
+        "springCreatesTheDedicatedLazyClientWithoutAReachableRedisAndClosesIt",
+        "existingLettuceAndStateCacheServiceWorkAlongsideRedisson"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": "依赖 POM 与旧版验收一致，复用旧依赖树；本轮实际 JDK 17 和真实 Redis 兼容回归通过。"
+    },
+    {
+      "id": "task:1.2",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java"
+      ],
+      "test_nodes": [
+        "defaultsAndEnvironmentNamesMatchTheApprovedRules",
+        "rejectsInvalidRulesBeforeAClientCanUseThem",
+        "rejectsEnvironmentNamesThatCouldBroadenMaintenanceMatching",
+        "springBindsTheConfiguredRulePrefixBeforeValidation",
+        "rejectsOtherTopologiesInsteadOfFallingBackToLocalhost"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:2.1",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "existingRulesReturningFalseStillAcquireInTheApprovedOrder",
+        "userRejectionNeverLooksUpOrConsumesGlobalQuota",
+        "globalRejectionDoesNotReleaseTheUserPermit",
+        "convertsConnectionAndCommandFailuresAtEitherLayer"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:2.2",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "bothEntrypointsRejectBeforeAnyAcceptanceSideEffect",
+        "invalidParametersAndUnsupportedLanguageDoNotConsumeQuota",
+        "missingIdentityDoesNotConsumeQuota",
+        "bothRoutesUseAuthenticatedIdentityAndCheckBeforeQuestionRead"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:2.3",
+      "implementation": [
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "allNewFailuresHaveRealHttpStatusAndTheExistingResultShapeOnBothRoutes",
+        "existingValidationErrorsKeepTheirHttpAndBusinessStatus",
+        "rateLimitAdviceDoesNotEmitAnExceptionStackTrace",
+        "diagnosticsDoNotExposeRedisErrorMessagesOrStackTraces"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:3.1",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java"
+      ],
+      "test_nodes": [
+        "defaultRulesCreateAuthenticatedDatabaseScopedStateWithTheRightTtl",
+        "deniedActivityRenewsIdleExpiryAndAllUserStateEventuallyExpires",
+        "rebuildingAClientDoesNotResetExistingUserOrGlobalState",
+        "springCreatesTheDedicatedLazyClientWithoutAReachableRedisAndClosesIt"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:3.2",
+      "implementation": [
+        "oj-modules/oj-friend/docs/submission-rate-limit.md"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "maintenanceResetsOnlyValidatedLogicalLimitersAndLetsNewRulesTakeEffect",
+        "maintenanceAbortsBeforeDeletionIfACandidateIsNotALimiter"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:4.1",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "sameUserConcurrentRequestsAcrossClientsHaveOnlyOneWinner",
+        "differentUsersAcrossClientsShareOneGlobalQuota",
+        "defaultFiveSecondUserCooldownRecoversAcrossClients",
+        "defaultGlobalQuotaAllowsThreeThenRecoversAfterOneSecond",
+        "globalHttpRejectionKeepsTheUserCoolingAndHasNoAcceptanceSideEffects"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:4.2",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java"
+      ],
+      "test_nodes": [
+        "realRedisResponsePauseProducesBoundedHttp503ThenRecovers",
+        "disconnectingARealRedisForwardingConnectionProducesHttp503ThenRecovers",
+        "existingLettuceAndStateCacheServiceWorkAlongsideRedisson"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": ""
+    },
+    {
+      "id": "task:4.3",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/impl/UserQuestionServiceImpl.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitConfig.java",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-commom/oj-common-core/src/main/java/com/lyw/common/core/enums/ResultCode.java",
+        "oj-commom/oj-common-security/src/main/java/com/lyw/common/security/handler/GlobalExceptionHandler.java",
+        "oj-modules/oj-friend/pom.xml",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java"
+      ],
+      "test_nodes": [
+        "submissionSnapshotUsesCurrentDatabaseCasesLimitsAndEntryPoint",
+        "failedSendKeepsGeneratedIdAndSerializesItAsString",
+        "judgedCacheAvoidsDatabaseEvenDuringVerification",
+        "bothRoutesUseAuthenticatedIdentityAndCheckBeforeQuestionRead"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": "本轮 JDK 17 构建及现有回归实际执行通过，334 份输入与工作区一致；未重跑依赖树或题目吞吐测试。"
+    },
+    {
+      "id": "task:4.4",
+      "implementation": [
+        "oj-modules/oj-friend/docs/submission-rate-limit.md",
+        ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md"
+      ],
+      "tests": [
+        ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md"
+      ],
+      "test_nodes": [],
+      "evidence": [
+        ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md"
+      ],
+      "status": "verified",
+      "notes": "保留报告清理章节记录按容器/网络/镜像 ID 操作、全部退出码、目录移除及原有文件核对；原始测试证据已先整合到同一报告。"
+    },
+    {
+      "id": "task:5.1",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml",
+        "oj-modules/oj-friend/docs/submission-rate-limit.md"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/config/SubmissionRateLimitConfigTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterTest.java"
+      ],
+      "test_nodes": [
+        "defaultsAndEnvironmentNamesMatchTheApprovedRules",
+        "springBindsTheConfiguredRulePrefixBeforeValidation",
+        "existingRulesReturningFalseStillAcquireInTheApprovedOrder"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": "Java/bootstrap 均 3/1s；绑定测试覆盖值 4，用户默认 5s 不变。"
+    },
+    {
+      "id": "task:5.2",
+      "implementation": [
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/config/SubmissionRateLimitProperties.java",
+        "oj-modules/oj-friend/src/main/resources/bootstrap.yml",
+        "oj-modules/oj-friend/docs/submission-rate-limit.md",
+        "oj-modules/oj-friend/src/main/java/com/lyw/friend/service/user/SubmissionRateLimiter.java"
+      ],
+      "tests": [
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimiterRedisIntegrationTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/SubmissionRateLimitBoundaryTest.java",
+        "oj-modules/oj-friend/src/test/java/com/lyw/friend/service/UserQuestionResultTest.java"
+      ],
+      "test_nodes": [
+        "defaultGlobalQuotaAllowsThreeThenRecoversAfterOneSecond",
+        "differentUsersAcrossClientsShareOneGlobalQuota",
+        "maintenanceResetsOnlyValidatedLogicalLimitersAndLetsNewRulesTakeEffect"
+      ],
+      "evidence": [
+        ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md"
+      ],
+      "status": "verified",
+      "notes": "53 项实际执行通过，含 14 项真实 Redis；本轮独占资源清理完成，历史报告和无关修改未变。"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python3 .codex/redisson-submit-rate-limit/20261110-215050-dc890d08/run_build.py build-01 unit",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 1,
+      "evidence": ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+      "started_at": "2026-11-10T14:14:42.225840+00:00",
+      "ended_at": "2026-11-10T14:14:47.522882+00:00",
+      "container_command": "java -version && mvn -B -ntp -s /work/settings.xml -Dmaven.repo.local=/work/maven-cache -Djava.io.tmpdir=/work/tmp -pl :oj-friend -am -DfailIfNoTests=false test",
+      "notes": "历史执行路径；构建脚本/目录按用户要求清理，完整 Docker 命令和源码输入哈希保留在报告。"
+    },
+    {
+      "command": "python3 .codex/redisson-submit-rate-limit/20261110-215050-dc890d08/run_build.py build-02 unit",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+      "started_at": "2026-11-10T14:19:37.945579+00:00",
+      "ended_at": "2026-11-10T14:21:48.912090+00:00",
+      "container_command": "java -version && mvn -B -ntp -U -s /work/inputs/build-02-settings.xml -Dmaven.repo.local=/work/maven-cache -Djava.io.tmpdir=/work/tmp -pl :oj-friend -am -DfailIfNoTests=false test",
+      "notes": "历史执行路径；构建脚本/目录按用户要求清理，完整 Docker 命令和源码输入哈希保留在报告。"
+    },
+    {
+      "command": "python3 .codex/redisson-submit-rate-limit/20261110-215050-dc890d08/run_build.py build-03 integration",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+      "started_at": "2026-11-10T14:26:33.924353+00:00",
+      "ended_at": "2026-11-10T14:26:56.273921+00:00",
+      "container_command": "java -version && mvn -B -ntp -U -s /work/inputs/build-03-settings.xml -Dmaven.repo.local=/work/maven-cache -Djava.io.tmpdir=/work/tmp -pl :oj-friend -am -DfailIfNoTests=false -Doj.rate-limit.integration=true -Doj.rate-limit.host=redis-rate -Doj.rate-limit.port=6379 -Doj.rate-limit.environment=rateit-dc890d08-build-03 test",
+      "notes": "历史执行路径；构建脚本/目录按用户要求清理，完整 Docker 命令和源码输入哈希保留在报告。"
+    },
+    {
+      "command": "python3 .codex/redisson-submit-rate-limit/20261110-215050-dc890d08/run_build.py build-04 verification",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+      "started_at": "2026-11-10T14:37:23.888504+00:00",
+      "ended_at": "2026-11-10T14:38:32.245354+00:00",
+      "container_command": "java -version && mvn -B -ntp -U -s /work/inputs/build-04-settings.xml -Dmaven.repo.local=/work/maven-cache -Djava.io.tmpdir=/work/tmp -pl :oj-friend -am -DfailIfNoTests=false -Doj.rate-limit.integration=true -Doj.rate-limit.host=redis-rate -Doj.rate-limit.port=6379 -Doj.rate-limit.environment=rateit-dc890d08-build-04 install dependency:tree '-Dincludes=org.redisson:*,io.netty:*,io.lettuce:*,org.springframework.data:spring-data-redis'",
+      "notes": "历史执行路径；构建脚本/目录按用户要求清理，完整 Docker 命令和源码输入哈希保留在报告。"
+    },
+    {
+      "command": "git diff --check",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+      "notes": "本轮工具调用实际退出 0；摘要与独立评审记录于报告。"
+    },
+    {
+      "command": "openspec validate judge-submission-rate-limit --strict --no-interactive",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+      "notes": "本轮工具调用实际退出 0；摘要与独立评审记录于报告。"
+    },
+    {
+      "command": "python3 .agents/shared/openspec/scripts/evidence.py check-plan --root . --change openspec/changes/judge-submission-rate-limit --profile strict",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-submit-rate-limit-20261110-215050-dc890d08.md",
+      "notes": "本轮工具调用实际退出 0；摘要与独立评审记录于报告。"
+    },
+    {
+      "command": "docker create --name oj-rate3-build-20261111-091713-6359e1d3 --label codex.run=20261111-091713-6359e1d3 --network 66f377fcb81a19b42e6756cb9f7b6fa6745b0274bf1fcf975964c65028b93d15 --cpus 2 --memory 2147483648 --pids-limit 512 --mount type=bind,source=/Users/lllyw/lyw-oj/.codex/redisson-global-three/20261111-091713-6359e1d3,target=/work --workdir /work/source --env MAVEN_CONFIG=/work/maven-home --env 'MAVEN_OPTS=-Xmx768m -Djava.io.tmpdir=/work/tmp' --entrypoint mvn sha256:f58d59b6273e785ac0a4477f6e9b5ba1d7731c75b906c0f7b34076f1851318cc -B -ntp -s /work/settings.xml -Dmaven.repo.local=/work/maven-cache -Djava.io.tmpdir=/work/tmp -pl :oj-friend -am -DfailIfNoTests=false -Doj.rate-limit.integration=true -Doj.rate-limit.host=redis-rate -Doj.rate-limit.port=6379 -Doj.rate-limit.environment=rateit-three-6359e1d3 test",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md",
+      "started_at": "2026-11-11T09:22:25.983342+08:00",
+      "ended_at": "2026-11-11T09:24:50.538235+08:00",
+      "notes": "Docker 容器创建后实际运行 docker start --attach；Maven 完整命令、执行结果及原始日志保留在报告。本轮未修改业务依赖。"
+    },
+    {
+      "command": "docker start --attach 3882e3458b9b1cca633983332603c33df31c47f9aa9760bcd1bdf217001497fa",
+      "cwd": "/Users/lllyw/lyw-oj",
+      "exit_code": 0,
+      "evidence": ".codex/reports/redisson-global-three-20261111-091713-6359e1d3.md",
+      "started_at": "2026-11-11T09:22:25.983342+08:00",
+      "ended_at": "2026-11-11T09:24:50.538235+08:00"
+    }
+  ],
+  "coverage": {
+    "requirements": 8,
+    "scenarios": 24,
+    "tasks": 13
+  },
+  "source_drift": [],
+  "preexisting_drift": [],
+  "skipped_tests": [
+    "com.lyw.friend.service.QuestionReadBoundaryIntegrationTest",
+    "com.lyw.friend.service.UserQuestionLookupIntegrationTest"
+  ],
+  "cleanup_summary": {
+    "complete": true,
+    "work_directory_removed": true,
+    "remaining_owned_containers": [],
+    "remaining_owned_networks": [],
+    "preexisting_file_differences": [],
+    "missing_preexisting_containers": []
+  }
+}

@@ -27,6 +27,7 @@ import com.lyw.friend.mapper.question.QuestionMapper;
 import com.lyw.friend.mapper.user.UserSubmitMapper;
 import com.lyw.friend.rabbit.JudgeProducer;
 import com.lyw.friend.service.user.IUserQuestionService;
+import com.lyw.friend.service.user.SubmissionRateLimiter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,9 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
 
     @Autowired
     private StateCacheService stateCacheService;
+
+    @Autowired
+    private SubmissionRateLimiter submissionRateLimiter;
 
 
     @Override
@@ -144,7 +148,8 @@ public class UserQuestionServiceImpl implements IUserQuestionService {
         if (!ProgramType.JAVA.getValue().equals(request.getProgramType())) {
             throw new ServiceException(ResultCode.FAILED_NOT_SUPPORT_PROGRAM);
         }
-        currentUserId();
+        Long userId = currentUserId();
+        submissionRateLimiter.check(userId);
         JudgeSubmitDTO submission = assembleJudgeSubmitDTO(request);
         submission.setSubmitId(IdWorker.getId());
         cacheBestEffort(JudgeResultCache.waiting(submission.getUserId(), submission.getSubmitId()));

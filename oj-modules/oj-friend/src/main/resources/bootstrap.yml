@@ -1,3 +1,11 @@
+judge:
+  submit-limit:
+    environment: ${spring.profiles.active:dev}
+    user-interval: 5s
+    user-idle-time: 10m
+    global-permits: 3
+    global-interval: 1s
+
 spring:
   application:
     name: oj-friend
