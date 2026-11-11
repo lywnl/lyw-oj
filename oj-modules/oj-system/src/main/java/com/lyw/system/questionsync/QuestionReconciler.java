@@ -33,6 +33,17 @@ public final class QuestionReconciler implements AutoCloseable {
 
     public void reset() {
         close();
+        clearState();
+    }
+
+    /** 外部对账请求的收尾不能吞掉清理失败；失败时保留游标以供隔离诊断。 */
+    void resetStrict() throws java.io.IOException {
+        if (afterIndex != null) index.closeCursor(afterIndex);
+        afterIndex = null;
+        clearState();
+    }
+
+    private void clearState() {
         afterId = 0; afterIndex = null; reverse = false; finished = false; pending = null; barrier = null;
         invalidated.clear(); differences = 0; repaired = 0; emptySourceProtected = false; timedOut = false;
     }

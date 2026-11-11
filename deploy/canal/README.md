@@ -53,13 +53,18 @@ python3 deploy/canal/prepare.py --env prod --output-dir deploy/prod/canal/config
 | `canal.sync.state-directory` | 必填；生产只读挂同一个持久目录到 `/canal-state`，宿主机运行时提供绝对路径 |
 | `canal.sync.initial-file` / `initial-position` | 首次无有效游标时的明确 P，不能取代已有 meta.dat |
 | `canal.sync.source-jdbc-url` / `source-username` / `source-password` | 专用复制账号的 JDBC 连接，不是 Nacos 数据库 |
-| `canal.sync.batch-size` / `idle-millis` | `100` / `200` |
+| `canal.sync.batch-size` / `idle-millis` | `100` / `1000`；空闲时等待 1 秒再拉取，有工作时连续处理 |
 | `canal.sync.timeout-millis` / `retry-max-millis` | `5000` / `30000`；建连有可取消的总时限 |
 | `canal.sync.position-check-millis` | `30000`，检查日志文件、范围、ROW/FULL；不查询题目行 |
-| `canal.sync.reconcile-interval-millis` / `page-size` | `1800000` / `500`；间隔为 0 关闭自动对账 |
+| `canal.sync.page-size` | `500`；每次对账分页大小 |
+| `canal.sync.reconcile-interval-millis` | 已废弃；normal 同步启动时任何显式值（含 0）都会提示迁移错误，必须移除 |
 | `question.maintenance.enabled` | `false`；可由既有 Nacos 配置方式开启 |
 
 `canal.sync.*` 按启动配置使用；变更连接参数或启停消费者时，停止并重新启动指定实例。不能只热更新 enabled=false 就认为线程已退出。题目维护门禁则在每次写请求读取 Environment，可随既有配置刷新生效。
+
+每日对账使用固定北京时间，独立于宿主机或 JVM 默认时区。原消费循环通过固定 Spring Cron 表达式 `0 0 2 * * *`（秒、分、时、日、月、周）计算下一次 02:00，再判断是否到期；不增加通用配置或调度线程。仍逐页让出增量消费机会，实际开始可能受当前请求耗时影响。新进程在 02:00 之后启动时等待次日，不补跑停机期间的历史轮次；已经安排本轮后发生短暂断线，重连不推迟当天的触发时间，恢复后可补跑当前到期轮次。上一轮跨过下一触发点时继续原轮次，结束后安排下一未来时刻，不并发补跑历史任务。
+
+每日对账改由现有 XXL-JOB → `oj-job` → 唯一活动 `oj-system` 消费实例触发，应用不再计算本地 Cron。新入口默认关闭；启用及迁移步骤见 [XXL-JOB 对账维护说明](reconciliation-xxl-job.md)。必须移除 Nacos/环境中的旧间隔（包括值 0），关闭每日任务改为在 XXL-JOB 停用任务。手动 `check/repair` 和增量拉取独立保留。
 
 应用数据源沿用已有配置，并设置有界的连接池获取时间。`question.maintenance.enabled` 是本进程写入门禁；它不能替代多个实例及外部 SQL/导入程序的停写协调。
 
@@ -123,7 +128,7 @@ WHERE trx_mysql_thread_id IN (<已核对的连接ID>);
 
 完整覆盖保留 NULL 语义。ES bulk 逐项成功后才 ACK；删除不存在的文档成功。部分写成功、网络失败和未知 ACK 结果走至少一次重放，可能短暂看到旧版本，最终追平。rollback 不撤销已写 ES 的内容。
 
-每页对账先生成候选，再记录源位点屏障；消费到该位点后才修复，期间变化的 ID 放弃本页候选。所有增量和对账写入均在同一消费线程执行，每页让出消费机会。无关表事务可以推进屏障；某些无关 DDL/ROTATE 不能提供可证明的末尾位点。候选等待超过 5 分钟会告警、关闭 PIT 并放弃本轮，下一周期重新扫描；PIT 保留时间为 10 分钟。30 分钟是调度间隔，不是无条件修复完成时限。
+每页对账先生成候选，再记录源位点屏障；消费到该位点后才修复，期间变化的 ID 放弃本页候选。所有增量和对账写入均在同一消费线程执行，每页让出消费机会。无关表事务可以推进屏障；某些无关 DDL/ROTATE 不能提供可证明的末尾位点。候选等待超过 5 分钟会告警、关闭 PIT 并放弃本轮，下一计划时刻重新扫描；PIT 保留时间为 10 分钟。每日 02:00 是计划触发时刻，不是修复完成时限；临时故障重试和阻塞处理沿用现有规则。
 
 自动对账发现主库空且 ES 有数据时仅报告差异，不清空索引。数据库查询/分页失败也不能解释成题目不存在。显式维护 repair 在完成核对后可以删除多余文档。
 

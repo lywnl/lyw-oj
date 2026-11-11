@@ -2,6 +2,7 @@ package com.lyw.system.questionsync;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.context.properties.source.MapConfigurationPropertySource;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -28,5 +29,34 @@ class SyncConfigurationTest {
         assertEquals(157, p.getInitialPosition()); assertEquals("jdbc:mysql://mysql:3306/lywoj", p.getSourceJdbcUrl());
         assertEquals("canal_sync", p.getSourceUsername()); assertEquals("isolated-test", p.getSourcePassword());
         assertFalse(p.isEnabled()); p.validate();
+        assertNull(p.getReconcileIntervalMillis());
+    }
+
+    @Test void legacyZeroCanStillBeBoundFromConfiguration() {
+        var legacy = new Binder(new MapConfigurationPropertySource(Map.of(
+                "canal.sync.reconcile-interval-millis", "0")))
+                .bind("canal.sync", SyncProperties.class).get();
+        assertEquals(0L, legacy.getReconcileIntervalMillis());
+    }
+
+    @Test void legacyEnvironmentOverrideStillBinds() {
+        StandardEnvironment environment = new StandardEnvironment();
+        environment.getPropertySources().addFirst(new SystemEnvironmentPropertySource("deployment", Map.of(
+                "CANAL_SYNC_RECONCILE_INTERVAL_MILLIS", "500")));
+        var properties = Binder.get(environment).bind("canal.sync", SyncProperties.class).get();
+        assertEquals(500L, properties.getReconcileIntervalMillis());
+    }
+
+    @Test void configurationValidationRejectsInvalidSchedule() {
+        var properties = SyncFixtures.properties();
+        for (long value : new long[]{-1, 0, 500}) {
+            properties.setReconcileIntervalMillis(value);
+            assertThrows(SyncBlockedException.class, properties::validate);
+        }
+        properties.setMode("check"); properties.setReconcileIntervalMillis(0L);
+        assertDoesNotThrow(properties::validate);
+        properties.setMode("normal");
+        properties.setReconcileIntervalMillis(null);
+        assertDoesNotThrow(properties::validate);
     }
 }

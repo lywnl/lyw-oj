@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.jupiter.api.Assertions.*;
 import static com.lyw.system.questionsync.SyncFixtures.document;
+import static org.mockito.Mockito.*;
 
 class ElasticsearchIndexStoreTest {
     private HttpServer server;
@@ -26,6 +28,12 @@ class ElasticsearchIndexStoreTest {
     private String autoCreate = "-idx_question,+*";
     private String bulkResponse;
     private String searchResponse;
+    private int searchStatus = 200;
+    private int closeStatus = 200;
+    private String closeResponse = "{\"succeeded\":true,\"num_freed\":1}";
+    private volatile boolean failSecondSearch;
+    private volatile boolean missingAfterClose;
+    private final AtomicInteger searches = new AtomicInteger(), closes = new AtomicInteger();
     private final List<String> writes = new ArrayList<>();
     private final List<String> requests = new ArrayList<>();
 
@@ -43,7 +51,14 @@ class ElasticsearchIndexStoreTest {
             else if (path.equals("/_cluster/settings")) response = JSON.toJSONString(Map.of("defaults", Map.of("action.auto_create_index", autoCreate)));
             else if (path.equals("/_bulk")) { writes.add(body); response = bulkResponse; }
             else if (path.equals("/idx_question/_pit")) response = "{\"id\":\"pit-1\"}";
-            else if (path.equals("/_search")) { writes.add(body); response = searchResponse; }
+            else if (path.equals("/_search")) {
+                writes.add(body); response = searchResponse; status = searchStatus;
+                if (searches.incrementAndGet() > 1 && failSecondSearch) status = 500;
+            }
+            else if (path.equals("/_pit")) {
+                response = closeResponse; status = closeStatus;
+                if (closes.incrementAndGet() > 1 && missingAfterClose) { status = 404; response = "{\"succeeded\":true,\"num_freed\":0}"; }
+            }
             else if (!path.equals("/_pit")) status = 500;
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -128,5 +143,55 @@ class ElasticsearchIndexStoreTest {
         assertTrue(requests.contains("POST /idx_question/_pit?keep_alive=10m"));
         searchResponse = "{\"timed_out\":false,\"_shards\":{\"failed\":1},\"hits\":{\"hits\":[]}}";
         assertThrows(IOException.class, () -> store.page(page.after(), 500));
+    }
+
+    @Test void firstSearchAndCursorDeleteFailureRemainVisibleBeforeCursorIsReturned() {
+        searchStatus = 500; searchResponse = "{\"error\":\"isolated-search-error\"}";
+        closeStatus = 500;
+        assertThrows(CursorCleanupException.class, () -> store.page(null, 500));
+        assertTrue(requests.contains("POST /idx_question/_pit?keep_alive=10m"));
+        assertTrue(requests.contains("DELETE /_pit"));
+    }
+
+    @Test void http200WithoutSuccessfulCursorDeletionIsNotCleanedUp() {
+        closeResponse = "{\"succeeded\":false,\"num_freed\":0}";
+        assertThrows(IOException.class, () -> store.closeCursor(List.of("pit-1")));
+    }
+
+    @Test void repeatedCloseAndExplicitlyMissingPitAreSuccessful() throws Exception {
+        missingAfterClose = true;
+        store.closeCursor(List.of("pit-1"));
+        assertDoesNotThrow(() -> store.closeCursor(List.of("pit-1")));
+        assertEquals(2, closes.get());
+        closeStatus = 404; closeResponse = "{\"succeeded\":true,\"num_freed\":0}"; missingAfterClose = false;
+        assertDoesNotThrow(() -> store.closeCursor(List.of("expired-pit")));
+    }
+
+    @Test void arbitrary404IsNotTreatedAsSuccessfulCleanup() {
+        closeStatus = 404;
+        for (String response : List.of("{}", "{\"error\":\"not found\"}", "{\"succeeded\":false,\"num_freed\":0}",
+                "{\"succeeded\":true}", "{\"succeeded\":true,\"num_freed\":1}")) {
+            closeResponse = response;
+            assertThrows(IOException.class, () -> store.closeCursor(List.of("pit-1")));
+        }
+    }
+
+    @Test void searchFailureCanCloseAgainDuringRunnerCleanupAndThenRecover() throws Exception {
+        searchResponse = "{\"timed_out\":false,\"_shards\":{\"failed\":0},\"hits\":{\"hits\":[{\"_id\":\"1\",\"sort\":[1]}]}}";
+        failSecondSearch = true; missingAfterClose = true;
+        try (var fixture = new ReconcileTestSupport()) {
+            when(fixture.reader.find(List.of(1L))).thenReturn(Map.of(1L, document(1, "A")));
+            when(fixture.index.page(nullable(List.class), eq(500))).thenAnswer(call -> store.page(call.getArgument(0), 500));
+            doAnswer(call -> { store.closeCursor(call.getArgument(0)); return null; }).when(fixture.index).closeCursor(anyList());
+            fixture.start();
+            assertEquals(500, assertThrows(ReconciliationException.class, () -> fixture.runner.requestReconciliation().await()).status());
+            ReconcileTestSupport.waitFor(() -> "RUNNING".equals(fixture.runner.snapshot().get("state")));
+            assertEquals(false, fixture.runner.snapshot().get("reconciliationCleanupFailed"));
+            assertEquals(false, fixture.runner.snapshot().get("reconciliationActive"));
+            assertTrue(closes.get() >= 2);
+            failSecondSearch = false;
+            searchResponse = "{\"timed_out\":false,\"_shards\":{\"failed\":0},\"hits\":{\"hits\":[]}}";
+            assertEquals(0, fixture.runner.requestReconciliation().await().repaired());
+        }
     }
 }

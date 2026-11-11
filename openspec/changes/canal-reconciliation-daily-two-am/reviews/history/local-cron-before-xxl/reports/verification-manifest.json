@@ -1,0 +1,379 @@
+{
+  "version": 1,
+  "profile": "standard",
+  "verification_mode": "machine",
+  "code_state": {
+    "git_head": "6f780098c1b75097bddad79499193686bce990d2",
+    "workspace": "包含当前固定 Cron 实现与先前空闲 1 秒修改；源码与 a3-cron 构建快照逐文件一致"
+  },
+  "requirements": [
+    {
+      "id": "daily-before-and-exact",
+      "scenario": "凌晨两点之前及恰好两点启动",
+      "tasks": [
+        "1.1",
+        "1.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTimeTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTest.java"
+      ],
+      "test_cases": [
+        "beforeTwoAmUsesTodaysShanghaiTrigger",
+        "exactTriggerIsIncludedOnlyAtInitialization",
+        "runsAtTwoAmAndDoesNotRepeatUntilNextDay",
+        "startingExactlyAtTwoAmRunsTodaysRound"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTimeTest.xml",
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-after",
+      "scenario": "凌晨两点之后启动",
+      "tasks": [
+        "1.1",
+        "1.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTimeTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTest.java"
+      ],
+      "test_cases": [
+        "afterTwoAmMovesToTomorrowInsteadOfAddingTwentyFourHours",
+        "startingAfterTwoAmWaitsUntilTomorrow"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTimeTest.xml",
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-zone-and-date",
+      "scenario": "跨日与主机时区差异",
+      "tasks": [
+        "1.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTimeTest.java"
+      ],
+      "test_cases": [
+        "monthAndYearBoundariesKeepTwoAm",
+        "hostTimeZoneDoesNotChangeShanghaiSchedule"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTimeTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-reconnect",
+      "scenario": "运行期间短暂断线跨过触发点",
+      "tasks": [
+        "1.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTest.java"
+      ],
+      "test_cases": [
+        "connectionFailureAcrossTriggerDoesNotPostponeTodaysRound",
+        "temporaryFailureBeforeRoundStartsKeepsItDue"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-no-overlap",
+      "scenario": "长轮次跨越下一次触发点",
+      "tasks": [
+        "1.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTest.java"
+      ],
+      "test_cases": [
+        "executionDurationDoesNotMoveTomorrowAwayFromTwoAm",
+        "longRoundDoesNotOverlapOrAccumulateHistoricalRounds"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-clock-backward",
+      "scenario": "时钟回拨不重复已结束轮次",
+      "tasks": [
+        "1.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTest.java"
+      ],
+      "test_cases": [
+        "clockMovingBackDuringCompletionDoesNotRepeatTheSameTrigger"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-default-and-disabled",
+      "scenario": "默认配置与关闭配置",
+      "tasks": [
+        "1.1",
+        "1.2"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/DailyReconciliationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java"
+      ],
+      "test_cases": [
+        "disablingDailyReconciliationStillConsumesCanal",
+        "deploymentEnvironmentVariablesBindWithoutLosingWordBoundaries",
+        "legacyZeroCanStillBeBoundFromConfiguration"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.DailyReconciliationTest.xml",
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.SyncConfigurationTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-legacy",
+      "scenario": "显式旧配置",
+      "tasks": [
+        "1.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java",
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/QuestionEsSyncRunnerTest.java"
+      ],
+      "test_cases": [
+        "legacyEnvironmentOverrideStillBinds",
+        "eachReconciliationRoundValidatesOnceAndPagesYieldToConsumption"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.SyncConfigurationTest.xml",
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.QuestionEsSyncRunnerTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-invalid",
+      "scenario": "非法配置",
+      "tasks": [
+        "1.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/SyncConfigurationTest.java"
+      ],
+      "test_cases": [
+        "configurationValidationRejectsInvalidSchedule"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron/oj-modules/oj-system/TEST-com.lyw.system.questionsync.SyncConfigurationTest.xml"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-documentation",
+      "scenario": "维护文档和旧变更保留",
+      "tasks": [
+        "1.3"
+      ],
+      "implementation": [
+        "deploy/canal/README.md",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionEsSyncRunner.java",
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/SyncProperties.java"
+      ],
+      "tests": [
+        "deploy/canal/README.md"
+      ],
+      "test_cases": [
+        "固定 Cron 和时区说明核对",
+        "原核心对账和传输代码不变",
+        "仅固定表达式，无通用配置或独立调度类"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-checks.json"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "daily-regression-and-cleanup",
+      "scenario": "同步回归与本轮资源清理",
+      "tasks": [
+        "2.1"
+      ],
+      "implementation": [
+        "oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/"
+      ],
+      "tests": [
+        "oj-modules/oj-system/src/test/java/com/lyw/system/questionsync/"
+      ],
+      "test_cases": [
+        "11 个测试类共 65 项全部通过",
+        "git diff --check",
+        "按两轮实际容器 ID 清理及删除独占构建副本"
+      ],
+      "evidence": [
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron.log",
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-command.json",
+        ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-checks.json"
+      ],
+      "status": "verified"
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 deploy/canal/tests/run_maven.py daily-two-am-20261111-a1 -pl oj-modules/oj-system -am -Dtest=CanalEventMapperTest,ElasticsearchIndexStoreTest,QuestionEsSyncRunnerTest,QuestionMaintenanceGateTest,QuestionReconcilerTest,QuestionSyncMaintenanceRunnerTest,SourcePositionGuardTest,SyncConfigurationTest,TcpCanalSourceTest,ReconciliationScheduleTest,DailyReconciliationTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": ".",
+      "exit_code": 1,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a1-command.json",
+      "log": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a1.log",
+      "started_at": "2026-11-11T09:23:38.233026+00:00",
+      "finished_at": "2026-11-11T09:23:52.777117+00:00",
+      "notes": "历史尝试：9 项因 final 类无法 mock 报错，已由最终真实对账类测试修复"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 deploy/canal/tests/run_maven.py daily-two-am-20261111-a2 -pl oj-modules/oj-system -am -Dtest=CanalEventMapperTest,ElasticsearchIndexStoreTest,QuestionEsSyncRunnerTest,QuestionMaintenanceGateTest,QuestionReconcilerTest,QuestionSyncMaintenanceRunnerTest,SourcePositionGuardTest,SyncConfigurationTest,TcpCanalSourceTest,DailyReconciliationTimeTest,DailyReconciliationTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a2-command.json",
+      "log": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a2.log",
+      "started_at": "2026-11-11T09:31:52.372438+00:00",
+      "finished_at": "2026-11-11T09:32:06.613471+00:00",
+      "notes": "最终 65 项全部通过"
+    },
+    {
+      "command": "git diff --check",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "git diff --quiet HEAD -- oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java pom.xml oj-modules/pom.xml oj-modules/oj-system/pom.xml deploy/canal/tests/run_maven.py oj-modules/oj-system/src/main/resources",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "docker inspect --format '{{.Name}}|{{.State.Status}}|{{.Image}}' 5f7bd28a6cb10cf41366bb3befb2734d0c3c681046136e240e88b6b81ff7b383",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "docker rm 5f7bd28a6cb10cf41366bb3befb2734d0c3c681046136e240e88b6b81ff7b383",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "docker ps -a --no-trunc --filter id=5f7bd28a6cb10cf41366bb3befb2734d0c3c681046136e240e88b6b81ff7b383 --format '{{.ID}}'",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "docker inspect --format '{{.Name}}|{{.State.Status}}|{{.Image}}' 39d3b713d2cf3dbb6b7e614ee061ed9e83993c43ea3194a292b0bff5d31c4d1a",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "docker rm 39d3b713d2cf3dbb6b7e614ee061ed9e83993c43ea3194a292b0bff5d31c4d1a",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "docker ps -a --no-trunc --filter id=39d3b713d2cf3dbb6b7e614ee061ed9e83993c43ea3194a292b0bff5d31c4d1a --format '{{.ID}}'",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-checks.json"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 deploy/canal/tests/run_maven.py daily-two-am-20261111-a3-cron -pl oj-modules/oj-system -am -Dtest=CanalEventMapperTest,ElasticsearchIndexStoreTest,QuestionEsSyncRunnerTest,QuestionMaintenanceGateTest,QuestionReconcilerTest,QuestionSyncMaintenanceRunnerTest,SourcePositionGuardTest,SyncConfigurationTest,TcpCanalSourceTest,DailyReconciliationTimeTest,DailyReconciliationTest -Dsurefire.failIfNoSpecifiedTests=false test",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-command.json",
+      "log": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron.log",
+      "started_at": "2026-11-11T09:47:13.224775+00:00",
+      "finished_at": "2026-11-11T09:47:26.450052+00:00",
+      "notes": "固定 Cron 最终版本：65 项全部通过"
+    },
+    {
+      "command": "git diff --check",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-checks.json"
+    },
+    {
+      "command": "git diff --quiet HEAD -- pom.xml oj-modules/pom.xml oj-modules/oj-system/pom.xml oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/QuestionReconciler.java oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/TcpCanalSource.java oj-modules/oj-system/src/main/java/com/lyw/system/questionsync/ElasticsearchIndexStore.java",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-checks.json"
+    },
+    {
+      "command": "docker inspect --format '{{.Name}}|{{.State.Status}}|{{.Image}}' 4ef8fa6f398a83085e06198cb7d5e6353d0cab42819e96eb88f5182a6a80651b",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-checks.json"
+    },
+    {
+      "command": "docker rm -v 4ef8fa6f398a83085e06198cb7d5e6353d0cab42819e96eb88f5182a6a80651b",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-checks.json"
+    },
+    {
+      "command": "docker ps -a --filter id=4ef8fa6f398a83085e06198cb7d5e6353d0cab42819e96eb88f5182a6a80651b --format '{{.ID}}'",
+      "cwd": ".",
+      "exit_code": 0,
+      "evidence": ".codex/canal-question-es-sync/evidence/daily-two-am-20261111-a3-cron-checks.json"
+    }
+  ]
+}

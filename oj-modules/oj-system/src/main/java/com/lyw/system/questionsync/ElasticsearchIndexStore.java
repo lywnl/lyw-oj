@@ -183,6 +183,7 @@ public final class ElasticsearchIndexStore implements IndexStore {
         if (after != null && after.size() > 1) body.put("search_after", after.subList(1, after.size()));
         try {
             JSONObject response = request("POST", "/_search", body);
+            if (response.getString("pit_id") != null) pit = response.getString("pit_id");
             if (response.getBooleanValue("timed_out") || response.getJSONObject("_shards").getIntValue("failed") != 0)
                 throw new IOException("ES 核对分页未完整完成");
             JSONArray hits = response.getJSONObject("hits").getJSONArray("hits");
@@ -193,18 +194,35 @@ public final class ElasticsearchIndexStore implements IndexStore {
                 try { ids.add(Long.parseLong(hit.getString("_id"))); }
                 catch (NumberFormatException malformed) { throw new SyncBlockedException("索引包含非题目 ID，需人工核对"); }
                 next = new ArrayList<>();
-                next.add(response.getString("pit_id") == null ? pit : response.getString("pit_id"));
+                next.add(pit);
                 next.addAll(hit.getJSONArray("sort"));
             }
             if (hits.isEmpty()) closeCursor(List.of(pit));
             return new Page(ids, next);
         } catch (IOException | RuntimeException failure) {
-            try { closeCursor(List.of(pit)); } catch (Exception ignored) { /* 原始异常优先，PIT 另有过期时间。 */ }
+            try { closeCursor(List.of(pit)); }
+            catch (Exception cleanupFailure) { throw new CursorCleanupException(); }
             throw failure;
         }
     }
 
     @Override public void closeCursor(List<Object> cursor) throws IOException {
-        if (cursor != null && !cursor.isEmpty()) request("DELETE", "/_pit", Map.of("id", cursor.get(0)));
+        if (cursor == null || cursor.isEmpty()) return;
+        try {
+            if (!Boolean.TRUE.equals(request("DELETE", "/_pit", Map.of("id", cursor.get(0))).get("succeeded")))
+                throw new IOException("ES 未确认关闭对账游标");
+        } catch (ResponseException failure) {
+            // ES 8.5 在 PIT 已不存在时可能返回 404；只接受其明确的幂等关闭响应。
+            if (failure.getResponse().getStatusLine().getStatusCode() == 404 && failure.getResponse().getEntity() != null) {
+                try {
+                    JSONObject body = JSON.parseObject(EntityUtils.toString(failure.getResponse().getEntity(), StandardCharsets.UTF_8));
+                    if (body != null && Boolean.TRUE.equals(body.get("succeeded"))
+                            && Integer.valueOf(0).equals(body.get("num_freed"))) return;
+                } catch (com.alibaba.fastjson2.JSONException invalid) {
+                    throw new IOException("ES 游标关闭响应无法确认");
+                }
+            }
+            throw failure;
+        }
     }
 }

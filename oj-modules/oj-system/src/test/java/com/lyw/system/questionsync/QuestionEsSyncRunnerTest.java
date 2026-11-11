@@ -19,7 +19,8 @@ class QuestionEsSyncRunnerTest {
     private final QuestionReader reader = mock(QuestionReader.class);
     private final SyncProperties properties = properties();
     private final QuestionReconciler reconciler = new QuestionReconciler(reader, index, guard, 500);
-    private final QuestionEsSyncRunner runner = new QuestionEsSyncRunner(properties, source, new CanalEventMapper("lywoj"), index, guard, reconciler);
+    private final com.lyw.api.reconcile.QuestionReconcileProperties reconcileSettings = ReconcileTestSupport.settings();
+    private final QuestionEsSyncRunner runner = new QuestionEsSyncRunner(properties, source, new CanalEventMapper("lywoj"), index, guard, reconciler, reconcileSettings);
 
     void setup() throws Exception {
         when(guard.check()).thenReturn(new BinlogPosition("mysql-bin.000001", 4));
@@ -42,22 +43,22 @@ class QuestionEsSyncRunnerTest {
         assertEquals(-1L, runner.snapshot().get("lastAck")); verify(index, times(1)).write(anyList());
     }
     @Test void eachReconciliationRoundValidatesOnceAndPagesYieldToConsumption() throws Exception {
-        properties.setReconcileIntervalMillis(10);
         when(guard.check()).thenReturn(new BinlogPosition("mysql-bin.000001", 4));
         when(reader.page(0, 500)).thenReturn(List.of(document(1, "A")));
         when(reader.page(1, 500)).thenReturn(List.of());
         when(index.get(List.of(1L))).thenReturn(Map.of(1L, document(1, "A")));
         when(index.page(null, 500)).thenReturn(new IndexStore.Page(List.of(), null));
-
-        runner.tick(1000);
-        runner.tick(1010); runner.tick(1011); runner.tick(1012);
-        verify(index, times(2)).validate();
-        verify(reader).page(0, 500); verify(reader).page(1, 500); verify(index).page(null, 500);
-        runner.tick(1022);
-        verify(index, times(3)).validate();
-        verify(reader, times(2)).page(0, 500);
-        verify(source, times(5)).get(100);
-        verify(index, never()).write(anyList());
+        runner.start();
+        try {
+            ReconcileTestSupport.waitFor(() -> "RUNNING".equals(runner.snapshot().get("state")));
+            runner.requestReconciliation().await();
+            runner.requestReconciliation().await();
+            verify(index, times(3)).validate();
+            verify(reader, times(2)).page(0, 500);
+            verify(reader, times(2)).page(1, 500);
+            verify(source, atLeast(6)).get(100);
+            verify(index, never()).write(anyList());
+        } finally { runner.stop(); }
     }
     @Test void failedInitialValidationDoesNotOpenSourceOrReadQuestions() throws Exception {
         setup();
@@ -66,12 +67,15 @@ class QuestionEsSyncRunnerTest {
         verify(source, never()).open(); verify(index, never()).write(anyList()); verifyNoInteractions(reader);
     }
     @Test void failedNewRoundValidationDoesNotReadOrRepairQuestions() throws Exception {
-        properties.setReconcileIntervalMillis(10);
         when(guard.check()).thenReturn(new BinlogPosition("mysql-bin.000001", 4));
-        runner.tick(1000);
-        doThrow(new SyncBlockedException("映射不兼容")).when(index).validate();
-        assertThrows(SyncBlockedException.class, () -> runner.tick(1010));
-        verifyNoInteractions(reader); verify(index, never()).write(anyList()); verify(source, never()).ack(anyLong());
+        runner.start();
+        try {
+            ReconcileTestSupport.waitFor(() -> "RUNNING".equals(runner.snapshot().get("state")));
+            doThrow(new SyncBlockedException("映射不兼容")).when(index).validate();
+            var request = runner.requestReconciliation();
+            assertThrows(ReconciliationException.class, request::await);
+            verifyNoInteractions(reader); verify(index, never()).write(anyList()); verify(source, never()).ack(anyLong());
+        } finally { runner.stop(); }
     }
     @Test void reconnectionRevalidatesBeforeReopeningSource() throws Exception {
         when(guard.check()).thenReturn(new BinlogPosition("mysql-bin.000001", 4));
@@ -89,7 +93,7 @@ class QuestionEsSyncRunnerTest {
         verify(index, times(2)).validate(); verifyNoInteractions(reader);
     }
     @Test void ddlBlocksThreadAndPreventsAutomaticReconciliation() throws Exception {
-        setup(); properties.setReconcileIntervalMillis(1);
+        setup();
         when(source.get(100)).thenReturn(message(event(CanalEntry.EventType.TRUNCATE, Map.of(), Map.of(), 100)));
         runner.start();
         try {

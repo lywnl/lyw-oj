@@ -378,14 +378,16 @@ class Integration:
         self.http('PUT','/idx_question/_doc/99',self.document(99,'对账多余'),expected=201)
         self.visible(99,'对账多余')
         self.sql(f'USE {self.database}; INSERT INTO other_table VALUES(1,1);')
-        self.control('start',reconcileMillis=500,pageSize=1)
+        self.control('start',pageSize=1)
+        self.wait(lambda:self.control('status')['state']=='RUNNING',20,'外部对账前启动')
+        self.control('reconcile')
         self.visible(1,'进程重启后的最新值',30); self.visible(2,'重建容器后补上',30); self.visible(99,None,30)
         state=self.control('status'); assert state['questionReads']>0 and state['maxConcurrentWrites']==1
         self.record('无关表事务推进位点及分时对账修复',max_concurrent_writes=state['maxConcurrentWrites'])
         # 增量积压中同时包含 TRUNCATE 和随后重插入；对账不能提前绕过控制事件。
         self.control('stop')
         self.sql(f'USE {self.database}; TRUNCATE TABLE tb_question;\n'+self.insert(400,'清表后的新行'))
-        self.control('start',reconcileMillis=1,pageSize=1)
+        self.control('start',pageSize=1)
         state=self.wait(lambda:(s if (s:=self.control('status'))['state']=='BLOCKED' else False),20,'积压 TRUNCATE 阻塞')
         assert state['questionReads']==0 and self.search(400) is None and self.search(1) is not None
         self.record('积压 TRUNCATE 后重插入阻塞，未被自动对账绕过',question_reads=state['questionReads'])
@@ -417,8 +419,9 @@ class Integration:
         self.wait(lambda:self.control('status')['state']=='BLOCKED',20,'非完整行阻塞')
         self.record('真实 MINIMAL 行不回查补齐')
         self.rebaseline('不完整事件维护')
-        self.control('start',reconcileMillis=1)
+        self.control('start')
         self.wait(lambda:self.control('status')['state']=='RUNNING',20,'MINIMAL DELETE 前启动')
+        self.control('reconcile')
         self.sql(f"USE {self.database}; SET SESSION binlog_row_image='MINIMAL'; DELETE FROM tb_question WHERE question_id=400;")
         self.wait(lambda:self.control('status')['state']=='BLOCKED',20,'非完整 DELETE 阻塞')
         assert self.search(400) is not None
@@ -637,7 +640,7 @@ class Integration:
         wrong=json.loads(json.dumps(fields)); wrong['difficulty']['type']='integer'
         self.http('DELETE','/idx_question'); self.http('PUT','/idx_question',{'mappings':{'properties':wrong}})
         uuid=self.http('GET','/idx_question/_settings')['idx_question']['settings']['index']['uuid']
-        self.control('start',reconcileMillis=1)
+        self.control('start')
         state=self.wait(lambda:(s if (s:=self.control('status'))['state']=='BLOCKED' else False),10,'不兼容映射阻塞')
         assert state['questionReads']==0 and 'difficulty' in state['reason']
         self.control('maintain',expect_ok=False,mode='repair',confirmed=True)

@@ -63,6 +63,8 @@ services:
     image: xuxueli/xxl-job-admin:2.4.0
     # 设置连接MySQL的URL、用户名和密码等配置。
     environment:
+      - TZ=Asia/Shanghai
+      - JAVA_TOOL_OPTIONS=-Duser.timezone=Asia/Shanghai
       - SPRING_DATASOURCE_URL=jdbc:mysql://oj-mysql-server:3308/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=123456

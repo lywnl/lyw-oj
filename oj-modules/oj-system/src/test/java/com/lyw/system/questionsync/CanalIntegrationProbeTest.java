@@ -85,6 +85,7 @@ class CanalIntegrationProbeTest {
                     switch (action) {
                         case "start" -> { stop(); configure(input); runner.start(); }
                         case "stop" -> stop();
+                        case "reconcile" -> runner.requestReconciliation();
                         case "fault" -> fault.set(input.getString("mode"));
                         case "gate" -> response.putAll(checkBusinessGate(input.getBooleanValue("enabled")));
                         case "maintain" -> {
@@ -143,7 +144,6 @@ class CanalIntegrationProbeTest {
         properties.setInitialFile(config.getProperty("initial.file")); properties.setInitialPosition(Long.parseLong(config.getProperty("initial.position")));
         properties.setSourceJdbcUrl(config.getProperty("jdbc.url")); properties.setSourceUsername("canal_sync");
         properties.setSourcePassword(config.getProperty("source.password")); properties.setPositionCheckMillis(1000);
-        properties.setReconcileIntervalMillis(input.getLongValue("reconcileMillis"));
         properties.setPageSize(input.containsKey("pageSize") ? input.getIntValue("pageSize") : 500);
         dataSource = new MysqlDataSource(); dataSource.setUrl(config.getProperty("jdbc.url"));
         dataSource.setUser("app_sync"); dataSource.setPassword(config.getProperty("app.password"));
@@ -204,7 +204,7 @@ class CanalIntegrationProbeTest {
             public void rollback(long id) { actualSource.rollback(id); }
             public void close() { actualSource.close(); }
         };
-        runner = new QuestionEsSyncRunner(properties, source, new CanalEventMapper(properties.getDatabase()), index, positions, reconciler);
+        runner = new QuestionEsSyncRunner(properties, source, new CanalEventMapper(properties.getDatabase()), index, positions, reconciler, ReconcileTestSupport.settings());
         reads.set(0); fault.set(""); injected.set(0); activeWrites.set(0); maxWrites.set(0); businessBatch.set(false);
         requestTimeouts.set(0); timeoutBatch.set(-1); timeoutPreviousAck.set(-1); timeoutElapsed.set(0);
     }

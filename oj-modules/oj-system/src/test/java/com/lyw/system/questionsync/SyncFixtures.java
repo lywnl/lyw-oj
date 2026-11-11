@@ -41,6 +41,6 @@ final class SyncFixtures {
     static SyncProperties properties() {
         SyncProperties p = new SyncProperties(); p.setDatabase("lywoj"); p.setEnabled(true); p.setIdleMillis(10);
         p.setSourceJdbcUrl("jdbc:mysql://localhost/lywoj"); p.setSourceUsername("test"); p.setSourcePassword("test");
-        p.setStateDirectory("unused"); p.setReconcileIntervalMillis(0); return p;
+        p.setStateDirectory("unused"); return p;
     }
 }
